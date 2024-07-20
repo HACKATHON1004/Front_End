@@ -3,7 +3,7 @@ import styles from "../../cssModule/postWrite.module.css"
 import img from "../../images/img.svg"
 import { useState, useEffect } from "react";
 import { useRef } from "react";
-import ImgMenu from "./imgMenu";
+import ImgMenu from "../imgMenu";
 
 export default function PostWrite() {
     const [showMenu, setShowMenu] = useState(false);
@@ -13,21 +13,6 @@ export default function PostWrite() {
     function openMenu() {
         setShowMenu(!showMenu);
     }
-
-    function handleClickOutside(e) {
-        if (menuRef.current && !menuRef.current.contains(e.target)
-        &&menuRef2.current && !menuRef2.current.contains(e.target)) {
-            setShowMenu(false);
-            console.log("도작");
-        }
-      }
-    
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
 
     return (
         <>
@@ -49,7 +34,7 @@ export default function PostWrite() {
                         <div className={styles.menuItem}>파일 선택</div>
                     </div>}
                 </div> */}
-                <ImgMenu showMenu={showMenu}/>
+                <ImgMenu showMenu={showMenu} menuRef2={menuRef2} />
                 <div className={styles.contentWrapper}>
                     <textarea placeholder="내용을 입력하세요."/>
                 </div>
