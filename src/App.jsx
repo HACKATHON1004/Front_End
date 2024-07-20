@@ -1,4 +1,5 @@
 import './App.css';
+import Home from './component/Home/Home.jsx';
 import Login from './component/Login.jsx';
 import Mempage from './component/Mempage.jsx';
 import Post from './component/Post/Post.jsx'
@@ -11,7 +12,7 @@ function App() {
 
   return (
     <>
-      <PostWrite/>
+      <Home/>
     </>
   );
 }
