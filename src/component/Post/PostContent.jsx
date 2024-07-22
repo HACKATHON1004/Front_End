@@ -52,7 +52,7 @@ export default function PostContent() {
         <>
             <Back/>
             <div className={styles.pageWrapper}>
-                <div style={writer === writer2 ? {} : { visibility: "hidden" }} className={styles.buttons}>
+                <div style={writer !== writer2 ? {} : { visibility: "hidden" }} className={styles.buttons}>
                     <button className={styles.buttonModDel} onClick={() => handleDelete("mod")}>수정</button>
                     <button className={styles.buttonModDel} onClick={() => handleDelete("del")}>삭제</button>
                 </div>

@@ -12,7 +12,7 @@ export default function Login(){
   const idRef = useRef();
   const pwRef = useRef();
   const [isActive, setIsActive] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   const naverUrl = import.meta.env.VITE_NAVER_LOGIN_URL || process.env.REACT_APP_NAVER_LOGIN_URL;
   const googleUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL || process.env.REACT_APP_GOOGLE_LOGIN_URL;
