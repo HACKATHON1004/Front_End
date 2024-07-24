@@ -37,7 +37,7 @@ export default function ImgMenu({showMenu:s, menuRef2}) {
             <div className={styles.menuWrapper}>
                 {showMenu&&
                 <div ref={menuRef} className={styles.menu}>
-                    <div className={styles.menuItem}>사진 보관함</div>
+                    <div onClick={() => document.getElementById('photoUpload').click()} className={styles.menuItem}>사진 보관함</div>
                     <div className={styles.menuItem}>사진 찍기</div>
                     <div className={styles.menuItem}>파일 선택</div>
                 </div>}

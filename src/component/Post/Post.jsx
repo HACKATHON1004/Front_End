@@ -11,16 +11,7 @@ export default function Post(){
             <div className={styles.postWrapper}>
                 <div className={styles.postTitle}>자유 게시판</div>
                 <div className={styles.tableWrapper}>
-                  <div className={styles.tableHead}>
-                    <div>제목</div>
-                    <div>글쓴이</div>
-                    <div>날짜</div>
-                    <div>조회</div>
-                    <div>추천</div>
-                  </div>
-                  <div className={styles.tableBody}>
-                    <PostList/>
-                  </div>
+                  <PostList field="추천"/>
                 </div>
                 <div className={styles.btnWrapper}>
                   <button className={styles.postBtn}>

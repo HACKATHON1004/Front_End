@@ -13,6 +13,10 @@
     margin-right: 10px;
 }
 
+.commentContent {
+    width: 70%;
+}
+
 .commentContent .username {
     display: flex;
     font-size: 10px;
@@ -25,8 +29,30 @@
     margin-bottom: 5px;
 }
 .commentContent .timestamp {
+    display: flex;
     color: #888;
     font-size: 12px;
+}
+
+.menuWrapper {
+    display: flex;
+    justify-content: end;
+    height: 67px;
+}
+
+.menuBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 22px;
+    height: 5px;
+}
+
+.menuBar div {
+    width: 7px;
+    height: 7px;
+    background-color: gray;
+    border-radius: 50%;
 }
 
 .reply {

@@ -6,7 +6,8 @@
 }
 
 .calendar {
-    height: 550px;
+    gap: 10px;
+    height: 500px;
     background-color: white;
     border-radius: 5px;
     box-sizing: border-box;
@@ -42,7 +43,6 @@
 .day, .otherMonth {
     width: 40px;
     height: 40px;
-    margin: 2px;
     font-weight: bold;
     border-radius: 50%;
     text-decoration: none;

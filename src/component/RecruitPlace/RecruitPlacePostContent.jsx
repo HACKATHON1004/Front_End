@@ -2,23 +2,28 @@ import styles from '../../cssModule/postContent.module.css'
 import Back from '../Button/Back'
 import Modal2 from '../Modal2';
 import Modal3 from '../Modal3';
-import CmtModal from './CmtModal';
-import Comment from './Comment';
+import CmtModal from '../Post/CmtModal';
+import Comment from '../Post/Comment';
 import { useState } from 'react';
 
-export default function PostContent() {
-    
+export default function RecruitPlacePostContent() {
     let writer=1; //게시판의 글쓴이
     let writer2=2; //현재 사용중인 계정
     const [showModal, setShowModal] = useState(false); //삭제
     const [showModal2, setShowModal2] = useState(false); //수정
     const [showModal3, setShowModal3] = useState(false); //댓글 수정 및 삭제
+    const [showModal4, setShowModal4] = useState(false); //지원하기
+    const [showModal5, setShowModal5] = useState(false); //취소하기
 
     function handleDelete(type) {
         if(type==="del") 
             setShowModal(true);
-        else if(type=="mod")
+        else if(type==="mod")
             setShowModal2(true);
+        else if(type==="apply")
+            setShowModal4(true);
+        else if(type==="cancle")
+            setShowModal5(true);
         else
             setShowModal3(true);
     }
@@ -27,6 +32,8 @@ export default function PostContent() {
         setShowModal(false);
         setShowModal2(false);
         setShowModal3(false);
+        setShowModal4(false);
+        setShowModal5(false);
     }
 
     const comments = [
@@ -62,8 +69,13 @@ export default function PostContent() {
                     <button className={styles.buttonModDel} onClick={() => handleDelete("del")}>삭제</button>
                 </div>
                 <div className={styles.titleWrapper}>
-                    <div className={styles.title}>
-                        <span>축구할 사람 구함</span>
+                    <div className={styles.titles}>
+                        <div className={styles.title}>
+                            <span>축구할 사람 구함</span>
+                        </div>
+                        <div className={styles.title}>
+                            3/5
+                        </div>
                     </div>
                     <div className={styles.postInfo}>
                         <span>조회 수 1550</span>
@@ -77,8 +89,11 @@ export default function PostContent() {
                     </div>
                 </div>
                 <div className={styles.btnWrapper}>
-                    <button className={styles.recBtn}>추천</button>
-                    <button className={styles.notRecBtn}>비추천</button>
+                    {true?
+                        <button onClick={()=>handleDelete("apply")} className={styles.applyBtn}>지원하기</button>
+                        :
+                        <button onClick={()=>handleDelete("cancle")} className={styles.cancleBtn}>취소하기</button>
+                    }
                 </div>
                 <CmtModal/>
                 <div className={styles.commentSection}>
@@ -110,6 +125,18 @@ export default function PostContent() {
                 )}
                 {showModal3 && (
                     <Modal3
+                        onClose={handleCloseModal}
+                    />
+                )}
+                {showModal4 && (
+                    <Modal2
+                        message="지원 하시겠습니까?"
+                        onClose={handleCloseModal}
+                    />
+                )}
+                {showModal5 && (
+                    <Modal2
+                        message="취소 하시겠습니까?"
                         onClose={handleCloseModal}
                     />
                 )}

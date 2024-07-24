@@ -11,19 +11,31 @@ export default function Calendar() {
     const [dataPlan, setDataPlan] = useState([]);
     const [planDays, setPlanDays] = useState([]);
     const [planMonths, setPlanMonths] = useState([]);
+    const [planDates, setPlanDates] = useState([]);
     useEffect(()=>{
         //fetch dataDate
 
-        const dataDate = ["2021-07-14T00:00"]; //axios로 가져온 날짜 배열
-        const dataMonths = dataDate.map(date => new Date(date).getMonth()+1);
-        const dataDates = dataDate.map(date => new Date(date).getDate());
-        setPlanDays(dataDates);
-        setPlanMonths(dataMonths);
+        const dataDate = ["2024-07-14T00:00", "2024-08-09"]; //axios로 가져온 날짜 배열
+        // const dataMonths = dataDate.map(date => new Date(date).getMonth()+1);
+        // const dataDates = dataDate.map(date => new Date(date).getDate());
+        // setPlanDays(dataDates);
+        // setPlanMonths(dataMonths);
+
+        const parsedDates = dataDate.map(date => new Date(date));
+        setPlanDates(parsedDates);
     }, []);
 
     console.log(currentDate.getMonth()+1);
     console.log(planDays);
     console.log(planMonths);
+
+    function isHilighted(day) {
+        return planDates.some(planDate => 
+            planDate.getFullYear() === currentDate.getFullYear() &&
+            planDate.getMonth() === currentDate.getMonth() &&
+            planDate.getDate() === day
+        );
+    }
 
     function fetchPlans() {
         //fetch planData
@@ -81,7 +93,7 @@ export default function Calendar() {
 
     // 현재 달의 일자를 채움
     for (let i = 1; i <= daysInMonth; i++) {
-        const classes = planDays.includes(i)&&planMonths.includes(currentDate.getMonth()+1) ? styles.currentDay : styles.day;
+        const classes = isHilighted(i) ? styles.currentDay : styles.day;
         days.push(
             <div to="/" onClick={fetchPlans} className={classes} key={i}>
                 {i}

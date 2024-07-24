@@ -33,6 +33,11 @@
     margin-top: 12px;
 }
 
+.titles {
+  display: flex;
+  gap: 5px;
+}
+
 .title {
     height: 40px;
     text-align: justify;
@@ -49,7 +54,16 @@
 
 .title span {
     font-size: 16.5px;
-    margin-left: 23px;
+}
+
+.titles .title:first-child {
+  width: 80%;
+  text-align: center;
+}
+
+.titles .title:last-child {
+  width: 15%;
+  text-align: center;
 }
 
 .commentWrapper {
@@ -118,6 +132,10 @@
     border: 1px solid black;
 }
 
+.content {
+  padding: 10px;
+}
+
 .btnWrapper {
     font-size: 13px;
     margin-top: 12px;
@@ -137,6 +155,18 @@
     width: 72px;
     border-radius: 15px;
     background-color: #ff6060
+}
+
+.applyBtn {
+  border-radius: 15px;
+  background-color: #A8FFB1;
+  color: #1DB52B;
+}
+
+.cancleBtn {
+  border-radius: 15px;
+  background-color: #FFBABA;
+  color: #FF6464;
 }
 
 .commentSection {
