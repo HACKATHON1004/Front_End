@@ -6,10 +6,9 @@
 }
 
 .menuWrapper {
-    margin-top: 140px;
     gap: 11px;
     display: flex;
-    margin-bottom: 32px;
+    margin-top: 32px;
 }
 
 .item {
@@ -20,6 +19,11 @@
     width: 50%;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+    background-color: #C4E8BC;
+}
+
+.item:last-child {
+    background-color: #FF98DC;
 }
 
 .item img {
@@ -28,6 +32,8 @@
 }
 
 .bigWrapper {
+    background-color: #8DCDFC;
+    margin-top: 140px;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
     height: 162px;
     display: flex;

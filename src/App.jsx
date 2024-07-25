@@ -14,6 +14,7 @@ import RecruitPlacePostWrite from './component/RecruitPlace/RecruitPlacePostWrit
 import RecruitPlaceHome from './component/RecruitPlace/RecruitPlaceHome.jsx';
 import RecruitPlacePostContent from './component/RecruitPlace/RecruitPlacePostContent.jsx';
 import FindPlace from './component/findPlace/findPlace.jsx';
+import FP_Home from './component/findPlace/FP_Home.jsx';
 
 function App() {
   
