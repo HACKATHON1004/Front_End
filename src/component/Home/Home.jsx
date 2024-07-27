@@ -1,17 +1,28 @@
 import styles from '../../cssModule/home.module.css'
 import userCard from '../../images/user.svg'
 import Back from '../Button/Back.jsx'
+import axios from "axios"
 import img1 from '../../images/exercise.svg'
 import img2 from '../../images/cal.svg'
 import img3 from '../../images/people.svg'
 import img4 from '../../images/setting.svg'
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
+    // const isGuardian = axios.get("");
+    const isGuardian = false;
+    const navigate = useNavigate();
+
+    function handleLink(linkName) {
+        navigate(`/${linkName}`);
+    }
+
     return (
     <>
         <div className={styles.pageWrapper}>
             <div className={styles.header}>
                 <span>닉네임 </span>
+                {isGuardian?<span>보호자</span>:<></>}
                 <span>님 환영합니다!</span>
             </div>
             <div className={styles.infoWrapper}>
@@ -46,19 +57,19 @@ export default function Home() {
                 </div>
             </div>
             <div className={styles.menuWrapper}>
-                <div>
+                <div onClick={()=>handleLink("findMapHome")}>
                     <img src={img1}/>
                     <span>맞춤 운동</span>
                 </div>
-                <div>
+                <div onClick={()=>handleLink("calendar")}>
                     <img src={img2}/>
                     <span>캘린더</span>
                 </div>
-                <div>
+                <div onClick={()=>handleLink("communityHome")}>
                     <img src={img3}/>
                     <span>커뮤니티</span>
                 </div>
-                <div>
+                <div onClick={()=>handleLink("")}>
                     <img src={img4}/>
                     <span>설정</span>
                 </div>

@@ -7,12 +7,15 @@ import googleLogin from "../images/4.svg"
 import Modal from "./Modal"
 import styles from "../cssModule/login.module.css"
 import { useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Login(){
   const idRef = useRef();
   const pwRef = useRef();
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const formData = new FormData();
 
   const naverUrl = import.meta.env.VITE_NAVER_LOGIN_URL || process.env.REACT_APP_NAVER_LOGIN_URL;
   const googleUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL || process.env.REACT_APP_GOOGLE_LOGIN_URL;
@@ -34,20 +37,22 @@ export default function Login(){
 
   function handleGoogleLogin(){
     //구글로그인 처리
-
     window.location.href = googleUrl;
   }
 
   function handleLogin(){
-    axios.post((`http://3.35.14.254:8080/api/login`),null,{
-      params:{
-        userId: idRef.current.value,
-        passwd: pwRef.current.value
+    formData.append('username', idRef.current.value);
+    formData.append('password', pwRef.current.value);
+    
+    axios.post((`http://43.203.250.182:8080/user/login`),formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
     })
       .then(res=>{
         console.log(res.headers.get('Authorization'));
         console.log(res.data.email);
+        navigate('/home');
       })
       .catch(err=>{
         setShowModal(true);

@@ -42,10 +42,6 @@ export default function Plan() {
                             <span>17:00 ~ 19:00</span>
                         </div>
                         <div>
-                            <span>장소 연락처</span>
-                            <span>02-777-7777</span>
-                        </div>
-                        <div>
                             <span>주최자 연락처</span>
                             <span>010-1234-5678</span>
                         </div>

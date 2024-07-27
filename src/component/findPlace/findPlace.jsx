@@ -53,18 +53,20 @@ export default function FindPlace() {
       console.log(data2);
 
       // 공원과 헬스 시설을 구분하여 상태에 저장
-      const parks = data.documents.filter((doc) => doc.category_name.includes('장애인'));
-      const healths = data2.documents.filter((doc) => doc.category_name.includes('운동'));
+      const parks = data.documents.filter((doc) => doc.category_name.includes('장애'));
+      const healths = data2.documents;
       setParkFacilities(parks);
       setHealthFacilities(healths);
       console.log(parkFacilities);
+      console.log(healthFacilities);
     } catch (error) {
       console.error('Error fetching places:', error);
     }
   };
 
   const handleFacilityClick = (facility) => {
-    setSelectedFacility(facility);
+    // setSelectedFacility(facility);
+    window.location.href = facility.place_url;
   };
 
   return (
@@ -78,7 +80,7 @@ export default function FindPlace() {
               lat: currentLocation.lat,
               lng: currentLocation.lng,
             }}
-            level={4}
+            level={5}
             style={{
               width: '100%',
               height: '500px',
@@ -122,7 +124,7 @@ export default function FindPlace() {
                   lat: selectedFacility.y,
                   lng: selectedFacility.x,
                 }}
-                level={4}
+                level={5}
                 style={{
                   width: '100%',
                   height: '500px',
