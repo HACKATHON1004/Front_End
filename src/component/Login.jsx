@@ -8,6 +8,7 @@ import Modal from "./Modal"
 import styles from "../cssModule/login.module.css"
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import cookie from "js-cookie";
 
 export default function Login(){
   const idRef = useRef();
@@ -44,7 +45,7 @@ export default function Login(){
     formData.append('username', idRef.current.value);
     formData.append('password', pwRef.current.value);
     
-    axios.post((`http://43.203.250.182:8080/user/login`),formData,{
+    axios.post((`http://54.180.230.63:8080/user/login`),formData,{
       headers: {
         'Content-Type': 'multipart/form-data'
       }

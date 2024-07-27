@@ -34,6 +34,7 @@ function App() {
           <Route path='/recruitPlace' element={<RecruitPlacePost/>}/>
           <Route path='/freePost' element={<Post/>}/>
           <Route path='/recruitPlace_postContent' element={<RecruitPlacePostContent/>}/>
+          <Route path='/recruitPlace/Post' element={<RecruitPlacePostWrite/>}/>
         </Routes>
       </BrowserRouter>
     </>

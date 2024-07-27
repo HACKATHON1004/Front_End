@@ -1,8 +1,15 @@
 import Back from "../Button/Back";
 import styles from '../../cssModule/recruitPlacePost.module.css'
 import PostList from "../Post/PostList";
+import { useNavigate } from "react-router-dom";
 
 export default function RecruitPlacePost() {
+    const navigate = useNavigate();
+
+    function handleLink(src) {
+        navigate(src);
+    }
+    
     return (
         <>
             <Back/>
@@ -16,7 +23,7 @@ export default function RecruitPlacePost() {
                         장소 모집 둘러보기
                         <span className={styles.icon}>🔍</span>
                         </button>
-                        <button className={styles.writeButton}>
+                        <button onClick={()=>handleLink("Post")} className={styles.writeButton}>
                         장소 모집 글쓰기
                         <span className={styles.icon}>✏️</span>
                         </button>

@@ -10,7 +10,7 @@ export default function Back() {
     
     return (
         <>
-            <img onClick={goBack} src={backBtn} style={{display:"block", margin:"20px 0 0 0px"}}/>
+            <img onClick={goBack} src={backBtn} style={{position:"fixed", zIndex:"1000", top:"20px",left: "20px", margin:"20px 0 0 0px"}}/>
         </>
     )
 }
