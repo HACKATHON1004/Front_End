@@ -1,6 +1,6 @@
 import styles from "../cssModule/modal.module.css"
 
-export default function Modal2({message, onClose}) {
+export default function Modal4({message, onClose}) {
     return (
         // <div id="modal" class="modal">
         //     <div class="modal-content">
@@ -11,7 +11,7 @@ export default function Modal2({message, onClose}) {
 
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <div>{message}</div>
+            <p>{message}</p>
             <div className={styles.btnWrapper}>
               <button className={styles.modalButton} onClick={onClose}>예</button>
               <button className={styles.modalButton} onClick={onClose}>아니오</button>

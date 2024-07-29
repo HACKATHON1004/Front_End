@@ -1,81 +1,17 @@
 .Modifycontainer{
     
+   
     max-width: 430px;
-    max-height: 1409px;
-}
-.PWWapper{
-    width: 155px;
-    height: 90px;
-    
-}
-.RPWapper{
-    width: 155px;
-    height: 90px;
-    margin-top: 27px;
-    
-}
-.PWmodify{
-    width: 80px;
-    height: 20px;
-    font-size: 20px;
-    font-weight: 400;
-    display: flex;
-    font-family: 'PretendardVariable', sans-serif;
-}
-.PWinput{
-    width: 149px;
-    height: 19px;
-}
-.PWinputField{
-    width: 149px;
-    height: 19px;
-    font-size: 14px;
-}
-.PWS{
-display: flex;
-width: 76px;
-height: 14px;
-font-size: 12px;
-
-}
-.PWview{
-    display: flex;
-    width: 150px;
-    height: 15px;
-}
-.RPWview{
-    display: flex;
-    width: 150px;
-    height: 15px;
-}
-input{
-    width: 11px;
-    display: flex;
-    height: 11px;
-    border: none;
-    border-bottom: 2px solid #000;
+    max-height: 1045px;
    
 }
+.Form{
+    width: 430px;
+    height: 932px;
+}
 
-.RPWmodify{
-    width: 150px;
-    height: 20px;
-    font-size: 20px;
-    font-weight: 400;
-    display: flex;
-    font-family: 'PretendardVariable', sans-serif;
-}
-.RPWinput{
-    width: 149px;
-    height: 19px;
-}
-.RPWinputField{
-    width: 149px;
-    height: 19px;
-    font-size: 14px;
-}
 .NWapper{
-    width: 149px;
+    width: 250px;
     height: 60px;
     margin-top: 14px;
 }
@@ -88,33 +24,87 @@ input{
     font-family: 'PretendardVariable', sans-serif;
 }
 .Ninput{
-    width: 148px;
-    height: 19px;
+    width: 250px;
+    height: 18px;
+    font-size: 14px;
 }
 .NinputField{
-    width: 148px;
-    height: 19px;
+    width: 250px;
+    height: 18px;
+    font-size: 14px;
 }
 .NButton{
-    width: 70px;
+    width: 84px;
     height: 35px;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 400;
     font-family: 'PretendardVariable', sans-serif;
+    background-color: #ffffff; 
+    border: 1px solid #ffffff;     
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .Nmessage{
 
 }
+.NBwapper{
+    display: flex;
+    width: 285px;
+    height: 35px;
+    
+}
+.Nerror{
+    display: flex;
+    width: 200px;
+    font-size: 13px;
+    height: 18px;
+    color:red;
+    font-weight: 600;
+    font-family: 'PretendardVariable', sans-serif;
+   
+}
+.NButton{
+  
+    width: 80px;
+    height: 36px;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'PretendardVariable', sans-serif;
+}
+.AWapper{
+    margin-top: 50px;
+    width: 116px;
+    height: 48px;
+}
+.Amodify{
+    display: flex;
+    width: 40px;
+    height: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'PretendardVariable', sans-serif;
+}
+.Ainput{
+    width: 116px;
+    height: 19px;
+    display: flex;
+    font-size: 14px;
+}
+.AinputField{
+    width: 116px;
+    height: 19px;
+    font-size: 14px;
+    display: flex;
+}
 .GWapper{
-    margin-top: 80px;
-    width: 95px;
+    margin-top: 71px;
+    width: 157px;
     height: 51px;
 }
 .Gender{
     display: flex;
-    width: 95px;
-    height: 12px;
-    font-size: 12px;
+    width: 157px;
+    height: 20px;
+    font-size: 17px;
     font-weight: 400;
     font-family: 'PretendardVariable', sans-serif;
 }
@@ -129,16 +119,16 @@ input{
 }
 .DWapper{
     margin-top: 20px;
-    width: 95px;
+    width: 290px;
     height: 51px;
     
     
 }
 .Dis{
-    width: 60px;
-    height: 12px;
+    width: 89px;
+    height: 20px;
     display: flex;
-    font-size: 12px;
+    font-size: 17px;
     font-weight: 400;
     font-family: 'PretendardVariable', sans-serif;
 }
@@ -151,15 +141,26 @@ input{
     font-family: 'PretendardVariable', sans-serif;
     
 }
+.DisWapper{
+    display: flex;
+}
+.DisWapper select {
+    margin-right: 16px;
+}
+
+.DisWapper:last-child {
+    margin-right: 0;
+}
+
 .FSWapper{
-    width: 193px;
+    width: 268px;
     height: 51px;
     margin-top: 20px;
 }
 .FSport{
-    width: 193px;
-    height: 12px;
-    font-size: 12px;
+    width: 275px;
+    height: 20px;
+    font-size: 17px;
     display: flex;
     font-weight: 400;
     font-family: 'PretendardVariable', sans-serif;
@@ -174,13 +175,13 @@ input{
 }
 .WSWapper{
     margin-top: 20px;
-    width: 181px;
-    height: 12px;
+    width: 256px;
+    height: 51px;
 }
 .WSport{
-    width: 181px;
-    height: 12px;
-    font-size: 12px;
+    width: 256px;
+    height: 20px;
+    font-size: 17px;
     display: flex;
     font-weight: 400;
     font-family: 'PretendardVariable', sans-serif;
@@ -195,11 +196,18 @@ input{
 }
 .modifyWapper{
     margin-top: 100px;
+    height: 50px;
+    width: 280px;
+    
 }
 .modifyButton{
-    width: 116px;
-    height: 50px;
-    font-size: 17px;
+    width: 110px;
+    height: 48px;
+    font-size: 16px;
     font-weight: 600;
-    background-color: #B9E0FD;
+    
+    background-color: #B9E0FD; 
+    border: 1px solid #B9E0FD;     
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+    
 }

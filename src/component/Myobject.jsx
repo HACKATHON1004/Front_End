@@ -147,40 +147,81 @@ function App() {
               )}  
         </div>  
         
-
         <div className={styles.Llabel}>좋아하는 운동 종류를 선택해주세요</div>
-        <div className={styles.pentagon}>
-        {/* <div className={styles.labelContainer}>
-          <div className={`${styles.label} ${styles.label1}`}>근력</div>
-          <div className={`${styles.label} ${styles.label2}`}>유산소</div>
-          <div className={`${styles.label} ${styles.label3}`}>유연성</div>
-          <div className={`${styles.label} ${styles.label4}`}>수상운동</div>
-          <div className={`${styles.label} ${styles.label5}`}>구기</div>
-        </div> */}
-        <div className={styles.checkGroup}>
-          {Object.keys(sports).map((key) => (
-            <label key={key}>
-              <input
-                type="checkbox"
-                name={key}
-                checked={sports[key]}
-                onChange={handleSportsChange}
-              />
-              {key}
-            </label>
-          ))}
+        <div className={styles.pentagonContainer}>
+          <div className={styles.pentagon}>
+            <div className={`${styles.checkboxContainer} ${styles.checkbox0}`}>
+              <label>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  name="근력"
+                  checked={sports.근력}
+                  onChange={handleSportsChange}
+                />
+                근력
+              </label>
+            </div>
+            <div className={`${styles.checkboxContainer} ${styles.checkbox1}`}>
+              <label>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  name="유산소"
+                  checked={sports.유산소}
+                  onChange={handleSportsChange}
+                />
+                유산소
+              </label>
+            </div>
+            <div className={`${styles.checkboxContainer} ${styles.checkbox2}`}>
+              <label>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  name="유연성"
+                  checked={sports.유연성}
+                  onChange={handleSportsChange}
+                />
+                유연성
+              </label>
+            </div>
+            <div className={`${styles.checkboxContainer} ${styles.checkbox3}`}>
+              <label>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  name="수상운동"
+                  checked={sports.수상운동}
+                  onChange={handleSportsChange}
+                />
+                수상운동
+              </label>
+            </div>
+            <div className={`${styles.checkboxContainer} ${styles.checkbox4}`}>
+              <label>
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  name="구기"
+                  checked={sports.구기}
+                  onChange={handleSportsChange}
+                />
+                구기
+              </label>
+            </div>
+          </div>
         </div>
-      </div>
 
         <div className={styles.Wlabel}>원하는 운동 강도를 선택해주세요</div>
         <select
           value={intensity}
-          onChange={(e) => setIntensity(e.target.value)}
+          onChange={(e) => setIntensity(e.target.value)}  
         >
           <option value="">운동 강도</option>
           <option value="고강도">고강도</option>
           <option value="저강도">저강도</option>
-        </select>
+        </select>z
 
         <button type="submit" className={styles.button}>등록 완료</button>
       </form>

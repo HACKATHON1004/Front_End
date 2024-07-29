@@ -28,6 +28,8 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 384px;
+    height: 949px;
     
     color: black;
     padding: 20px;

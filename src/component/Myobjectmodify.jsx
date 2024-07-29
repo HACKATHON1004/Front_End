@@ -3,24 +3,18 @@ import styles from '../cssModule/mypmodify.module.css';
 import '../App.css';
 
 function App() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRePassword, setShowRePassword] = useState(false);
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+  const [nicknameMessage, setNicknameMessage] = useState('');
+  const [nicknameErrorMessage, setNicknameErrorMessage] = useState('');
   const [disability, setDisability] = useState('');
   const [disabilityType, setDisabilityType] = useState('');
   const [limbDisability, setLimbDisability] = useState('');
   const [favoriteSport, setFavoriteSport] = useState('');
   const [intensity, setIntensity] = useState('');
   const [nickname, setNickname] = useState('');
-  const [password, setPassword] = useState('');
-  const [rePassword, setRePassword] = useState('');
+  const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
-  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-  const [nicknameMessage, setNicknameMessage] = useState('');
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [nicknameErrorMessage, setNicknameErrorMessage] = useState('');
 
-  const toggleShowPassword = () => setShowPassword(!showPassword);
-  const toggleShowRePassword = () => setShowRePassword(!showRePassword);
 
   const handleNicknameCheck = async () => {
     try {
@@ -40,13 +34,8 @@ function App() {
   };
 
   const handleSubmit = () => {
-    setPasswordErrorMessage('');
     setNicknameErrorMessage('');
 
-    if (password !== rePassword) {
-      setPasswordErrorMessage('비밀번호가 일치하지 않습니다.');
-      return;
-    }
     if (!isNicknameChecked) {
       setNicknameErrorMessage('닉네임 중복확인을 해주세요.');
       return;
@@ -57,52 +46,8 @@ function App() {
 
   return (
     <div className={styles.Modifycontainer}>
-      {/* 비밀번호 섹션 */}
-      <div className={styles.PWWapper}>
-        <div className={styles.PWmodify}>비밀번호</div>
-        <div className={styles.PWinput}>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.PWinputField}
-          />
-          <div className={styles.PWview}>
-            <input
-              type="checkbox"
-              checked={showPassword}
-              onChange={toggleShowPassword}
-            />
-            <p className={styles.PWS}>비밀번호 보기</p>
-          </div>
-        </div>
-      </div>
-
-      {/* 비밀번호 재확인 섹션 */}
-      <div className={styles.RPWapper}>
-        <div className={styles.RPWmodify}>비밀번호 재확인</div>
-        <div className={styles.RPWinput}>
-          <input
-            type={showRePassword ? 'text' : 'password'}
-            value={rePassword}
-            onChange={(e) => setRePassword(e.target.value)}
-            className={styles.RPWinputField}
-          />
-          <div className={styles.RPWview}>
-            <input
-              type="checkbox"
-              checked={showRePassword}
-              onChange={toggleShowRePassword}
-            />
-            <p className={styles.PWS}>비밀번호 보기</p>
-          </div>
-        </div>
-      </div>
-
-      {/* 비밀번호 오류 메시지 섹션 */}
-      {passwordErrorMessage && <div className={styles.errorMessage}>{passwordErrorMessage}</div>}
-
       {/* 닉네임 섹션 */}
+      <div className={styles.Form}>
       <div className={styles.NWapper}>
         <div className={styles.Nmodify}>닉네임</div>
         <div className={styles.Ninput}>
@@ -112,17 +57,29 @@ function App() {
             onChange={(e) => setNickname(e.target.value)}
             className={styles.NinputField}
           />
-          <button className={styles.NButton} onClick={handleNicknameCheck}>
-            중복확인
-          </button>
-        </div>
-        <div className={styles.Nmessage}>
-          {nicknameMessage}
+            <div className={styles.NBwapper}>
+              <div className={styles.Nerror}>{nicknameErrorMessage }{nicknameMessage&&!nicknameErrorMessage}</div>
+              <button className={styles.NButton} onClick={handleNicknameCheck}>중복확인</button>
+            </div>
+         </div>
+      </div>
+      {/* {nicknameErrorMessage && <div className={styles.errorMessage}>{nicknameErrorMessage}</div>} */}
+
+      {/* 나이 섹션 */}
+      <div className={styles.AWapper}>
+        <div className={styles.Amodify}>나이</div>
+        <div className={styles.Ainput}>
+          <input
+            type="text"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            className={styles.AinputField}
+          />
         </div>
       </div>
 
       {/* 닉네임 오류 메시지 섹션 */}
-      {nicknameErrorMessage && <div className={styles.errorMessage}>{nicknameErrorMessage}</div>}
+
 
       {/* 성별 선택 섹션 */}
       <div className={styles.GWapper}>
@@ -141,6 +98,7 @@ function App() {
       {/* 장애 분류 섹션 */}
       <div className={styles.DWapper}>
         <div className={styles.Dis}>장애 분류</div>
+        <div className={styles.DisWapper}>
         <select
           value={disability}
           onChange={(e) => {
@@ -189,6 +147,7 @@ function App() {
             <option value="관절">관절</option>
           </select>
         )}
+        </div>
       </div>
 
       {/* 좋아하는 운동 종류 선택 섹션 */}
@@ -225,6 +184,7 @@ function App() {
       {/* 수정하기 버튼 */}
       <div className={styles.modifyWapper}>
         <button className={styles.modifyButton} onClick={handleSubmit}>수정하기</button>
+      </div>
       </div>
     </div>
   );
