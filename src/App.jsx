@@ -17,6 +17,9 @@ import FP_Home from './component/findPlace/FP_Home.jsx';
 import RecommendAI from './component/findPlace/RecommendAI.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './component/Home/Home.jsx';
+import PlaceReview from './component/placeReview/PlaceReview.jsx';
+import RE_Home from './component/RecommendExercise/RE_Home.jsx';
+import PlaceReviewContent from './component/placeReview/PlaceReviewContent.jsx';
 
 function App() {
   
@@ -28,13 +31,18 @@ function App() {
           <Route path='/home' element={<Home/>}/>
           <Route path='/plan' element={<Plan/>}/>
           <Route path='/findMap' element={<FindPlace/>}/>
+          <Route path='/signUp' element={<Mempage/>}/>
           <Route path='/findMapHome' element={<FP_Home/>}/>
           <Route path='/calendar' element={<Calendar/>}/>
           <Route path='/communityHome' element={<RecruitPlaceHome/>}/>
           <Route path='/recruitPlace' element={<RecruitPlacePost/>}/>
+          <Route path='/postContent' element={<PostContent/>}/>
           <Route path='/freePost' element={<Post/>}/>
           <Route path='/recruitPlace_postContent' element={<RecruitPlacePostContent/>}/>
           <Route path='/recruitPlace/Post' element={<RecruitPlacePostWrite/>}/>
+          <Route path='/placeReview' element={<PlaceReview/>}/>
+          <Route path='/RecommendExercise' element={<RE_Home/>}/>
+          <Route path='/placeReview/:id' element={<PlaceReviewContent/>}/>
         </Routes>
       </BrowserRouter>
     </>

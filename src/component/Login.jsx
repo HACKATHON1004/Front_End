@@ -92,7 +92,7 @@ export default function Login(){
         <button className={styles.loginBtn} onClick={handleLogin}>로그인</button>
       </div>
       <div>
-        <button className={styles.loginBtn}>회원가입</button>
+        <button onClick={()=>{navigate("/signUp")}} className={styles.loginBtn}>회원가입</button>
       </div>
       <div className={styles.easyLogin}>
         <div className={styles.line}></div>

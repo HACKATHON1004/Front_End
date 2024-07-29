@@ -95,7 +95,7 @@ export default function RecruitPlacePostContent() {
                         <button onClick={()=>handleDelete("cancle")} className={styles.cancleBtn}>취소하기</button>
                     }
                 </div>
-                <CmtModal/>
+                <CmtModal msg="댓글을 남겨보세요." />
                 <div className={styles.commentSection}>
                     <div className={styles.commentCnt}>
                         <div className={styles.cnt}>댓글 3개</div>

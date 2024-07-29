@@ -80,7 +80,7 @@ export default function PostContent() {
                     <button className={styles.recBtn}>추천</button>
                     <button className={styles.notRecBtn}>비추천</button>
                 </div>
-                <CmtModal/>
+                <CmtModal msg="댓글을 남겨보세요." />
                 <div className={styles.commentSection}>
                     <div className={styles.commentCnt}>
                         <div className={styles.cnt}>댓글 3개</div>

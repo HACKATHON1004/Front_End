@@ -1,4 +1,5 @@
 .pageWrapper {
+    margin-top: 50px;
     width: 316px;
     font-family: Pretentard-variable, sans-serif;
 }
@@ -170,6 +171,8 @@
 }
 
 .commentSection {
+    overflow-y: auto;
+    height: 200px;
     margin: 20px auto;
     background: white;
     border-top: 1px solid #a6a2a2;

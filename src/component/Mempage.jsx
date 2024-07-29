@@ -88,7 +88,7 @@ function App() {
     }
   };
 
-  const complete = () => {
+  const complete = async () => {
     const errors = {
       name: "",
       email: "",
@@ -121,29 +121,52 @@ function App() {
     if (Object.values(errors).some(error => error !== "")) {
       setErrorMessages(errors);
     } else {
-      const newWindow = window.open("", "_blank", "width=400,height=200");
-      newWindow.document.write(`
-        <html>
-          <head>
-            <style>
-              body {
-                font-family: 'PretendardVariable', sans-serif;
-                text-align: center;
-                padding: 20px;
-              }
-            </style>
-          </head>
-          <body>
-            <p>회원가입을 완료하였습니다. 반갑습니다, ${name}님!</p>
-          </body>
-        </html>
-      `);
-      newWindow.document.close();
+      try {
+        const response = await fetch('http://3.38.255.77:8080/api/members', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            identify,
+            password,
+          }),
+        });
+
+        if (response.ok) {
+          const newWindow = window.open("", "_blank", "width=400,height=200");
+          newWindow.document.write(`
+            <html>
+              <head>
+                <style>
+                  body {
+                    font-family: 'PretendardVariable', sans-serif;
+                    text-align: center;
+                    padding: 20px;
+                  }
+                </style>
+              </head>
+              <body>
+                <p>회원가입을 완료하였습니다. 반갑습니다, ${name}님!</p>
+              </body>
+            </html>
+          `);
+          newWindow.document.close();
+        } else {
+          const errorData = await response.json();
+          console.error('Registration failed:', errorData);
+          setIdMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setIdMessage('회원가입에 실패했습니다. 다시 시도해주세요.');
+      }
     }
   };
 
   return (
-
     <div className="Container">
       <div className="Form">
         <div className='Name'>
@@ -176,7 +199,6 @@ function App() {
             value={identify}
             onChange={(e) => setIdentify(e.target.value)}
           />
-          {/* {errorMessages.identify && <p className="ErrorMessage">{errorMessages.identify}</p>} */}
           <div className='Wrapper'>
             <p className='ErrorMessage'>{errorMessages.identify}</p>
             <div className='viewWrapper'>
@@ -186,9 +208,6 @@ function App() {
             </div>
           </div>
        </div>
-       {/* <div className="ButtonContainer">
-            <button className="ButtonInline" onClick={handleIdCheck}>중복확인</button>
-          </div> */}
         
        <div className='PW'>
         <p className="SLabel">비밀번호를 입력해주세요</p>
@@ -198,9 +217,6 @@ function App() {
             value={password}
             onChange={handlePasswordChange}
           />
-          {/* {errorMessages.password && <p className="ErrorMessage">{errorMessages.password}</p>}
-          {passwordErrorMessage && !errorMessages.password && <p className="ErrorMessage">{passwordErrorMessage}</p>} */}
-
           <div className="CheckboxContainer">
             <div className='Wrapper'>
               <p className="ErrorMessage">{errorMessages.password}{passwordErrorMessage && !errorMessages.password}</p>
@@ -214,8 +230,6 @@ function App() {
                 <p className="Saw">비밀번호 보기</p>
               </div>
             </div>
-              
-          
           </div>
        </div>
 
@@ -227,9 +241,7 @@ function App() {
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
           />
-          {/* {passwordMatchMessage && <p className={`ErrorMessage ${passwordMatchMessage.includes("일치하지") ? 'error' : 'success'}`}>{passwordMatchMessage}</p>} */}
           <div className="CheckboxContainer">
-            
             <div className='Wrapper'>
                 <p className="ErrorMessage">{errorMessages.confirmPassword}</p>
                 <div className='viewWrapper'>
@@ -242,16 +254,12 @@ function App() {
                   <p className="Saw">비밀번호 보기</p>  
                 </div>
             </div>
-          
-
           </div>
         </div>
 
-       
         <div className='Membershipbutton'>
           <button className="Button" onClick={complete}>회원가입 완료</button>
         </div>
-        
       </div>
     </div>
   );

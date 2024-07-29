@@ -23,7 +23,7 @@ export default function RecruitPlaceHome() {
                                 <div>장소 모집</div>
                             </div>
                         </div>
-                        <div className={styles.item}>
+                        <div onClick={()=>handleLink('placeReview')} className={styles.item}>
                             <div>
                                 <img src={img2}/>
                                 <div>장소 리뷰</div>

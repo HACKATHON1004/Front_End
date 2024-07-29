@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import styles from '../../cssModule/postContent.module.css';
 import profile from '../../images/1.svg';
 
-export default function CmtModal() {
+export default function CmtModal({msg}) {
   const [isCommentBoxVisible, setCommentBoxVisible] = useState(false);
   const [isBox, setIsBox] = useState(false);
   const [charCount, setCharCount] = useState(0);
@@ -14,6 +14,7 @@ export default function CmtModal() {
         setIsBox(false);
         setTimeout(() => {
             setCommentBoxVisible(false);
+            setCharCount(0);
         }, 800)
     }
   }
@@ -27,6 +28,7 @@ export default function CmtModal() {
 
   const handleCommentBoxToggle = () => {
     setIsBox(!isBox);
+    setCharCount(0);
     
     if(!isCommentBoxVisible){
         setTimeout(() => {
@@ -55,7 +57,7 @@ export default function CmtModal() {
           </div>
           <textarea
             className={styles['comment-textarea']}
-            placeholder="댓글을 남겨보세요."
+            placeholder={msg}
             onChange={handleTextChange}
           />
           <div className={styles['comment-actions']}>
@@ -65,7 +67,7 @@ export default function CmtModal() {
         </div>
       ) : (
         <div onClick={handleCommentBoxToggle} className={`${styles.comment} ${isBox ? styles.active : ''}`}>
-          <span>댓글을 남겨보세요.</span>
+          <span>{msg}</span>
         </div>
       )}
     </div>

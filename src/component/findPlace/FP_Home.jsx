@@ -16,15 +16,15 @@ export default function FP_Home() {
         <>
             <Back/>
             <div className={styles.pageWrapper}>
-                <div className={styles.bigWrapper}>
-                    <div onClick={()=>handleLink("findMap")}>
+                <div onClick={()=>handleLink("findMap")} className={styles.bigWrapper}>
+                    <div>
                         <img src={img3}/>
                         <div>내 주변 운동시설</div>
                     </div>
                 </div>
                 <div className={styles.menuWrapper}>
-                    <div className={styles.item}>
-                        <div onClick={()=>handleLink("/")} >
+                    <div onClick={()=>handleLink("RecommendExercise")} className={styles.item}>
+                        <div>
                             <img src={img2}/>
                             <div>운동 질문</div>
                         </div>
