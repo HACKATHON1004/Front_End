@@ -1,4 +1,4 @@
-import styles from '../cssModule/postWrite.module.css'
+import styles from '../../cssModule/postWrite.module.css'
 import { useEffect, useState, useRef } from 'react';
 
 export default function ImgMenu({showMenu:s, menuRef2}) {

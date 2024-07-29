@@ -3,7 +3,7 @@ import styles from "../../cssModule/postWrite.module.css"
 import img from "../../images/img.svg"
 import { useState, useEffect } from "react";
 import { useRef } from "react";
-import ImgMenu from "../imgMenu";
+import ImgMenu from "../../component/Post/imgMenu";
 
 export default function PostWrite() {
     const [showMenu, setShowMenu] = useState(false);

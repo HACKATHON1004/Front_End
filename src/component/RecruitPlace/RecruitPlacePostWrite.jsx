@@ -2,7 +2,7 @@ import styles from '../../cssModule/recruitPlacePostWrite.module.css'
 import Back from '../Button/Back'
 import img from '../../images/img.svg'
 import { useRef, useState } from 'react';
-import ImgMenu from '../imgMenu';
+import ImgMenu from '../Post/imgMenu';
 import axios from 'axios';
 import cookie from 'js-cookie'
 
