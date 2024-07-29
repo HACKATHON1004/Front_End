@@ -1,0 +1,142 @@
+.container {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.form {
+  width: 370px;
+  height: 932px;
+}
+
+.placeWrapper {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.placeReview {
+  font-weight: 400;
+  width: 90px;
+  height: 20px;
+  font-size: 20px;
+  display: flex;
+}
+input{
+  margin: 0;
+}
+
+.placeSearch {
+  width:100%;
+  height: 100%;
+ 
+}
+
+.searchInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  width: 100%;
+  height: 52px;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  margin-top: 19px;
+  border-radius: 5px;
+  background-color: #ffffff; 
+  border: 1px solid #ffffff;     
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+  
+}
+.searchIcon {
+  position: absolute;
+  top: 38px;
+  right: 20px; /* Position the icon inside the input */
+  cursor: pointer;
+}
+
+.buttonWrapper {
+  margin-top: 15px;
+  display: flex;
+}
+
+.close{
+  width: 79px;
+  height: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: #ffffff; 
+    border: 1px solid #ffffff;     
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+  
+}
+.review{
+  width: 79px;
+  height: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-left: 11px;
+  background-color: #ffffff; 
+    border: 1px solid #ffffff;     
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+
+
+.placeList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 325px;
+  height: 116px;
+  background-color: #ffffff; 
+  border: 1px solid #ffffff;     
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.placeList p{
+  text-align: center;
+  display: flex;
+}
+
+.placeItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #ffffff; 
+  border: 1px solid #ffffff;     
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.placeImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.placeDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.placeName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.placeRating,
+.placeReviews {
+  font-size: 14px;
+  color: #555;
+}

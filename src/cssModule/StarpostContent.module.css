@@ -54,6 +54,7 @@
 
 .commentWrapper {
     height: 62px;
+    width: 309px;
     margin-top: 22px;
 }
 
@@ -256,4 +257,21 @@
   }
 
   
- 
+  .starWrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 80px; /* 여백 추가 */
+  }
+  
+  .starButton {
+    font-size: 24px;
+    color: gray; /* 빈 별의 기본 색상 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .starButton.active {
+    color: red; /* 활성화된 별의 색상 */
+  }

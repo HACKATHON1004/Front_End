@@ -1,16 +1,16 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import styles from '../cssModule/myp.module.css';
-import '../App.css'
+import axios from 'axios';
 
 function App() {
-  const [nickname, setNickname] = useState('');//닉네임 변수
-  const [idMessage, setIdMessage] = useState('');//닉네임 이 사용중인지아닌지를 알려주는 변수
-  const [isIdChecked, setIsIdChecked] = useState(false);//닉네임 사용중인지아닌지를 체크하는 변수
-  const [age, setAge] = useState('');//나이 변수
-  const [gender, setGender] = useState('');//성별 변수
-  const [disability, setDisability] = useState('');//장애 종류 변수
-  const [disabilityType, setDisabilityType] = useState('');//장애 종류변수
-  const [limbDisability, setLimbDisability] = useState('');//신체적 장애 변수
+  const [nickname, setNickname] = useState('');
+  const [idMessage, setIdMessage] = useState('');
+  const [isIdChecked, setIsIdChecked] = useState(false);
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [disability, setDisability] = useState('');
+  const [disabilityType, setDisabilityType] = useState('');
+  const [limbDisability, setLimbDisability] = useState('');
   const [sports, setSports] = useState({
     근력: false,
     유산소: false,
@@ -18,18 +18,17 @@ function App() {
     수상운동: false,
     구기: false,
   });
-  const [intensity, setIntensity] = useState('');//원하는 운동 강도선택 변수
+  const [intensity, setIntensity] = useState('');
+
   const handleSportsChange = (e) => {
     const { name, checked } = e.target;
     setSports({ ...sports, [name]: checked });
-  };//함수는 사용자가 체크박스를 선택하거나 선택 해제할 때 호출됩니다.
-  //e.target에서 name과 checked를 구조 분해 할당으로 추출합니다. name은 체크박스의 이름 속성 값이고,
-  // checked는 체크박스의 체크 상태입니다.
+  };
+
   const handleIdCheck = async () => {
     try {
-      const response = await fetch(`http://3.38.255.77:8080/api/members/${nickname}`);
+      const response = await fetch(`http://54.180.230.63:8080/nickname/${nickname}`);
       const data = await response.json();
-      console.log(data);
       if (data.exists) {
         setIdMessage("이미 사용중인 닉네임입니다.");
         setIsIdChecked(false);
@@ -43,40 +42,83 @@ function App() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isIdChecked) {
       setIdMessage("닉네임 중복 확인을 해주세요.");
       return;
     }
-    // Handle form submission
-    // 예: 서버로 데이터를 전송하거나 폼 데이터를 검증하는 코드 추가
+
+    const formData = {
+      nickname,
+      age,
+      gender,
+      disability,
+      disabilityType,
+      limbDisability,
+      sports: Object.keys(sports).filter(key => sports[key]),
+      intensity,
+    };
+
+    try {
+      const response = await axios.post('http://54.180.230.63:8080/userInfo',formData, {
+        headers: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE3MjIwOTkwODEsImV4cCI6MTcyMjA5OTExN30.KfCqrS3f1macamIJSNxvb1uwBOGmz1H844BMpN4lXhI',
+       
+      });
+
+      if (response.ok) {
+        console.log("데이터 전송 성공");
+        resetFormStates();
+      } else {
+        console.error("데이터 전송 실패");
+      }
+    } catch (error) {
+      console.error("데이터 전송 중 오류 발생", error);
+    }
+  };
+
+  const resetFormStates = () => {
+    setNickname('');
+    setAge('');
+    setGender('');
+    setDisability('');
+    setDisabilityType('');
+    setLimbDisability('');
+    setSports({
+      근력: false,
+      유산소: false,
+      유연성: false,
+      수상운동: false,
+      구기: false,
+    });
+    setIntensity('');
+    setIdMessage('');
+    setIsIdChecked(false);
   };
 
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
-     <div className={styles.Nickname}>
-      <div className={styles.Nlabel}>닉네임을 입력해주세요</div>
+        <div className={styles.Nickname}>
+          <div className={styles.Nlabel}>닉네임을 입력해주세요</div>
           <input
             type="text"
             value={nickname}
             onChange={(e) => {
               setNickname(e.target.value);
               setIdMessage('');
-              setIsIdChecked(false); // 닉네임이 변경될 때 중복 확인 결과 초기화
+              setIsIdChecked(false);
             }}
           />
           <div className={styles.NWapper}>
-          <div className={styles.idMessage}>
-          {idMessage && <p>{idMessage}</p>}</div>
+            <div className={styles.idMessage}>
+              {idMessage && <p>{idMessage}</p>}
+            </div>
             <div className={styles.ViewNWapper}>
-              
               <button type="button" className={styles.confirmButton} onClick={handleIdCheck}>중복확인</button>
             </div>
-            
           </div>
-     </div>
+        </div>
 
         <div className={styles.Alabel}>나이를 입력해주세요</div>
         <input
@@ -96,7 +138,6 @@ function App() {
         </select>
 
         <div className={styles.Dlabel}>장애 분류</div>
-        
         <div className={styles.disableWrapper}>
           <select
             value={disability}
@@ -105,7 +146,6 @@ function App() {
               setDisabilityType('');
               setLimbDisability('');
             }}
-            
           >
             <option value="">장애 분류</option>
             <option value="정신적 장애">정신적 장애</option>
@@ -133,44 +173,35 @@ function App() {
             </>
           )}
 
-          
           {(disabilityType === '상지 장애' || disabilityType === '하지 장애') && (
-                <select
-                  value={limbDisability}
-                  onChange={(e) => setLimbDisability(e.target.value)}
-                >
-                  <option value="">{disabilityType === '상지 장애' ? '상지 종류' : '하지 종류'}</option>
-                  <option value="절단">절단</option>
-                  <option value="기능">기능</option>
-                  <option value="관절">관절</option>
-                </select>
-              )}  
-        </div>  
-        
+            <select
+              value={limbDisability}
+              onChange={(e) => setLimbDisability(e.target.value)}
+            >
+              <option value="">{disabilityType === '상지 장애' ? '상지 종류' : '하지 종류'}</option>
+              <option value="절단">절단</option>
+              <option value="기능">기능</option>
+              <option value="관절">관절</option>
+            </select>
+          )}
+        </div>
 
         <div className={styles.Llabel}>좋아하는 운동 종류를 선택해주세요</div>
         <div className={styles.pentagon}>
-        {/* <div className={styles.labelContainer}>
-          <div className={`${styles.label} ${styles.label1}`}>근력</div>
-          <div className={`${styles.label} ${styles.label2}`}>유산소</div>
-          <div className={`${styles.label} ${styles.label3}`}>유연성</div>
-          <div className={`${styles.label} ${styles.label4}`}>수상운동</div>
-          <div className={`${styles.label} ${styles.label5}`}>구기</div>
-        </div> */}
-        <div className={styles.checkGroup}>
-          {Object.keys(sports).map((key) => (
-            <label key={key}>
-              <input
-                type="checkbox"
-                name={key}
-                checked={sports[key]}
-                onChange={handleSportsChange}
-              />
-              {key}
-            </label>
-          ))}
+          <div className={styles.checkGroup}>
+            {Object.keys(sports).map((key) => (
+              <label key={key}>
+                <input
+                  type="checkbox"
+                  name={key}
+                  checked={sports[key]}
+                  onChange={handleSportsChange}
+                />
+                {key}
+              </label>
+            ))}
+          </div>
         </div>
-      </div>
 
         <div className={styles.Wlabel}>원하는 운동 강도를 선택해주세요</div>
         <select
@@ -186,7 +217,5 @@ function App() {
       </form>
     </div>
   );
-};
-
-
-export default App
+}
+export default App;
