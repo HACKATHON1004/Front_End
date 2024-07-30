@@ -57,7 +57,8 @@
   
   .inputContainer input {
     width: 70%;
-    height: 40px;
+    height: 80%;
+    margin: 0;
     border: none;
     outline: none;
     font-size: 16px;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import styles from '../cssModule/myp.module.css';
+import styles from '../../cssModule/myp.module.css';
 import axios from 'axios';
+import Back from '../Button/Back';
 
 function App() {
   const [nickname, setNickname] = useState('');
@@ -97,6 +98,8 @@ function App() {
   };
 
   return (
+    <>
+    <Back/>
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
         <div className={styles.Nickname}>
@@ -110,112 +113,113 @@ function App() {
               setIsIdChecked(false);
             }}
           />
-          <div className={styles.NWapper}>
+          <div className={styles.NWrapper}>
             <div className={styles.idMessage}>
-              {idMessage && <p>{idMessage}</p>}
-            </div>
-            <div className={styles.ViewNWapper}>
-              <button type="button" className={styles.confirmButton} onClick={handleIdCheck}>중복확인</button>
+                {idMessage && <p>{idMessage}</p>}
+              </div>
+              <div className={styles.ViewNWapper}>
+                <button type="button" className={styles.confirmButton} onClick={handleIdCheck}>중복확인</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.Alabel}>나이를 입력해주세요</div>
-        <input
-          type="text"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-        />
+          <div className={styles.Alabel}>나이를 입력해주세요</div>
+          <input
+            type="text"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+          />
 
-        <div className={styles.Glabel}>성별을 선택해주세요</div>
-        <select
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-        >
-          <option value="">성별</option>
-          <option value="남성">남성</option>
-          <option value="여성">여성</option>
-        </select>
-
-        <div className={styles.Dlabel}>장애 분류</div>
-        <div className={styles.disableWrapper}>
+          <div className={styles.Glabel}>성별을 선택해주세요</div>
           <select
-            value={disability}
-            onChange={(e) => {
-              setDisability(e.target.value);
-              setDisabilityType('');
-              setLimbDisability('');
-            }}
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
           >
-            <option value="">장애 분류</option>
-            <option value="정신적 장애">정신적 장애</option>
-            <option value="신체적 장애">신체적 장애</option>
+            <option value="">성별</option>
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
           </select>
 
-          {disability === '신체적 장애' && (
-            <>
-              <select
-                value={disabilityType}
-                onChange={(e) => {
-                  setDisabilityType(e.target.value);
-                  setLimbDisability('');
-                }}
-              >
-                <option value="">장애 종류</option>
-                <option value="상지 장애">상지 장애</option>
-                <option value="하지 장애">하지 장애</option>
-                <option value="척추 장애">척추 장애</option>
-                <option value="심장 장애">심장 장애</option>
-                <option value="변형 장애">변형 장애</option>
-                <option value="청각 장애">청각 장애</option>
-                <option value="시각 장애">시각 장애</option>
-              </select>
-            </>
-          )}
-
-          {(disabilityType === '상지 장애' || disabilityType === '하지 장애') && (
+          <div className={styles.Dlabel}>장애 분류</div>
+          <div className={styles.disableWrapper}>
             <select
-              value={limbDisability}
-              onChange={(e) => setLimbDisability(e.target.value)}
+              value={disability}
+              onChange={(e) => {
+                setDisability(e.target.value);
+                setDisabilityType('');
+                setLimbDisability('');
+              }}
             >
-              <option value="">{disabilityType === '상지 장애' ? '상지 종류' : '하지 종류'}</option>
-              <option value="절단">절단</option>
-              <option value="기능">기능</option>
-              <option value="관절">관절</option>
+              <option value="">장애 분류</option>
+              <option value="정신적 장애">정신적 장애</option>
+              <option value="신체적 장애">신체적 장애</option>
             </select>
-          )}
-        </div>
 
-        <div className={styles.Llabel}>좋아하는 운동 종류를 선택해주세요</div>
-        <div className={styles.pentagon}>
-          <div className={styles.checkGroup}>
-            {Object.keys(sports).map((key) => (
-              <label key={key}>
-                <input
-                  type="checkbox"
-                  name={key}
-                  checked={sports[key]}
-                  onChange={handleSportsChange}
-                />
-                {key}
-              </label>
-            ))}
+            {disability === '신체적 장애' && (
+              <>
+                <select
+                  value={disabilityType}
+                  onChange={(e) => {
+                    setDisabilityType(e.target.value);
+                    setLimbDisability('');
+                  }}
+                >
+                  <option value="">장애 종류</option>
+                  <option value="상지 장애">상지 장애</option>
+                  <option value="하지 장애">하지 장애</option>
+                  <option value="척추 장애">척추 장애</option>
+                  <option value="심장 장애">심장 장애</option>
+                  <option value="변형 장애">변형 장애</option>
+                  <option value="청각 장애">청각 장애</option>
+                  <option value="시각 장애">시각 장애</option>
+                </select>
+              </>
+            )}
+
+            {(disabilityType === '상지 장애' || disabilityType === '하지 장애') && (
+              <select
+                value={limbDisability}
+                onChange={(e) => setLimbDisability(e.target.value)}
+              >
+                <option value="">{disabilityType === '상지 장애' ? '상지 종류' : '하지 종류'}</option>
+                <option value="절단">절단</option>
+                <option value="기능">기능</option>
+                <option value="관절">관절</option>
+              </select>
+            )}
           </div>
-        </div>
 
-        <div className={styles.Wlabel}>원하는 운동 강도를 선택해주세요</div>
-        <select
-          value={intensity}
-          onChange={(e) => setIntensity(e.target.value)}
-        >
-          <option value="">운동 강도</option>
-          <option value="고강도">고강도</option>
-          <option value="저강도">저강도</option>
-        </select>
+          <div className={styles.Llabel}>좋아하는 운동 종류를 선택해주세요</div>
+          <div className={styles.pentagon}>
+            <div className={styles.checkGroup}>
+              {Object.keys(sports).map((key) => (
+                <label key={key}>
+                  <input
+                    type="checkbox"
+                    name={key}
+                    checked={sports[key]}
+                    onChange={handleSportsChange}
+                  />
+                  <span>{key}</span>
+                </label>
+              ))}
+            </div>
+          </div>
 
-        <button type="submit" className={styles.button}>등록 완료</button>
-      </form>
-    </div>
+          <div className={styles.Wlabel}>원하는 운동 강도를 선택해주세요</div>
+          <select
+            value={intensity}
+            onChange={(e) => setIntensity(e.target.value)}
+          >
+            <option value="">운동 강도</option>
+            <option value="고강도">고강도</option>
+            <option value="저강도">저강도</option>
+          </select>
+
+          <button type="submit" className={styles.button}>등록 완료</button>
+        </form>
+      </div>
+    </>
   );
 }
 export default App;

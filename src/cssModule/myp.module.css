@@ -1,8 +1,7 @@
 .container {
-    width: 100%;
+    width: 350px;
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
+    margin-top: 130px;
     font-family: Arial, sans-serif;
   }
   
@@ -35,6 +34,15 @@
     font-size: 26px;
     font-weight: 400;
   }
+
+  .Alabel {
+    margin-top: 20px;
+  }
+
+  .NWrapper {
+    display: flex;
+    align-items: center;
+  }
   
   .Llabel, .Wlabel {
     width: 348px;
@@ -43,6 +51,7 @@
   }
   
   .idMessage {
+    width: 70%;
     font-size: 15px;
     display: flex;
     color: red;
@@ -51,10 +60,8 @@
   }
   
   p {
-    display: flex;
-    width: 280px;
-    font-size: 15px;
-    height: 18px;
+    margin-top: 0px;
+    margin-bottom: 0;
   }
   
   .button {
@@ -82,18 +89,56 @@
   }
   
   .checkGroup label {
+    position: relative;
     display: flex;
     align-items: center;
-    width: 18px;
+    width: 100px;
     height: 18px;
+    gap: 3px;
   }
-  
+
+  .checkGroup label span {
+    font-family: Pretendard-variable, sans-serif;
+    width:65px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .checkGroup label:first-child {
+    left: 70px;
+    bottom: 25px;
+  }
+
+  .checkGroup label:nth-child(2) {
+    right: 70px;
+    top: 50px;
+  }
+
+  .checkGroup label:nth-child(3) {
+    left: 200px;
+    top: 32px;
+  }
+
+  .checkGroup label:nth-child(4) {
+    top: 130px;
+    right: 50px;
+  }
+
+  .checkGroup label:last-child {
+    left: 170px;
+    top: 110px;
+  }
+
   .checkGroup input {
     width: 26px;
     height: 18px;
   }
   
   .confirmButton {
+    align-items: center;
+    justify-content: center;
+    padding: 12px 15px;
     background-color: white;
     border: 1px solid #ccc;
     color: black;
@@ -101,7 +146,7 @@
     font-size: 15px;
     border-radius: 10px;
     cursor: pointer;
-    width: 99px;
+    width: 87px;
     height: 44px;
     margin-left: 15px;
   }
@@ -114,6 +159,7 @@
   }
   
   .pentagon {
+    margin: 30px auto;
     width: 200px;
     height: 200px;
     position: relative;
@@ -148,10 +194,6 @@
     text-align: center;
     font-size: 14px;
     font-weight: bold;
-  }
-  
-  .pentagon input {
-    margin-left: 20px;
   }
   
   .selectGroup {

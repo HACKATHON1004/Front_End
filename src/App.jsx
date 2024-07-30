@@ -1,5 +1,6 @@
 import './App.css';
 import Calendar from './component/Calendar/Calendar.jsx';
+import Myobject from './component/Myobject/Myobject.jsx'
 import Plan from './component/Calendar/Plan.jsx';
 // import Home from './component/Home/Home.jsx'
 import Login from './component/Login.jsx';
@@ -30,6 +31,7 @@ function App() {
           <Route path='/plan' element={<Plan/>}/>
           <Route path='/findMap' element={<FindPlace/>}/>
           <Route path='/signUp' element={<Mempage/>}/>
+          <Route path='/inputUserInfo' element={<Myobject/>}/>
           <Route path='/findMapHome' element={<FP_Home/>}/>
           <Route path='/calendar' element={<Calendar/>}/>
           <Route path='/communityHome' element={<RecruitPlaceHome/>}/>

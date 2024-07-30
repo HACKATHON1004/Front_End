@@ -43,10 +43,12 @@
 
 
 .Container {
+  width: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
+  margin-top: 130px;
 }
 
 .Form {
@@ -54,7 +56,7 @@
   flex-direction: column;
   align-items: center;
   color: black;
-  width: 384px;
+  width: 350px;
   height: 949px;
 }
 
@@ -149,7 +151,7 @@
 .Input {
   border: none;
   border-bottom: 2px solid #000;
-  width: 346px;
+  width: 340px;
   display: flex;
   height: 60px;
   font-size: 26px;
@@ -212,8 +214,7 @@
   height: 18px;
 }
 .Wrapper{
-  
-  width: 361px;
+  width: 330px;
   height: 70px;
   align-items: center;
   display: flex;
@@ -235,28 +236,23 @@
   align-items: center;
 }
 .Name{
-  width: 361px;
   height: 146px;
   
 }
 .Email{
-  width: 361px;
   height: 146px;
   
   margin-top: 50px;
 }
 .ID{
-  width: 361px;
   height: 146px;
   margin-top: 50px;
 }
 .PW{
-  width: 361px;
   height: 146px;
   margin-top: 50px;
 }
 .RPW{
-  width: 361px;
   height: 146px;
   margin-top: 50px;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../App.css';
+import Back from '../Button/Back';
 
 function App() {
   const [name, setName] = useState("");
@@ -34,7 +35,7 @@ function App() {
 
   const handleIdCheck = async () => {
     try {
-      const response = await fetch(`http://3.38.255.77:8080/api/members/${identify}`);
+      const response = await fetch(`http://43.202.3.159:8080/user/${identify}`);
       const data = await response.json();
       console.log(data);
       if (data.exists) {
@@ -122,7 +123,7 @@ function App() {
       setErrorMessages(errors);
     } else {
       try {
-        const response = await fetch('http://3.38.255.77:8080/api/members', {
+        const response = await fetch('http://43.202.3.159:8080/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -168,6 +169,7 @@ function App() {
 
   return (
     <div className="Container">
+      <Back/>
       <div className="Form">
         <div className='Name'>
           <p className="NLabel">이름을 입력해주세요</p>

@@ -23,7 +23,7 @@ export default function RecruitPlacePostWrite() {
     const [address, setAddress] = useState('');
 
     function handleSubmit() {
-        axios.post("http://54.180.230.63:8080/recruit", {
+        axios.post("http://43.202.3.159:8080/recruit", {
             title: titleRef.current.value,
             recruitTotal: peopleRef.current.value,
             location: address,
@@ -65,8 +65,13 @@ export default function RecruitPlacePostWrite() {
         }
     }; //사진 미리보기
     
-    function openMenu() {
-        setShowMenu(!showMenu);
+    function handleCheckboxChange() {
+        if (!checkRef.current.checked) {
+            peopleRef.current.value = '';  // Clear the input
+            peopleRef.current.disabled = true;  // Disable the input
+        } else {
+            peopleRef.current.disabled = false;  // Enable the input
+        }
     }
     
     return (
@@ -74,7 +79,7 @@ export default function RecruitPlacePostWrite() {
             <Back/>
             <div className={styles.pageWrapper}>
                 <div className={styles.container}>
-                    <div>
+                    <div className={styles.titleWrapper}>
                         <input
                             ref={titleRef}
                             type="text"
@@ -90,8 +95,8 @@ export default function RecruitPlacePostWrite() {
                             className={styles.inputField}
                         />
                         <div className={styles.checkboxContainer}>
-                            <input type="checkbox" id="noLimit" ref={checkRef} />
-                            <label htmlFor="noLimit">인원제한 x</label>
+                            <input defaultChecked type="checkbox" id="noLimit" ref={checkRef} onChange={handleCheckboxChange}/>
+                            <label className={styles.checkLabel} htmlFor="noLimit">인원제한</label>
                         </div>
                     </div>
                     <div className={styles.imgWrapper}>
@@ -102,7 +107,7 @@ export default function RecruitPlacePostWrite() {
                             placeholder="모집장소 주소를 입력해 주세요. 🔍"
                             className={styles.inputField}
                         />
-                        <div onClick={openMenu} ref={menuRef2} className={styles.icon}>
+                        <div onClick={() => document.getElementById('photoUpload').click()} ref={menuRef2} className={styles.icon}>
                             <img
                                 src={img} /* replace with the actual path to your search icon */
                                 alt="Search"
@@ -110,7 +115,7 @@ export default function RecruitPlacePostWrite() {
                             />
                         </div>
                     </div>
-                    <ImgMenu showMenu={showMenu} menuRef2={menuRef2} />
+                    <ImgMenu />
                     <input
                         type="file"
                         id="photoUpload"
@@ -118,7 +123,7 @@ export default function RecruitPlacePostWrite() {
                         style={{ display: 'none' }}
                         onChange={handleImageUpload}
                     />
-                    <div>
+                    <div className={styles.phoneWrapper}>
                         <input
                             ref={phoneRef}
                             type="text"
