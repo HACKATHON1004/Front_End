@@ -235,7 +235,7 @@
   }
   
   .comment-textarea {
-    width: 100%;
+    width: 88%;
     height: 100px;
     margin-bottom: 10px;
     font-family: Pretentard-variable, sans-serif;
@@ -244,6 +244,7 @@
     border: none;
     border-radius: 5px;
     resize: none;
+    outline: none;
   }
   
   .comment-actions {

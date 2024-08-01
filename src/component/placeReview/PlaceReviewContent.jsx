@@ -1,10 +1,25 @@
-import Back from "../Button/Back";
 import styles from '../../cssModule/placeReviewContent.module.css'
 import img1 from '../../images/findCat.svg'
 import img2 from '../../images/location.svg'
+import img3 from '../../images/search.svg';
+import img4 from '../../images/pencil.svg'
+import img5 from '../../images/close.svg'
 import CmtModal from "../Post/CmtModal";
+import Back from '../Button/Back';
+import { useRef, useState } from 'react';
 
 export default function PlaceReviewContent({id}) {
+    const inputRef = useRef();
+    const handleClear = () => {
+        inputRef.current.value = '';
+        setDoesSearch(false);
+      };
+    
+      function handleSearch() {
+        setSearch(inputRef.current.value);
+        setSearch2('라어낸');
+        setDoesSearch(false);
+      }
     const reviews = [
         { id: 'eex', review: '장애인 이용자를 위한 전문 인력이 배치되어 있어 안전하게 수영했습니다!!' },
         { id: 'tuu', review: '물빛수영장은 휠체어 사용자들이 쉽게 접근할 수 있도록 엘리베이터, 장애인 전용 화장실, 넓은 출입구 등 다양한 편의시설이 있어서 좋았어요!' },
@@ -16,7 +31,27 @@ export default function PlaceReviewContent({id}) {
 
     return (
         <>
-            <div className={styles.bodyWrapper}>
+      <Back />
+      <div className={styles.pageWrapper}>
+        <div className={styles.title2}>
+          <div>
+            <img src={img4} />
+          </div>
+          <div>
+            <span>장소 리뷰</span>
+          </div>
+        </div>
+        <div className={styles.searchBar}>
+          <input
+            type="text"
+            placeholder="장소를 입력해 주세요."
+            ref={inputRef}
+            className={styles.inputField}
+          />
+          <img src={img5} onClick={handleClear} className={styles.iconButton} />
+          <img src={img3} onClick={handleSearch} className={styles.iconButton} />
+        </div>
+        <div className={styles.bodyWrapper}>
                 <div className={styles.title}>
                     <img src={img1}/>
                 </div>
@@ -46,6 +81,7 @@ export default function PlaceReviewContent({id}) {
                     ))}
                 </div>
             </div>
-        </>
+      </div>
+    </>
     )
 }

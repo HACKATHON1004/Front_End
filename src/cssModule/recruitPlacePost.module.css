@@ -60,9 +60,6 @@
     font-size: 14px;
   }
   
-  .dateSelector {
-  }
-  
   .dateLabel {
     text-align: left;
     font-size: 14px;
@@ -74,6 +71,18 @@
     display: flex;
     gap: 10px;
     margin-bottom: 7px;
+  }
+
+  .selectors input {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+      width: 52%;
+      margin: 0;
+      font-size: 15px;
+      height: 30px;
+      border: 1px solid black;
+      border-radius: 10px;
   }
   
   .select {

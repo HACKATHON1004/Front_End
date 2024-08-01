@@ -155,7 +155,7 @@
   display: flex;
   height: 60px;
   font-size: 26px;
-  
+  margin-bottom: 0;
 }
 
 .Input:focus {
@@ -214,6 +214,7 @@
   height: 18px;
 }
 .Wrapper{
+  margin: 0 auto;
   width: 330px;
   height: 70px;
   align-items: center;
@@ -229,6 +230,7 @@
 }
 
 .viewWrapper {
+  gap: 8px;
   height: 18px;
   justify-content: end;
   width: 30%;

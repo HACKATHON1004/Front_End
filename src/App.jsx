@@ -40,6 +40,7 @@ function App() {
           <Route path='/freePost' element={<Post/>}/>
           <Route path='/recruitPlace_postContent' element={<RecruitPlacePostContent/>}/>
           <Route path='/recruitPlace/Post' element={<RecruitPlacePostWrite/>}/>
+          <Route path='/recruitPlace/post/:id' element={<RecruitPlacePostContent/>}/>
           <Route path='/placeReview' element={<PlaceReview/>}/>
           <Route path='/RecommendExercise' element={<RE_Home/>}/>
           <Route path='/placeReview/:id' element={<PlaceReviewContent/>}/>

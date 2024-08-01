@@ -6,7 +6,7 @@ import img1 from '../../images/pencil.svg';
 import img2 from '../../images/close.svg';
 import img3 from '../../images/search.svg';
 import cat from '../../images/grayCat.svg';
-import PlaceReviewContent from './PlaceReviewContent';
+import { useNavigate } from 'react-router-dom';
 
 export default function PlaceReview() {
     const [currentLocation, setCurrentLocation] = useState(null);
@@ -18,6 +18,7 @@ export default function PlaceReview() {
   const [loading, setLoading] = useState(true); // Add loading state
   const [doesSearch, setDoesSearch] = useState(false);
   const [id, setID] = useState('');
+  const navigate = useNavigate();
 
   const inputRef = useRef();
 
@@ -115,6 +116,7 @@ export default function PlaceReview() {
     // setSelectedFacility(facility);
     setID(id);
     setDoesSearch(true);
+    navigate(`${id}`);
   };
 
   return (
@@ -139,16 +141,7 @@ export default function PlaceReview() {
           <img src={img2} onClick={handleClear} className={styles.iconButton} />
           <img src={img3} onClick={handleSearch} className={styles.iconButton} />
         </div>
-        {!doesSearch?(
         <div className={styles.bodyWrapper}>
-        <div className={styles.buttonWrapper}>
-            <div className={styles.button}>
-                <button >근거리 순</button>
-            </div>
-            <div className={styles.button}>
-                <button>리뷰 순</button>
-            </div>
-        </div>
         <div className={styles.map}>
           {loading ? ( // Display loading indicator
             <BallTriangle
@@ -180,11 +173,7 @@ export default function PlaceReview() {
         </div>
           )}
         </div>
-      </div>):
-      (
-        <PlaceReviewContent id={id} />
-      )  
-      }
+      </div>
       </div>
     </>
   );

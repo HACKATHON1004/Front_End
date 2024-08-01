@@ -2,12 +2,19 @@ import Back from "../Button/Back";
 import styles from '../../cssModule/recruitPlacePost.module.css'
 import PostList from "../Post/PostList";
 import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 
 export default function RecruitPlacePost() {
+    const dateRef = useRef();
+    const today = new Date().toISOString().slice(0,10);
     const navigate = useNavigate();
-
+    const [date, setDate] = useState('');
     function handleLink(src) {
         navigate(src);
+    }
+
+    function handleSearch() {
+        setDate(dateRef.current.value);
     }
     
     return (
@@ -31,26 +38,15 @@ export default function RecruitPlacePost() {
                     <div className={styles.dateSelector}>
                         <label className={styles.dateLabel}>날짜</label>
                         <div className={styles.selectors}>
-                            <select className={styles.select}>
-                                <option>2024</option>
-                                <option>2025</option>
-                            </select>
-                            <select className={styles.select}>
-                                <option>7월</option>
-                                <option>8월</option>
-                            </select>
-                            <select className={styles.select}>
-                                <option>9일</option>
-                                <option>10일</option>
-                            </select>
+                            <input ref={dateRef} min={today} type='date' id='date' name='date' defaultValue={today} />
                         </div>
                     </div>
                     <div className={styles.tableWrapper}>
                         <label className={styles.tableHeader}>장소 모집</label>
-                        <PostList field="인원"/>
+                        <PostList field="인원" eventTime={date}/>
                     </div>
                     <div className={styles.btnWrapper}>
-                        <button className={styles.searchBtn}>찾아보기</button>
+                        <button onClick={handleSearch} className={styles.searchBtn}>찾아보기</button>
                     </div>
                 </div>
             </div>

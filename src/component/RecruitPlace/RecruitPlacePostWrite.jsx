@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import ImgMenu from '../Post/imgMenu';
 import axios from 'axios';
 import cookie from 'js-cookie'
+import Modal from '../Modal';
 
 export default function RecruitPlacePostWrite() {
     const menuRef2 = useRef(); //앨범 버튼 Ref
@@ -21,18 +22,32 @@ export default function RecruitPlacePostWrite() {
     const today = new Date().toISOString().slice(0,10);
     const time = new Date().toString().slice(16, 21);
     const [address, setAddress] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     function handleSubmit() {
-        axios.post("http://43.202.3.159:8080/recruit", {
+        if(!titleRef.current.value||address===''||!phoneRef.current.value||!dateRef.current.value
+            ||!contentRef.current.value
+        ) {
+           setShowModal(true);
+           return; 
+        }
+        if(checkRef.current.value===true){
+            if(!peopleRef.current.value){
+                setShowModal(true);
+                return;
+            }
+        }
+
+        axios.post("http://13.209.239.251:8080/recruit", {
             title: titleRef.current.value,
-            recruitTotal: peopleRef.current.value,
+            totalRecruit: peopleRef.current.value,
             location: address,
             phone: phoneRef.current.value,
             eventTime: dateRef.current.value+"-"+timeRef.current.value,
             content: contentRef.current.value,
         },{
             headers: {
-                Authorization: cookie.get("Authorization")
+                Authorization: cookie.get("token")
             }
         })
         .then(res=>{
@@ -132,8 +147,8 @@ export default function RecruitPlacePostWrite() {
                         />
                     </div>
                     <div className={styles.selectWrapper}>
-                        <input ref={dateRef} type='date' id='date' name='date' defaultValue={today} />
-                        <input ref={timeRef} type="time" id="time" name="time" defaultValue={time} />
+                        <input ref={dateRef} min={today} type='date' id='date' name='date' defaultValue={today} />
+                        <input ref={timeRef} min={time} type="time" id="time" name="time" defaultValue={time} />
                     </div>
                     <div className={styles.textWrapper}>
                         <textarea ref={contentRef} placeholder="내용을 입력하세요."/>
@@ -144,6 +159,11 @@ export default function RecruitPlacePostWrite() {
                     </div>
                 </div>
             </div>
+            {showModal&&
+                <Modal 
+                message="빈 입력창이 있습니다."
+                onClose={()=>{setShowModal(false);}}/>
+            }
         </>
     )
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../../App.css';
 import Back from '../Button/Back';
+import Modal from '../Modal';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [name, setName] = useState("");
@@ -9,6 +11,8 @@ function App() {
   const [isChecked, setIsChecked] = useState(false);
   const [returnChecked, setReturnChecked] = useState(false);
   const [idMessage, setIdMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -35,10 +39,10 @@ function App() {
 
   const handleIdCheck = async () => {
     try {
-      const response = await fetch(`http://43.202.3.159:8080/user/${identify}`);
+      const response = await fetch(`http://13.209.239.251:8080/user/${identify}`);
       const data = await response.json();
       console.log(data);
-      if (data.exists) {
+      if (!data) {
         setIdMessage("이미 사용중인 아이디입니다.");
         setIsIdChecked(false);
       } else {
@@ -123,7 +127,7 @@ function App() {
       setErrorMessages(errors);
     } else {
       try {
-        const response = await fetch('http://43.202.3.159:8080/user', {
+        const response = await fetch('http://13.209.239.251:8080/user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -131,30 +135,13 @@ function App() {
           body: JSON.stringify({
             name,
             email,
-            identify,
+            username: identify,
             password,
           }),
         });
 
         if (response.ok) {
-          const newWindow = window.open("", "_blank", "width=400,height=200");
-          newWindow.document.write(`
-            <html>
-              <head>
-                <style>
-                  body {
-                    font-family: 'PretendardVariable', sans-serif;
-                    text-align: center;
-                    padding: 20px;
-                  }
-                </style>
-              </head>
-              <body>
-                <p>회원가입을 완료하였습니다. 반갑습니다, ${name}님!</p>
-              </body>
-            </html>
-          `);
-          newWindow.document.close();
+          setShowModal(true);
         } else {
           const errorData = await response.json();
           console.error('Registration failed:', errorData);
@@ -202,7 +189,7 @@ function App() {
             onChange={(e) => setIdentify(e.target.value)}
           />
           <div className='Wrapper'>
-            <p className='ErrorMessage'>{errorMessages.identify}</p>
+            <p style={idMessage==="사용 가능한 아이디입니다."&&errorMessages.identify===''?{color:"green"}:{}} className='ErrorMessage'>{idMessage&&errorMessages.identify===''?idMessage:errorMessages.identify}</p>
             <div className='viewWrapper'>
               <div className="ButtonContainer">
               <button className="ButtonInline" onClick={handleIdCheck}>중복확인</button>
@@ -263,6 +250,12 @@ function App() {
           <button className="Button" onClick={complete}>회원가입 완료</button>
         </div>
       </div>
+      {showModal&&
+        <Modal
+        message="회원가입이 완료되었습니다!"
+        onClose={()=>{setShowModal(false); navigate('/');}}
+        />
+      }
     </div>
   );
 }

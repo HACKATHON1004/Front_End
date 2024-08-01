@@ -42,24 +42,29 @@ export default function Login(){
   }
 
   function handleLogin(){
-    // formData.append('username', idRef.current.value);
-    // formData.append('password', pwRef.current.value);
+    formData.append('username', idRef.current.value);
+    formData.append('password', pwRef.current.value);
     
-    // axios.post((`http://43.202.3.159:8080/user/login`),formData,{
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // })
-    //   .then(res=>{
-    //     console.log(res.headers.get('Authorization'));
-    //     console.log(res.data.email);
-    //     navigate('/home');
-    //     cookie.set("token", res.headers.get('Authorization'));
-    //   })
-    //   .catch(err=>{
-    //     setShowModal(true);
-    //   })
-    navigate('/home');
+    axios.post((`http://13.209.239.251:8080/user/login`),formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(res=>{
+        console.log(res.status);
+        if(res.status===200) {
+          console.log(res.headers.get('Authorization'));
+          console.log(res.data.email);
+          console.log(res.data);
+          navigate('/home');
+          cookie.set("token", res.headers.get('Authorization'));
+        } else {
+          setShowModal(true);
+        }
+      })
+      .catch(err=>{
+        setShowModal(true);
+      })
   }
   
   return (
