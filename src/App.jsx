@@ -1,5 +1,20 @@
 import './App.css';
 import Login from './component/Login.jsx';
+import Mempage from './component/Membership/Mempage.jsx';
+import Post from './component/Post/Post.jsx'
+import PostWrite from './component/Post/PostWrite.jsx'
+import PostContent from './component/Post/PostContent.jsx'
+import RecruitPlacePost from './component/RecruitPlace/RecruitPlacePost.jsx';
+import RecruitPlacePostWrite from './component/RecruitPlace/RecruitPlacePostWrite.jsx';
+import RecruitPlaceHome from './component/RecruitPlace/RecruitPlaceHome.jsx';
+import RecruitPlacePostContent from './component/RecruitPlace/RecruitPlacePostContent.jsx';
+import FindPlace from './component/findPlace/findPlace.jsx';
+import FP_Home from './component/findPlace/FP_Home.jsx';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './component/Home/Home.jsx';
+import PlaceReview from './component/placeReview/PlaceReview.jsx';
+import RE_Home from './component/RecommendExercise/RE_Home.jsx';
+import PlaceReviewContent from './component/placeReview/PlaceReviewContent.jsx';
 import Myobject from './component/Myobject.jsx';
 import Post from './component/Post/Post.jsx'
 import Mempage from './component/Membership/Mempage.jsx';
