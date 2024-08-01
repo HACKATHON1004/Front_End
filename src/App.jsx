@@ -15,9 +15,6 @@ import Home from './component/Home/Home.jsx';
 import PlaceReview from './component/placeReview/PlaceReview.jsx';
 import RE_Home from './component/RecommendExercise/RE_Home.jsx';
 import PlaceReviewContent from './component/placeReview/PlaceReviewContent.jsx';
-import Myobject from './component/Myobject.jsx';
-import Post from './component/Post/Post.jsx'
-import Mempage from './component/Membership/Mempage.jsx';
 
 function App() {
   
