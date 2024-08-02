@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from '../../cssModule/ServiceIntro.module.css';
-
+import Back from '../Button/Back';
 
 function ServiceIntro(){
 
     return(
         <div className={styles.container}>
+              <div className={styles.BackButton}>
+                <Back/>
+            </div>
             <div className={styles.Form}>
                 <div className={styles.ServiceIntroWapper}>
                     <div className={styles.ServiceIntroduction}>서비스 소개</div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from '../../cssModule/Passwordmodify.module.css';
 import axios from 'axios';  
+import Back from '../Button/Back'; 
 
 export default function PasswordChange() {
   const currentPwRef = useRef();
@@ -106,6 +107,7 @@ export default function PasswordChange() {
 
   return (
     <div className={styles.Container}>
+      <Back/>
       <form className={styles.Form} onSubmit={handleSubmit}>
         <div className={styles.CPW}>
           <p className={styles.CLabel}>현재 비밀번호</p>

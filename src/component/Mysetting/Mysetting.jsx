@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from '../../cssModule/mys.module.css';
 import { useNavigate } from 'react-router-dom'; 
 import Modal2 from '../Modal2';
+import Back from '../Button/Back';
 
 //개인 정보 서비스 정보
 
@@ -33,6 +34,7 @@ function App(){
 
     return(
         <div className={styles.container}>
+            <Back />
             <div className={styles.Personal}>
                 <div className={styles.Personalinformation}>개인 정보</div>
                 <button onClick={handleModifyUserInfo} className={styles.Imformodifying}>개인정보 수정</button>

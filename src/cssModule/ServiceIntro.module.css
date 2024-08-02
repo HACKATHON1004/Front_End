@@ -2,11 +2,13 @@
   width: 100%;
   max-width: 430px;
   max-height: 1409px;
+
 }
 .Form{
   width: 430px;
   height: 932px;
   padding: 20px;
+  padding-top: 60px;
 }
 .ServiceIntroWapper{
   width: 300px;

@@ -35,6 +35,7 @@ const Notice = () => {
 
   return (
     <div className={styles.container}>
+      <Back/>
       <div className={styles.noticeSection}>
         <div className={styles.NoticeWapper}>
           <div className={styles.imgWapper}>

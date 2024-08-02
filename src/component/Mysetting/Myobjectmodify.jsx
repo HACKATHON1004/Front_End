@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../cssModule/mypmodify.module.css';
-import axios from 'axios';
+import axios from 'axios';  
+import Back from '../Button/Back';
 
 function App() {
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
@@ -70,6 +71,7 @@ function App() {
 
   return (
     <div className={styles.Modifycontainer}>
+       <Back /> 
       {/* 닉네임 섹션 */}
       <div className={styles.Form}>
         <div className={styles.NWapper}>
