@@ -3,6 +3,7 @@ import styles from '../../cssModule/myp.module.css';
 import axios from 'axios';
 import Back from '../Button/Back';
 
+
 function App() {
   const [nickname, setNickname] = useState('');
   const [idMessage, setIdMessage] = useState('');

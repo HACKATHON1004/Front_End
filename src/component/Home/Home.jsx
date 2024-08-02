@@ -70,7 +70,7 @@ export default function Home() {
                     <img src={img3}/>
                     <span>커뮤니티</span>
                 </div>
-                <div onClick={()=>handleLink("")}>
+                <div onClick={()=>handleLink("Mysettings")}>
                     <img src={img4}/>
                     <span>설정</span>
                 </div>

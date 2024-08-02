@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from '../cssModule/ServiceIntro.module.css';
+import styles from '../../cssModule/ServiceIntro.module.css';
 
 
 function ServiceIntro(){
@@ -16,11 +16,6 @@ function ServiceIntro(){
             </div>
             
         </div>
-        
-        
-        
-        
     );
-
 };
 export default ServiceIntro

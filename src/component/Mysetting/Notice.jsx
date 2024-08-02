@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../cssModule/Notice.module.css'; // 실제 스타일시트 경로
-import '../App.css';
+import styles from '../../cssModule/Notice.module.css'; // 실제 스타일시트 경로
 import axios from 'axios';
-import Noticesvg from "../images/공지사항.svg";
-import Servicesvg from "../images/서비스 문의.svg";
+import Noticesvg from "../../images/공지사항.svg";
+import Servicesvg from "../../images/서비스 문의.svg";
+import Back from '../Button/Back';
 
 const Notice = () => {
   const [notices, setNotices] = useState([]);

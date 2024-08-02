@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from '../cssModule/Passwordmodify.module.css';
-import '../App.css';
-import axios from 'axios';
+import styles from '../../cssModule/Passwordmodify.module.css';
+import axios from 'axios';  
 
 export default function PasswordChange() {
   const currentPwRef = useRef();
