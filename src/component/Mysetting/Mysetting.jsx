@@ -32,6 +32,11 @@ function App(){
         navigate('/serviceIntro');  
     }
 
+    function logOut() {
+        navigate('/login');  
+    }
+
+
     return(
         <div className={styles.container}>
             <Back />
@@ -47,7 +52,7 @@ function App(){
                 <button onClick={handleServiceIntro} className={styles.Serviceintroduction}>서비스 소개</button>
             </div>
             <div className={styles.SignoutButton}>
-              <button className={styles.Signout}>로그 아웃</button>
+              <button onClick={logOut}className={styles.Signout}>로그 아웃</button>
             </div>
             {showModal && (
                     <Modal2

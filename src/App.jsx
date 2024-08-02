@@ -52,6 +52,7 @@ function App() {
         <Route path='/modifyUserInfo' element={<Myobjectmodify/>}/>
         <Route path='/passwordChange' element={<Passwordmodify/>}/>
         <Route path='/serviceIntro' element={<ServiceIntro/>}/> 
+        <Route path='/login' element={<Login/>}/> 
       </Routes>
     </BrowserRouter>
   );
