@@ -4,7 +4,7 @@ import img2 from '../../images/location.svg'
 import img3 from '../../images/search.svg';
 import img4 from '../../images/pencil.svg'
 import img5 from '../../images/close.svg'
-import CmtModalStar from '../CmtModalStar'
+import CmtModalStar from '../CmtModalStar'
 import Back from '../Button/Back';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';

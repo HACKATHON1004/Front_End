@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from '../cssModule/StarpostContent.module.css';
 import profile from '../images/1.svg';
-import Modal from '../component/Modal';
+import Modal from './Modal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'js-cookie'
