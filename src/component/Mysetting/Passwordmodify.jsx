@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import styles from '../../cssModule/Passwordmodify.module.css';
 import axios from 'axios';
 import Back from '../Button/Back';
+import Cookies from 'js-cookie';
 
 export default function PasswordChange() {
   const [isCheckedCurrent, setIsCheckedCurrent] = useState(false);
@@ -69,12 +70,13 @@ export default function PasswordChange() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const token = Cookies.get('token');
       const response = await axios.patch('https://real-east.shop/user', {
         currentPassword: currentPwRef.current.value,
         newPassword: newPwRef.current.value
       }, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Im9rIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTcyMjY5NDIzMCwiZXhwIjoxNzIyNzAxNDMwfQ.arj08s5pGOcaIAakLPSkiDNwAriluJ-7Ip2Dsi38yMA`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
