@@ -48,13 +48,12 @@ export default function Plan() {
                 <div className={styles.planName}>{eventData.title}</div>
                 <div className={styles.detailHeader}>이벤트 세부사항</div>
                 <div className={styles.detailWrapper}>
-                    <div className={styles.placeName}>장소 : 반다비 체육센터</div>
                     <img src={exImg}/>
                     <div className={styles.address}>{eventData.location}</div>
                     <div className={styles.tableWrapper}>
                         <div>
                             <span>시간</span>
-                            <span>{eventData.eventTime&&eventData.eventTime.slice(12)} ~ </span>
+                            <span>{eventData.eventTime&&eventData.eventTime.slice(11)} ~ </span>
                         </div>
                         <div>
                             <span>주최자 연락처</span>

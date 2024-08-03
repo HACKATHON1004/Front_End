@@ -7,12 +7,38 @@ import img2 from '../../images/cal.svg'
 import img3 from '../../images/people.svg'
 import img4 from '../../images/setting.svg'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import cookies from 'js-cookie'
 
 export default function Home() {
     // const isGuardian = axios.get("");
-    
     const isGuardian = false;
     const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState({});
+    
+    useEffect(()=>{
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/user/isFirstLogin`,null,{
+            headers: {
+                Authorization: cookies.get("token")
+            }
+        })
+            .then(res=>{
+                if(res.data===true){
+                    navigate('/Myobject');
+                    return;
+                }
+                else {
+                    axios.get(`${import.meta.env.VITE_SERVER_URL}/userinfo/username`,{
+                        headers: {
+                            Authorization: cookies.get("token")
+                        }
+                    })
+                        .then(res=>{
+                            setUserInfo(res.data);
+                        })
+                }
+            })
+    }, [])
 
     function handleLink(linkName) {
         navigate(`/${linkName}`);
@@ -22,7 +48,7 @@ export default function Home() {
     <>
         <div className={styles.pageWrapper}>
             <div className={styles.header}>
-                <span>닉네임 </span>
+                <span>{userInfo.username} </span>
                 {isGuardian?<span>보호자</span>:<></>}
                 <span>님 환영합니다!</span>
             </div>
@@ -32,28 +58,24 @@ export default function Home() {
                 </div>
                 <div className={styles.tableWrapper}>
                     <div>
-                        <span>이름</span>
-                        <span>김아무개</span>
+                        <span>닉네임</span>
+                        <span>{userInfo.nickname}</span>
                     </div>
                     <div>
                         <span>나이</span>
-                        <span>52세</span>
+                        <span>{userInfo.age}세</span>
                     </div>
                     <div>
                         <span>성별</span>
-                        <span>남성</span>
+                        <span>{userInfo.sex==="남성"?"남성":"여성"}</span>
                     </div>
                     <div>
                         <span>장애분류</span>
-                        <span>상지 관절</span>
-                    </div>
-                    <div>
-                        <span>관심있는 운동</span>
-                        <span>근력</span>
+                        <span>{userInfo.disabilityCF}</span>
                     </div>
                     <div>
                         <span>선호하는 운동 강도</span>
-                        <span>저강도</span>
+                        <span>{userInfo.exerciseIntensity}</span>
                     </div>
                 </div>
             </div>
@@ -70,7 +92,7 @@ export default function Home() {
                     <img src={img3}/>
                     <span>커뮤니티</span>
                 </div>
-                <div onClick={()=>handleLink("")}>
+                <div onClick={()=>handleLink("Mysettings")}>
                     <img src={img4}/>
                     <span>설정</span>
                 </div>

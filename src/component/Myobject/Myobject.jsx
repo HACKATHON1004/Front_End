@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from '../../cssModule/myp.module.css';
 import axios from 'axios';
 import Back from '../Button/Back';
+import Cookies from 'js-cookie'
 
 function App() {
   const [nickname, setNickname] = useState('');
@@ -12,25 +13,47 @@ function App() {
   const [disability, setDisability] = useState('');
   const [disabilityType, setDisabilityType] = useState('');
   const [limbDisability, setLimbDisability] = useState('');
-  const [sports, setSports] = useState({
-    근력: false,
-    유산소: false,
-    유연성: false,
-    수상운동: false,
-    구기: false,
-  });
+  const [muscle, setMuscle] = useState(false);
+  const [stretching, setStretching] = useState(false);
+  const [ball, setBall] = useState(false);
+  const [water, setWater] = useState(false);
+  const [cardio, setCardio] = useState(false);
   const [intensity, setIntensity] = useState('');
+  const [isGuardian, setIsGuardian] = useState(null);
 
   const handleSportsChange = (e) => {
     const { name, checked } = e.target;
-    setSports({ ...sports, [name]: checked });
+    switch (name) {
+      case 'muscle':
+        setMuscle(checked);
+        break;
+      case 'stretching':
+        setStretching(checked);
+        break;
+      case 'ball':
+        setBall(checked);
+        break;
+      case 'water':
+        setWater(checked);
+        break;
+      case 'cardio':
+        setCardio(checked);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleCheckboxChange = (value) => {
+    setIsGuardian(value);
   };
 
   const handleIdCheck = async () => {
     try {
-      const response = await fetch(`http://54.180.230.63:8080/nickname/${nickname}`);
+      const response = await fetch(`https://real-east.shop/userinfo`);
       const data = await response.json();
-      if (data.exists) {
+         console.log(data);
+      if (data.exists) { 
         setIdMessage("이미 사용중인 닉네임입니다.");
         setIsIdChecked(false);
       } else {
@@ -49,25 +72,33 @@ function App() {
       setIdMessage("닉네임 중복 확인을 해주세요.");
       return;
     }
-
-    const formData = {
-      nickname,
-      age,
-      gender,
-      disability,
-      disabilityType,
-      limbDisability,
-      sports: Object.keys(sports).filter(key => sports[key]),
-      intensity,
-    };
-
     try {
-      const response = await axios.post('http://54.180.230.63:8080/userInfo',formData, {
-        headers: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE3MjIwOTkwODEsImV4cCI6MTcyMjA5OTExN30.KfCqrS3f1macamIJSNxvb1uwBOGmz1H844BMpN4lXhI',
-       
-      });
+      const token = Cookies.get('token');
+      const response = await axios.post('https://real-east.shop/userinfo',
+        {
+          isGuardian,
+          nickname,
+          age,
+          sex: gender,
+          disabilityCF: disability,
+          disabilityK: disabilityType,
+          disabilityKK: limbDisability,
+          muscle,
+          stretching,
+          ball,
+          water,
+          cardio,
+          exerciseIntensity: intensity,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${token}`,
+          }
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         console.log("데이터 전송 성공");
         resetFormStates();
       } else {
@@ -77,6 +108,19 @@ function App() {
       console.error("데이터 전송 중 오류 발생", error);
     }
   };
+console.log(isGuardian)
+console.log(nickname)
+console.log( age)
+console.log(gender)
+console.log(disability)
+console.log( disabilityType)
+console.log( limbDisability)
+console.log(muscle)
+console.log(stretching)
+console.log( ball)
+console.log( water)
+console.log(cardio)
+console.log(intensity)
 
   const resetFormStates = () => {
     setNickname('');
@@ -85,13 +129,11 @@ function App() {
     setDisability('');
     setDisabilityType('');
     setLimbDisability('');
-    setSports({
-      근력: false,
-      유산소: false,
-      유연성: false,
-      수상운동: false,
-      구기: false,
-    });
+    setMuscle(false);
+    setStretching(false);
+    setBall(false);
+    setWater(false);
+    setCardio(false);
     setIntensity('');
     setIdMessage('');
     setIsIdChecked(false);
@@ -99,22 +141,45 @@ function App() {
 
   return (
     <>
-    <Back/>
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.Nickname}>
-          <div className={styles.Nlabel}>닉네임을 입력해주세요</div>
-          <input
-            type="text"
-            value={nickname}
-            onChange={(e) => {
-              setNickname(e.target.value);
-              setIdMessage('');
-              setIsIdChecked(false);
-            }}
-          />
-          <div className={styles.NWrapper}>
-            <div className={styles.idMessage}>
+      <div className={styles.container}>
+        <div className={styles.form}>
+          <div className={styles.ParentWrapper}>
+            <div className={styles.Parent}>본인은 보호자입니다.</div>
+            <div className={styles.trueandfalse}>
+              <div className={styles.viewWrapper}>
+                <input
+                  className={styles.Checkbox}
+                  type="checkbox"
+                  checked={isGuardian === true}
+                  onChange={() => handleCheckboxChange(true)}
+                />
+                <div className={styles.Saw}>네</div>
+              </div>
+              <div className={styles.viewWrapper}>
+                <input
+                  className={styles.Checkbox}
+                  type="checkbox"
+                  checked={isGuardian === false}
+                  onChange={() => handleCheckboxChange(false)}
+                />
+                <div className={styles.Saw}>아니요</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className={styles.Nickname}>
+            <div className={styles.Nlabel}>닉네임을 입력해주세요</div>
+            <input
+              type="text"
+              value={nickname}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                setIdMessage('');
+                setIsIdChecked(false);
+              }}
+            />
+            <div className={styles.NWrapper}>
+              <div className={styles.idMessage}>
                 {idMessage && <p>{idMessage}</p>}
               </div>
               <div className={styles.ViewNWapper}>
@@ -192,17 +257,51 @@ function App() {
           <div className={styles.Llabel}>좋아하는 운동 종류를 선택해주세요</div>
           <div className={styles.pentagon}>
             <div className={styles.checkGroup}>
-              {Object.keys(sports).map((key) => (
-                <label key={key}>
-                  <input
-                    type="checkbox"
-                    name={key}
-                    checked={sports[key]}
-                    onChange={handleSportsChange}
-                  />
-                  <span>{key}</span>
-                </label>
-              ))}
+              <label>
+                <input
+                  type="checkbox"
+                  name="muscle"
+                  checked={muscle}
+                  onChange={handleSportsChange}
+                />
+                <span>근력</span>
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="stretching"
+                  checked={stretching}
+                  onChange={handleSportsChange}
+                />
+                <span>유연성</span>
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="ball"
+                  checked={ball}
+                  onChange={handleSportsChange}
+                />
+                <span>구기</span>
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="water"
+                  checked={water}
+                  onChange={handleSportsChange}
+                />
+                <span>수상운동</span>
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="cardio"
+                  checked={cardio}
+                  onChange={handleSportsChange}
+                />
+                <span>유산소</span>
+              </label>
             </div>
           </div>
 
@@ -216,10 +315,11 @@ function App() {
             <option value="저강도">저강도</option>
           </select>
 
-          <button type="submit" className={styles.button}>등록 완료</button>
-        </form>
+          <button onClick={handleSubmit} className={styles.button}>등록 완료</button>
+        </div>
       </div>
     </>
   );
 }
+
 export default App;

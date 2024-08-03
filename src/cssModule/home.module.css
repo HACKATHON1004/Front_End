@@ -14,7 +14,7 @@
 
 .infoWrapper {
     width: 265px;
-    height: 388px;
+    height: 348px;
     margin: 0 auto;
     margin-top: 23px;
             border: 1px solid #5F6368;
@@ -50,7 +50,7 @@
 }
 
 .tableWrapper div span:last-child {
-    width: 35%;
+    width: 37%;
 }
 
 .menuWrapper {

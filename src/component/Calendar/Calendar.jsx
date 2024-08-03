@@ -13,7 +13,7 @@ export default function Calendar() {
     const [planDates, setPlanDates] = useState([]);
     const [dataDate, setDataDate] = useState([]);
     const navigate = useNavigate();
-    console.log(dataDate);
+    console.log(dataPlan);
 
     useEffect(() => {
         // Fetch dataDate

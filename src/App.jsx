@@ -2,7 +2,6 @@ import './App.css';
 import Calendar from './component/Calendar/Calendar.jsx';
 import Myobject from './component/Myobject/Myobject.jsx'
 import Plan from './component/Calendar/Plan.jsx';
-// import Home from './component/Home/Home.jsx'
 import Login from './component/Login.jsx';
 import Mempage from './component/Membership/Mempage.jsx';
 import Post from './component/Post/Post.jsx'
@@ -19,6 +18,9 @@ import Home from './component/Home/Home.jsx';
 import PlaceReview from './component/placeReview/PlaceReview.jsx';
 import RE_Home from './component/RecommendExercise/RE_Home.jsx';
 import PlaceReviewContent from './component/placeReview/PlaceReviewContent.jsx';
+import Mysetting from './component/Mysetting/Mysetting.jsx';
+import Myobjectmodify from './component/Mysetting/Myobjectmodify.jsx';
+import ProtectedRoute from './ProtectedRoute'; // 새로 만든 ProtectedRoute 컴포넌트를 import
 
 function App() {
   
@@ -27,30 +29,33 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login/>}/>
-          <Route path='/home' element={<Home/>}/>
-          <Route path='/plan' element={<Plan/>}/>
-          <Route path='/findMap' element={<FindPlace/>}/>
           <Route path='/signUp' element={<Mempage/>}/>
-          <Route path='/inputUserInfo' element={<Myobject/>}/>
-          <Route path='/findMapHome' element={<FP_Home/>}/>
-          <Route path='/calendar' element={<Calendar/>}/>
-          <Route path='/communityHome' element={<RecruitPlaceHome/>}/>
-          <Route path='/recruitPlace' element={<RecruitPlacePost/>}/>
-          <Route path='/postContent' element={<PostContent/>}/>
-          <Route path='/freePost' element={<Post/>}/>
-          <Route path='/recruitPlace_postContent' element={<RecruitPlacePostContent/>}/>
-          <Route path='/recruitPlace/Post' element={<RecruitPlacePostWrite/>}/>
-          <Route path='/recruitPlace/post/:id' element={<RecruitPlacePostContent/>}/>
-          <Route path='/placeReview' element={<PlaceReview/>}/>
-          <Route path='/RecommendExercise' element={<RE_Home/>}/>
-          <Route path='/placeReview/:id' element={<PlaceReviewContent/>}/>
-          <Route path='/freePost/post' element={<PostWrite/>}/>
-          <Route path='/freePost/post/:id' element={<PostContent/>}/>
-          <Route path='/calendar/plan/:id' element={<Plan/>}/>
+          <Route path='/home' element={<ProtectedRoute element={<Home/>}/>}/>
+          <Route path='/plan' element={<ProtectedRoute element={<Plan/>}/>}/>
+          <Route path='/findMap' element={<ProtectedRoute element={<FindPlace/>}/>}/>
+          <Route path='/inputUserInfo' element={<ProtectedRoute element={<Myobject/>}/>}/>
+          <Route path='/findMapHome' element={<ProtectedRoute element={<FP_Home/>}/>}/>
+          <Route path='/calendar' element={<ProtectedRoute element={<Calendar/>}/>}/>
+          <Route path='/communityHome' element={<ProtectedRoute element={<RecruitPlaceHome/>}/>}/>
+          <Route path='/recruitPlace' element={<ProtectedRoute element={<RecruitPlacePost/>}/>}/>
+          <Route path='/postContent' element={<ProtectedRoute element={<PostContent/>}/>}/>
+          <Route path='/freePost' element={<ProtectedRoute element={<Post/>}/>}/>
+          <Route path='/recruitPlace_postContent' element={<ProtectedRoute element={<RecruitPlacePostContent/>}/>}/>
+          <Route path='/recruitPlace/Post' element={<ProtectedRoute element={<RecruitPlacePostWrite/>}/>}/>
+          <Route path='/recruitPlace/post/:id' element={<ProtectedRoute element={<RecruitPlacePostContent/>}/>}/>
+          <Route path='/placeReview' element={<ProtectedRoute element={<PlaceReview/>}/>}/>
+          <Route path='/RecommendExercise' element={<ProtectedRoute element={<RE_Home/>}/>}/>
+          <Route path='/placeReview/:id' element={<ProtectedRoute element={<PlaceReviewContent/>}/>}/>
+          <Route path='/freePost/post' element={<ProtectedRoute element={<PostWrite/>}/>}/>
+          <Route path='/freePost/post/:id' element={<ProtectedRoute element={<PostContent/>}/>}/>
+          <Route path='/calendar/plan/:id' element={<ProtectedRoute element={<Plan/>}/>}/>
+          <Route path='/Myobject' element={<ProtectedRoute element={<Myobject/>}/>}/>
+          <Route path='/Mysettings' element={<ProtectedRoute element={<Mysetting/>}/>}/>
+          <Route path='/modifyUserInfo' element={<ProtectedRoute element={<Myobjectmodify/>}/>}/>
         </Routes>
       </BrowserRouter>
     </>
   );
 }
 
-export default App
+export default App;

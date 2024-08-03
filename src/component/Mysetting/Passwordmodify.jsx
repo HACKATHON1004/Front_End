@@ -1,29 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
-import styles from '../cssModule/Passwordmodify.module.css';
-import '../App.css';
+import React, { useState, useRef } from 'react';
+import styles from '../../cssModule/Passwordmodify.module.css';
 import axios from 'axios';
+import Back from '../Button/Back';
+import Cookies from 'js-cookie';
 
 export default function PasswordChange() {
-  const currentPwRef = useRef();
-  const newPwRef = useRef();
-  const confirmPwRef = useRef();
   const [isCheckedCurrent, setIsCheckedCurrent] = useState(false);
   const [isCheckedNew, setIsCheckedNew] = useState(false);
   const [isCheckedConfirm, setIsCheckedConfirm] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [passwordMatchMessage, setPasswordMatchMessage] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
   const [isCurrentPasswordValid, setIsCurrentPasswordValid] = useState(false);
   const [isNewPasswordValid, setIsNewPasswordValid] = useState(false);
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Fetch the current password from the server when the component mounts
-    fetch('/api/current-password')
-      .then(response => response.json())
-      .then(data => setCurrentPassword(data.password))
-      .catch(error => console.error('현재 비밀번호를 가져오는 중 오류 발생:', error));
-  }, []);
+  const currentPwRef = useRef();
+  const newPwRef = useRef();
+  const confirmPwRef = useRef();
 
   const validatePassword = (password) => {
     const minLength = 8;
@@ -39,37 +33,6 @@ export default function PasswordChange() {
     return message;
   };
 
-  const handleCurrentPasswordChange = (e) => {
-    const enteredCurrentPassword = e.target.value;
-    setIsCurrentPasswordValid(enteredCurrentPassword === currentPassword);
-  };
-
-  const handleNewPasswordChange = (e) => {
-    const newPassword = e.target.value;
-    const validationMessage = validatePassword(newPassword);
-    setPasswordErrorMessage(validationMessage);
-    setIsNewPasswordValid(validationMessage === "");
-    checkPasswordMatch(newPassword, confirmPwRef.current.value);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    const newConfirmPassword = e.target.value;
-    checkPasswordMatch(newPwRef.current.value, newConfirmPassword);
-  };
-
-  const checkPasswordMatch = (password, confirmPassword) => {
-    if (password === confirmPassword && password.length > 0) {
-      setPasswordMatchMessage("비밀번호가 일치합니다.");
-      setIsPasswordConfirmed(true);
-    } else if (password.length > 0 || confirmPassword.length > 0) {
-      setPasswordMatchMessage("비밀번호가 일치하지 않습니다.");
-      setIsPasswordConfirmed(false);
-    } else {
-      setPasswordMatchMessage("");
-      setIsPasswordConfirmed(false);
-    }
-  };
-
   const handleCheckboxChangeCurrent = () => {
     setIsCheckedCurrent(!isCheckedCurrent);
   };
@@ -82,32 +45,59 @@ export default function PasswordChange() {
     setIsCheckedConfirm(!isCheckedConfirm);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const enteredCurrentPassword = currentPwRef.current.value;
+  const handleCurrentPasswordChange = () => {
+    const password = currentPwRef.current.value;
+    const errorMessage = validatePassword(password);
+    setIsCurrentPasswordValid(!errorMessage);
+    setPasswordErrorMessage(errorMessage);
+  };
 
-    // Check if the entered current password matches the fetched current password
-    if (enteredCurrentPassword !== currentPassword) {
-      alert('현재 비밀번호가 일치하지 않습니다.');
-      return;
-    }
+  const handleNewPasswordChange = () => {
+    const password = newPwRef.current.value;
+    const errorMessage = validatePassword(password);
+    setIsNewPasswordValid(!errorMessage);
+    setPasswordErrorMessage(errorMessage);
+  };
 
+  const handleConfirmPasswordChange = () => {
+    const password = confirmPwRef.current.value;
     const newPassword = newPwRef.current.value;
+    const matchMessage = password !== newPassword ? "비밀번호가 일치하지 않습니다." : "";
+    setIsPasswordConfirmed(!matchMessage);
+    setPasswordMatchMessage(matchMessage);
+  };
 
-    // Send the new password to the backend
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.post('/api/change-password', { newPassword });
-      console.log('비밀번호 변경 완료:', response.data);
-      alert('비밀번호가 성공적으로 변경되었습니다.');
+      const token = Cookies.get('token');
+      const response = await axios.patch('https://real-east.shop/user', {
+        currentPassword: currentPwRef.current.value,
+        newPassword: newPwRef.current.value
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Network response was not ok`);
+      }
+
+      
+      console.log('Password changed successfully');
     } catch (error) {
-      console.error('비밀번호 변경 중 오류 발생:', error);
-      alert('비밀번호 변경 중 오류가 발생했습니다.');
+      
+      setError(error.message);
     }
   };
+  console.log(handleSubmit)
 
   return (
     <div className={styles.Container}>
-      <form className={styles.Form} onSubmit={handleSubmit}>
+      <Back />
+      <form className={styles.Form} >
         <div className={styles.CPW}>
           <p className={styles.CLabel}>현재 비밀번호</p>
           <input
@@ -180,15 +170,16 @@ export default function PasswordChange() {
         </div>
 
         <div>
-          <button
+          <button onClick={handleSubmit}
             className={styles.Button}
-            type="submit"
+            
             disabled={!(isCurrentPasswordValid && isNewPasswordValid && isPasswordConfirmed)}
           >
             변경하기
           </button>
         </div>
       </form>
+      {error && <p className={styles.Error}>{error}</p>}
     </div>
   );
 }
