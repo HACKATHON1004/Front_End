@@ -1,9 +1,6 @@
 .Modifycontainer{
-    
-   
     max-width: 430px;
     max-height: 1045px;
-   
 }
 .Form{
     width: 430px;
@@ -164,6 +161,7 @@
     margin-top: 20px;
 }
 .FSport{
+    margin-top: 50px;
     width: 275px;
     height: 20px;
     font-size: 17px;
@@ -172,6 +170,7 @@
     font-family: 'PretendardVariable', sans-serif;
 }
 .FSportselect{
+    margin-top: 50px;
     display: flex;
     width: 93px;
     height: 26px;
@@ -180,11 +179,12 @@
     font-family: 'PretendardVariable', sans-serif;
 }
 .WSWapper{
-    margin-top: 20px;
+    margin-top: 0px;
     width: 256px;
     height: 51px;
 }
 .WSport{
+    margin-top: 100px;
     width: 256px;
     height: 20px;
     font-size: 17px;
@@ -206,6 +206,7 @@
     height: 51px;
 }
 .Parent{
+    margin-top: 100px;
     width: 256px;
     height: 20px;
     font-size: 17px;
@@ -222,7 +223,7 @@
     font-family: 'PretendardVariable', sans-serif;
 }
 .modifyWapper{
-    margin-top: 100px;
+    margin-top: 80px;
     height: 50px;
     width: 280px;
     
@@ -238,3 +239,48 @@
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
     
 }
+
+.FSWapper {
+    width: 268px;
+    height: auto; 
+    margin-top: 20px;
+  }
+  
+  .FSport {
+    width: 275px;
+    height: 20px;
+    font-size: 17px;
+    display: flex;
+    font-weight: 400;
+    font-family: 'PretendardVariable', sans-serif;
+  }
+  
+  .FSportselect {
+    display: flex;
+    flex-direction: column; 
+    margin-top: 10px; 
+  }
+  
+  .FSportselect label {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: 'PretendardVariable', sans-serif;
+    margin-bottom: 5px; 
+  }
+  
+  .FSportselect input {
+    margin-right: 10px; 
+    width: 16px; 
+    height: 16px; 
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+    margin-top: -2px;
+    margin-bottom: -2px;
+  }
+  
+  

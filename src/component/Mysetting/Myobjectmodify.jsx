@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../../cssModule/mypmodify.module.css';
 import axios from 'axios';  
 import Back from '../Button/Back';
+import Cookies from 'js-cookie'; 
 
 function App() {
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
@@ -10,16 +11,22 @@ function App() {
   const [disability, setDisability] = useState('');
   const [disabilityType, setDisabilityType] = useState('');
   const [limbDisability, setLimbDisability] = useState('');
-  const [favoriteSport, setFavoriteSport] = useState('');
+  const [favoriteSport, setFavoriteSport] = useState({
+    muscle: false,
+    cardio: false,
+    stretching: false,
+    water: false,
+    ball: false,
+  });
   const [intensity, setIntensity] = useState('');
   const [nickname, setNickname] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
-  const [isguardian, setisGuardian] = useState(''); // 보호자 여부 상태 변수 추가
+  const [isGuardian, setIsGuardian] = useState(false); 
 
   const handleNicknameCheck = async () => {
     try {
-      const response = await fetch(`http://13.209.239.251:8080/userinfo/check-nickname?nickname=${nickname}`);
+      const response = await fetch(`https://real-east.shop/userinfo`);
       const data = await response.json();
       if (data.exists) {
         setNicknameMessage('이미 사용중인 닉네임입니다.');
@@ -34,6 +41,14 @@ function App() {
     }
   };
 
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setFavoriteSport((prevSports) => ({
+      ...prevSports,
+      [name]: checked,
+    }));
+  };
+
   const handleSubmit = async () => {
     setNicknameErrorMessage('');
 
@@ -43,19 +58,25 @@ function App() {
     }
 
     try {
-      const response = await axios.patch('http://13.209.239.251:8080/userinfo', {
+      const token = Cookies.get('token');
+      const response = await axios.patch('https://real-east.shop/userinfo', {
         nickname,
         age,
         sex: gender,
         disabilityCF: disability,
         disabilityK: disabilityType,
         disabilityKK: limbDisability,
-        exerciseKind: favoriteSport,
+        muscle: favoriteSport.muscle,
+        cardio: favoriteSport.cardio,
+        stretching: favoriteSport.stretching,
+        water: favoriteSport.water,
+        ball: favoriteSport.ball,
         exerciseIntensity: intensity,
-        isGuardian:true,
+        isGuardian: isGuardian,
       }, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         }
       });
 
@@ -175,18 +196,53 @@ function App() {
         {/* 좋아하는 운동 종류 선택 섹션 */}
         <div className={styles.FSWapper}>
           <div className={styles.FSport}>좋아하는 운동 종류를 선택해주세요</div>
-          <select
-            value={favoriteSport}
-            onChange={(e) => setFavoriteSport(e.target.value)}
-            className={styles.FSportselect}
-          >
-            <option value="">운동 종류</option>
-            <option value="근력">근력</option>
-            <option value="유산소">유산소</option>
-            <option value="유연성">유연성</option>
-            <option value="수상운동">수상운동</option>
-            <option value="구기">구기</option>
-          </select>
+          <div className={styles.FSportselect}>
+            <label>
+              <input
+                type="checkbox"
+                name="muscle"
+                checked={favoriteSport.muscle}
+                onChange={handleCheckboxChange}
+              />
+              근력
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="cardio"
+                checked={favoriteSport.cardio}
+                onChange={handleCheckboxChange}
+              />
+              유산소
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="stretching"
+                checked={favoriteSport.stretching}
+                onChange={handleCheckboxChange}
+              />
+              유연성
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="water"
+                checked={favoriteSport.water}
+                onChange={handleCheckboxChange}
+              />
+              수상운동
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="ball"
+                checked={favoriteSport.ball}
+                onChange={handleCheckboxChange}
+              />
+              구기
+            </label>
+          </div>
         </div>
 
         {/* 원하는 운동 강도 선택 섹션 */}
@@ -207,8 +263,8 @@ function App() {
         <div className={styles.PWapper}>
           <div className={styles.Parent}>보호자 여부를 선택해주세요</div>
           <select
-            value={isguardian}
-            onChange={(e) => setisGuardian(e.target.value)}
+            value={isGuardian}
+            onChange={(e) => setIsGuardian(e.target.value === 'O')}
             className={styles.guardianselect}
           >
             <option value="">선택</option>

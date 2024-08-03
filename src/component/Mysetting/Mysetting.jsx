@@ -1,10 +1,11 @@
+import axios from 'axios';  
 import { useState } from 'react'
 import styles from '../../cssModule/mys.module.css';
 import { useNavigate } from 'react-router-dom'; 
-import Modal2 from '../Modal2';
+import Modal4 from '../Modal4';
 import Back from '../Button/Back';
+import Cookies from 'js-cookie'; 
 
-//개인 정보 서비스 정보
 
 function App(){
     const [showModal, setShowModal] = useState(false);
@@ -14,6 +15,29 @@ function App(){
     }
     function handleDelete() {
         setShowModal(true);
+    }
+    const Delete = async () => {
+        try {
+          const token = Cookies.get('token');
+            const response = await axios.delete('https://real-east.shop/user',
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                }
+              }
+            );
+      
+            if (response.status === 200) {
+              console.log("데이터 전송 성공");
+              navigate('/login'); 
+              handleCloseModal(); 
+            } else {
+              console.error("데이터 전송 실패");
+            }
+          } catch (error) {
+            console.error("데이터 전송 중 오류 발생", error);
+          }
     }
 
     function handleNotice() {
@@ -32,6 +56,10 @@ function App(){
         navigate('/serviceIntro');  
     }
 
+    function logOut() {
+        navigate('/login');  
+    }
+
     return(
         <div className={styles.container}>
             <Back />
@@ -47,12 +75,13 @@ function App(){
                 <button onClick={handleServiceIntro} className={styles.Serviceintroduction}>서비스 소개</button>
             </div>
             <div className={styles.SignoutButton}>
-              <button className={styles.Signout}>로그 아웃</button>
+              <button onClick={logOut}className={styles.Signout}>로그 아웃</button>
             </div>
             {showModal && (
-                    <Modal2
+                    <Modal4
                         message="정말 탈퇴 하시겠습니까?"
                         onClose={handleCloseModal}
+                        onConfirm={Delete}
                     />
                 )}
 
