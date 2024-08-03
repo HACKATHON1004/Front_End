@@ -3,7 +3,7 @@ import styles from '../../cssModule/StarpostContent.module.css';
 import profile from '../../images/1.svg';
 import axios from 'axios';
 
-export default function CmtModal() {
+export default function StarCmtModal() {
   const [isCommentBoxVisible, setCommentBoxVisible] = useState(false);
   const [isBox, setIsBox] = useState(false);
   const [rating, setRating] = useState(0);

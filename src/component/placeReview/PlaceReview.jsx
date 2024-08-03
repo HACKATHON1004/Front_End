@@ -6,14 +6,17 @@ import img1 from '../../images/pencil.svg';
 import img2 from '../../images/close.svg';
 import img3 from '../../images/search.svg';
 import cat from '../../images/grayCat.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function PlaceReview() {
-    const [currentLocation, setCurrentLocation] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
   const [parkFacilities, setParkFacilities] = useState([]);
   const [healthFacilities, setHealthFacilities] = useState([]);
   const [search, setSearch] = useState('장애인');
   const [search2, setSearch2] = useState('헬스장');
+  const [search3, setSearch3] = useState('운동');
+  const [search4, setSearch4] = useState('공원');
   const [sortedData, setSortedData] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
   const [doesSearch, setDoesSearch] = useState(false);
@@ -31,6 +34,8 @@ export default function PlaceReview() {
     setSearch(inputRef.current.value);
     setSearch2('라어낸');
     setDoesSearch(false);
+    setSearch3('ksjfosk');
+    setSearch4('akasjfo');
   }
 
   useEffect(() => {
@@ -75,7 +80,7 @@ export default function PlaceReview() {
       const data2 = await response2.json();
 
       const response3 = await fetch(
-        `https://dapi.kakao.com/v2/local/search/keyword.json?x=${location.lng}&y=${location.lat}&radius=5000&query=운동`,
+        `https://dapi.kakao.com/v2/local/search/keyword.json?x=${location.lng}&y=${location.lat}&radius=5000&query=${search3}`,
         {
           headers: {
             Authorization: 'KakaoAK de534ad8a6c23d715eaf602c76382205',
@@ -84,6 +89,16 @@ export default function PlaceReview() {
       );
       const data3 = await response3.json();
 
+      const response4 = await fetch(
+        `https://dapi.kakao.com/v2/local/search/keyword.json?x=${location.lng}&y=${location.lat}&radius=5000&query=${search4}`,
+        {
+          headers: {
+            Authorization: 'KakaoAK de534ad8a6c23d715eaf602c76382205',
+          },
+        }
+      );
+      const data4 = await response4.json();
+
       console.log(data);
       console.log(data2);
 
@@ -91,7 +106,8 @@ export default function PlaceReview() {
       const parks = data.documents;
       const healths = data2.documents;
       const third = data3.documents;
-      const combinedData = [...parks, ...healths, ...third];
+      const fourth = data4.documents;
+      const combinedData = [...parks, ...healths, ...third, ...fourth];
       const sortedData = combinedData.sort((a, b) => a.distance - b.distance);
       const uniqueData = [];
       const seenIds = new Set();
@@ -112,11 +128,17 @@ export default function PlaceReview() {
     }
   };
 
-  const handleFacilityClick = (id) => {
-    // setSelectedFacility(facility);
-    setID(id);
-    setDoesSearch(true);
-    navigate(`${id}`);
+  const handleFacilityClick = (placeName, address) => {
+    axios.post(`${import.meta.env.VITE_SERVER_URL}/place`, {
+      placeName,
+      address,
+    })
+      .then(res=>{
+        setDoesSearch(true);
+        navigate(`${res.data}`);
+      })
+    // setDoesSearch(true);
+    // navigate('1');
   };
 
   return (
@@ -157,7 +179,7 @@ export default function PlaceReview() {
           ) : (
             <div className={styles.cardWrapper}>
           {sortedData.map((facility) => (
-            <div onClick={() => handleFacilityClick(facility.id)} className={styles.card} key={facility.id} >
+            <div onClick={() => handleFacilityClick(facility.place_name, facility.address_name)} className={styles.card} key={facility.id} >
               <div className={styles.imageSection}>
                 <img src={cat} alt="Cat" className={styles.catImage} />
               </div>

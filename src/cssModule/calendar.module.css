@@ -51,6 +51,10 @@
 }
 
 .currentDay {
+    bottom: 2px;
+    position: relative;
+    box-sizing: border-box;
+    width: 40px;
     font-weight: bold;
     display: flex;
     justify-content: center;
@@ -73,7 +77,7 @@
 
 .plan div {
     width: 50%;
-    text-align: left;
+    text-align: center;
 }
 
 .plan div:last-child {

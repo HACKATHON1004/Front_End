@@ -4,50 +4,62 @@ import is from '../../images/1.svg';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function PostList({ field, eventTime }) {
+export default function PostList({ field, eventTime, type }) {
   const [posts, setPosts] = useState([]);
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
   console.log(eventTime);
   console.log(posts);
 
-  function handleNavigatePostContent(id) {
-    navigate(`post/${id}`);
-  }
-
   useEffect(() => {
     const today = new Date(); // 오늘 날짜 객체 생성
 
     const filterOldPosts = (data) => {
       return data.filter((post) => {
-        // eventTime을 "yyyy-mm-dd-HH:MM"에서 "yyyy-mm-ddTHH:MM:00"로 변환
-        const date = post.eventTime.slice(0, 10);
+        const date = post.eventTime.split("-").join(" ");
         const postDate = new Date(date);
+        console.log("fetched id: ", post.id);
+        console.log(postDate);
+        console.log(today);
+        console.log("만든시간:", post.createDate);
         return postDate >= today; // 오늘보다 이후의 날짜인지 확인
       });
     };
 
-    if (isFirstRender.current) {
-      axios.get('http://13.209.239.251:8080/recruit')
-        .then(res => {
-          const filteredPosts = filterOldPosts(res.data);
-          setPosts(filteredPosts);
-          isFirstRender.current = false;
-        })
-        .catch(err => {
-          console.error(err);
-        });
+    if (!type) {
+      if (isFirstRender.current) {
+        axios.get('http://13.209.239.251:8080/recruit')
+          .then(res => {
+            const filteredPosts = filterOldPosts(res.data);
+            filteredPosts.reverse(); // 배열을 역순으로 변환
+            setPosts(filteredPosts);
+            isFirstRender.current = false;
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else {
+        axios.get(`http://13.209.239.251:8080/recruit/eventTime/${eventTime}`)
+          .then(res => {
+            const filteredPosts = filterOldPosts(res.data);
+            filteredPosts.reverse(); // 배열을 역순으로 변환
+            setPosts(filteredPosts);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      }
     } else {
-      axios.get(`http://13.209.239.251:8080/recruit/eventTime/${eventTime}`)
+      axios.get(`${import.meta.env.VITE_SERVER_URL}/free`)
         .then(res => {
-          const filteredPosts = filterOldPosts(res.data);
-          setPosts(filteredPosts);
+          const reversedPosts = res.data.reverse(); // 배열을 역순으로 변환
+          setPosts(reversedPosts);
         })
         .catch(err => {
           console.error(err);
         });
     }
-  }, [eventTime]);
+  }, [eventTime, type]);
 
   return (
     <>
@@ -59,8 +71,9 @@ export default function PostList({ field, eventTime }) {
         <div>{field}</div>
       </div>
       {posts.map((item, index) => {
+        console.log(item.id);
         return (
-          <div onClick={()=>handleNavigatePostContent(item.id)} key={index} className={styles.tableBody}>
+          <div onClick={() => navigate(`post/${item.id}`)} key={item.id} className={styles.tableBody}>
             <div className={styles.tableHead} key={index}>
               <div>{item.title}</div>
               <div className={styles.author}>
@@ -69,7 +82,7 @@ export default function PostList({ field, eventTime }) {
               </div>
               <div>{item.createDate.slice(2, 10)}</div>
               <div>{item.view}</div>
-              <div>{field === "추천" ? item.recommendations : item.currentRecruit + "/" + item.totalRecruit}</div>
+              <div>{field === "추천" ? item.totalRecommend : item.currentRecruit + "/" + item.totalRecruit}</div>
             </div>
           </div>
         );

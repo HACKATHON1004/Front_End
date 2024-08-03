@@ -1,1 +1,1 @@
-export * from './usePush.js'
+export * from './useFetch.js'

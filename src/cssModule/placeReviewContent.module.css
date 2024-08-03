@@ -84,6 +84,10 @@ span {
     padding: 10px 0; /* 추가 */
 }
 
+.reviewItem div:last-child {
+    text-align: left;
+}
+
 .userInfo {
     display: flex;
     align-items: center;

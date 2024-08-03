@@ -38,7 +38,7 @@ export default function RecruitPlacePost() {
                     <div className={styles.dateSelector}>
                         <label className={styles.dateLabel}>날짜</label>
                         <div className={styles.selectors}>
-                            <input ref={dateRef} min={today} type='date' id='date' name='date' defaultValue={today} />
+                            <input ref={dateRef} min={today} type='date' id='date' name='date'/>
                         </div>
                     </div>
                     <div className={styles.tableWrapper}>

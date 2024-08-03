@@ -1,32 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Back from '../Button/Back';
 import styles from '../../cssModule/calendar.module.css';
-import { useEffect } from 'react';
-import left from '../../images/left.svg'
-import right from '../../images/right.svg'
+import left from '../../images/left.svg';
+import right from '../../images/right.svg';
+import cookie from 'js-cookie';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [dataPlan, setDataPlan] = useState([]);
-    const [planDays, setPlanDays] = useState([]);
-    const [planMonths, setPlanMonths] = useState([]);
     const [planDates, setPlanDates] = useState([]);
-    useEffect(()=>{
-        //fetch dataDate
+    const [dataDate, setDataDate] = useState([]);
+    const navigate = useNavigate();
+    console.log(dataDate);
 
-        const dataDate = ["2024-07-14T00:00", "2024-08-09"]; //axios로 가져온 날짜 배열
-        // const dataMonths = dataDate.map(date => new Date(date).getMonth()+1);
-        // const dataDates = dataDate.map(date => new Date(date).getDate());
-        // setPlanDays(dataDates);
-        // setPlanMonths(dataMonths);
-
-        const parsedDates = dataDate.map(date => new Date(date));
-        setPlanDates(parsedDates);
+    useEffect(() => {
+        // Fetch dataDate
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/calendar`, {
+            headers: { 
+                Authorization: cookie.get("token")
+            }
+        })
+        .then((res) => {
+            const dates = res.data.map(item => item.slice(0, 10));
+            setDataDate(dates);
+        })
+        .catch(error => {
+            console.error("Error fetching calendar data", error);
+        });
     }, []);
 
-    console.log(currentDate.getMonth()+1);
-    console.log(planDays);
-    console.log(planMonths);
+    useEffect(() => {
+        const parsedDates = dataDate.map(date => new Date(date));
+        setPlanDates(parsedDates);
+    }, [dataDate]);
 
     function isHilighted(day) {
         return planDates.some(planDate => 
@@ -36,28 +44,42 @@ export default function Calendar() {
         );
     }
 
-    function fetchPlans() {
-        //fetch planData
-
-        const dataPlan = [
-            {
-                startTime: "10:00",
-                endTime: "12:00",
-                planName: "000 정기모임"
-            },
-            {
-                startTime: "13:00",
-                endTime: "15:00",
-                planName: "@@@ 정기모임"
-            },
-            {
-                startTime: "17:00",
-                endTime: "19:00",
-                planName: "000 회식"
+    function fetchPlans(day) {
+        // Fetch planData
+        // axios.get(`${import.meta.env.VITE_SERVER_URL}/calendar/eventTime/${}`)
+        const parsedDay = day>=10 ? day : '0'+day;
+        const month = (currentDate.getMonth()+1)>=10 ? currentDate.getMonth()+1 : "0"+(currentDate.getMonth()+1);
+        const date = currentDate.getFullYear().toString()+"-"+month+"-"+parsedDay;
+        console.log(date);
+        
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/calendar/eventTime/${date}`,{
+            headers: {
+                Authorization: cookie.get("token")
             }
-        ]
+        })
+            .then((res)=>{
+                setDataPlan(res.data);
+            })
 
-        setDataPlan(dataPlan);
+        // const dataPlan = [
+        //     {
+        //         startTime: "10:00",
+        //         endTime: "12:00",
+        //         planName: "000 정기모임"
+        //     },
+        //     {
+        //         startTime: "13:00",
+        //         endTime: "15:00",
+        //         planName: "@@@ 정기모임"
+        //     },
+        //     {
+        //         startTime: "17:00",
+        //         endTime: "19:00",
+        //         planName: "000 회식"
+        //     }
+        // ];
+
+        // setDataPlan(dataPlan);
     }
 
     const daysInMonth = new Date(
@@ -65,7 +87,6 @@ export default function Calendar() {
         currentDate.getMonth() + 1,
         0
     ).getDate();
-    // console.log(new Date(planDays[0]).getDate()-1);
 
     const firstDayOfMonth = new Date(
         currentDate.getFullYear(),
@@ -94,7 +115,7 @@ export default function Calendar() {
     for (let i = 1; i <= daysInMonth; i++) {
         const classes = isHilighted(i) ? styles.currentDay : styles.day;
         days.push(
-            <div to="/" onClick={fetchPlans} className={classes} key={i}>
+            <div to="/" onClick={()=>fetchPlans(i)} className={classes} key={i}>
                 {i}
             </div>
         );
@@ -116,15 +137,9 @@ export default function Calendar() {
             <div className={styles.pageWrapper}>
                 <div className={styles.calendar}>
                     <div className={styles.up}>
-                        {/* <button onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))}>
-                            이전 달
-                        </button> */}
-                        <img src={left} onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))}/>
+                        <img src={left} onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))} />
                         <span>{currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
-                        {/* <button onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))}>
-                            다음 달
-                        </button> */}
-                        <img src={right} onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))}/>
+                        <img src={right} onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))} />
                     </div>
                     <div className={styles.days}>
                         <div className={styles.dayName}>일</div>
@@ -138,20 +153,16 @@ export default function Calendar() {
                     </div>
                 </div>
                 <div className={styles.planList}>
-                    {dataPlan.map((data, index)=>{
-                        return (
-                            <div key={index} className={styles.plan}>
-                                <div>
-                                    <span>{data.startTime} </span>
-                                    <span>~ </span>
-                                    <span>{data.endTime}</span>
-                                </div>
-                                <div>
-                                    <span>{data.planName}</span>
-                                </div>
+                    {dataPlan.map((data, index) => (
+                        <div onClick={()=>navigate(`/calendar/plan/${data.id}`)} key={index} className={styles.plan}>
+                            <div>
+                                <span>{data.eventTime.slice(11)} </span>
                             </div>
-                        )
-                    })}
+                            <div>
+                                <span>{data.title}</span>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

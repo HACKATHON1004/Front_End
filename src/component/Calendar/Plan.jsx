@@ -3,10 +3,17 @@ import styles from "../../cssModule/plan.module.css"
 import exImg from '../../images/exImg.svg'
 import Modal2 from "../Modal2";
 import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import cookie from 'js-cookie'
 
 export default function Plan() {
+    const param = useParams();
+    const eventId = param.id;
     const [showModal, setShowModal] = useState(false);
     const memoRef = useRef();
+    const [eventData, setEventData] = useState({});
+    console.log(eventData);
 
     function handleDelete() {
         setShowModal(true);
@@ -18,6 +25,14 @@ export default function Plan() {
 
     useEffect(() => {
         // 마운트 시 실행되는 코드
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/calendar/${eventId}`,{
+            headers: {
+                Authorization: cookie.get("token")
+            }
+        })
+            .then(res=>{
+                setEventData(res.data);
+            })
     
         return () => {
           // 종료 직전에 실행되는 코드
@@ -29,25 +44,25 @@ export default function Plan() {
         <>
             <Back/>
             <div className={styles.pageWrapper}>
-                <div className={styles.date}>2024년 7월 9일</div>
-                <div className={styles.planName}>000 정기모임</div>
+                <div className={styles.date}>{eventData.eventTime&&eventData.eventTime.slice(0,10)}</div>
+                <div className={styles.planName}>{eventData.title}</div>
                 <div className={styles.detailHeader}>이벤트 세부사항</div>
                 <div className={styles.detailWrapper}>
                     <div className={styles.placeName}>장소 : 반다비 체육센터</div>
                     <img src={exImg}/>
-                    <div className={styles.address}>양산시 물금읍 부산대학로 34</div>
+                    <div className={styles.address}>{eventData.location}</div>
                     <div className={styles.tableWrapper}>
                         <div>
                             <span>시간</span>
-                            <span>17:00 ~ 19:00</span>
+                            <span>{eventData.eventTime&&eventData.eventTime.slice(12)} ~ </span>
                         </div>
                         <div>
                             <span>주최자 연락처</span>
-                            <span>010-1234-5678</span>
+                            <span>{eventData.phone}</span>
                         </div>
                         <div>
                             <span>인원 수</span>
-                            <span>5명</span>
+                            <span>{eventData.currentRecruit}/{eventData.totalRecruit}</span>
                         </div>
                     </div>
                 </div>

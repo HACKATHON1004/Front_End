@@ -44,6 +44,9 @@ function App() {
           <Route path='/placeReview' element={<PlaceReview/>}/>
           <Route path='/RecommendExercise' element={<RE_Home/>}/>
           <Route path='/placeReview/:id' element={<PlaceReviewContent/>}/>
+          <Route path='/freePost/post' element={<PostWrite/>}/>
+          <Route path='/freePost/post/:id' element={<PostContent/>}/>
+          <Route path='/calendar/plan/:id' element={<Plan/>}/>
         </Routes>
       </BrowserRouter>
     </>
