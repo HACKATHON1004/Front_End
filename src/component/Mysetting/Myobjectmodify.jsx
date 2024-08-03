@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from '../../cssModule/mypmodify.module.css';
 import axios from 'axios';  
 import Back from '../Button/Back';
+import Cookies from 'js-cookie'
+
 
 function App() {
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
@@ -15,11 +17,11 @@ function App() {
   const [nickname, setNickname] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
-  const [isguardian, setisGuardian] = useState(''); // 보호자 여부 상태 변수 추가
+  const [isguardian, setisGuardian] = useState(''); 
 
   const handleNicknameCheck = async () => {
     try {
-      const response = await fetch(`http://13.209.239.251:8080/userinfo/check-nickname?nickname=${nickname}`);
+      const response = await fetch(`https://real-east.shop/userinfo`);
       const data = await response.json();
       if (data.exists) {
         setNicknameMessage('이미 사용중인 닉네임입니다.');
@@ -33,7 +35,7 @@ function App() {
       setIsNicknameChecked(false);
     }
   };
-
+console.log(handleNicknameCheck)
   const handleSubmit = async () => {
     setNicknameErrorMessage('');
 
@@ -43,19 +45,23 @@ function App() {
     }
 
     try {
-      const response = await axios.patch('http://13.209.239.251:8080/userinfo', {
+      const token = Cookies.get('token');
+      const response = await axios.patch('https://real-east.shop/userinfo', {
         nickname,
         age,
         sex: gender,
         disabilityCF: disability,
         disabilityK: disabilityType,
         disabilityKK: limbDisability,
-        exerciseKind: favoriteSport,
+        exerciseKind: favoriteSport,    
         exerciseIntensity: intensity,
-        isGuardian:true,
+        isguardian,
       }, {
         headers: {
+         
+          // Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Im9rIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTcyMjY5NDIzMCwiZXhwIjoxNzIyNzAxNDMwfQ.arj08s5pGOcaIAakLPSkiDNwAriluJ-7Ip2Dsi38yMA`,
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         }
       });
 
@@ -64,9 +70,9 @@ function App() {
       } else {
         console.log('수정 실패');
       }
-    } catch (error) {
-      console.error('서버 요청 실패:', error);
-    }
+      } catch (error) {
+        console.error('서버 요청 실패:', error);
+      }
   };
 
   return (

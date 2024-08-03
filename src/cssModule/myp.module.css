@@ -33,6 +33,7 @@
     height: 30px;
     font-size: 26px;
     font-weight: 400;
+    margin-top: 30px;
   }
 
   .Alabel {
@@ -52,18 +53,25 @@
   
   .idMessage {
     width: 70%;
-    font-size: 15px;
+    font-size: 13px;
     display: flex;
     color: red;
     margin-top: 0;
     font-weight: 600;
   }
-  
+  /* .idMessage p{
+color:#01D83D;
+  }
+   */
   p {
     margin-top: 0px;
     margin-bottom: 0;
   }
-  
+  .form{
+    width: 400px;
+height: 1409px;
+margin-top: 55px;
+  }
   .button {
     background-color: #2C92FE;
     color: white;
@@ -111,7 +119,7 @@
   }
 
   .checkGroup label:nth-child(2) {
-    right: 70px;
+    right: 80px;
     top: 50px;
   }
 
@@ -122,7 +130,7 @@
 
   .checkGroup label:nth-child(4) {
     top: 130px;
-    right: 50px;
+    right: 68px;
   }
 
   .checkGroup label:last-child {
@@ -146,7 +154,7 @@
     font-size: 15px;
     border-radius: 10px;
     cursor: pointer;
-    width: 87px;
+    width: 92px;
     height: 44px;
     margin-left: 15px;
   }
@@ -215,3 +223,91 @@
   option {
     padding: 0;
   }
+
+  .ParentWrapper{
+    width: 320px;
+    height: 99px;
+}
+.Parent{
+    width: 290px;
+    height: 30px;
+    font-weight: 400;
+    font-size: 26px;
+    display: flex;
+    font-family: 'PretendardVariable', sans-serif;
+}
+.trueandfalse{
+    display: flex;
+    width: 261px;
+    height: 24px;
+}
+
+/* .Button{
+
+ margin-top: 700px;
+}
+.SubmitButton{
+    color: white;
+    background-color: #2C92FE; 
+    border: 1px solid #2C92FE;     
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+    font-family: 'PretendardVariable', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    width: 102px;
+    height: 44px;
+
+    
+
+} */
+.CheckboxContainer{
+    width: 261px;
+    height: 24px;
+    display: flex;
+    color: black;
+    
+}
+.Wrapper{
+    width: 261px;
+    height: 24px;
+    display: flex;
+ 
+}
+.viewWrapper{
+    width: 120px;
+    height: 24px;
+    margin-top: 30px;
+    display: flex;
+    margin-left: 72px;
+    
+}
+.viewWrapper:first-child {
+margin-left: 0;
+}
+.Checkbox{
+width: 18px;
+height: 18px;
+display: flex;
+margin-right: 37px;
+accent-color: black; 
+
+
+}
+.Saw{
+  width: 76px;
+  height: 24px;
+  display: flex;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'PretendardVariable', sans-serif;
+ 
+  
+}
+
+.viewWrapper input{
+  margin: 5px;
+}

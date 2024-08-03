@@ -22,7 +22,10 @@ import Notice from './component/Mysetting/Notice.jsx';
 import Myobjectmodify from './component/Mysetting/Myobjectmodify.jsx';
 import Passwordmodify from './component/Mysetting/Passwordmodify.jsx';
 import ServiceIntro from './component/Mysetting/ServiceIntro.jsx'; 
+import Parent from './component/Myobject/Parent.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+
 
 
 function App() {
@@ -52,8 +55,14 @@ function App() {
         <Route path='/modifyUserInfo' element={<Myobjectmodify/>}/>
         <Route path='/passwordChange' element={<Passwordmodify/>}/>
         <Route path='/serviceIntro' element={<ServiceIntro/>}/> 
+        <Route path='/login' element={<Login/>}/> 
+
+        
+        <Route path='/Myobject'element={<Myobject/>}/>
+       
       </Routes>
     </BrowserRouter>
+    
   );
 }
 

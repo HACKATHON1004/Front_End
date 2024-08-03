@@ -3,8 +3,9 @@ import styles from '../../cssModule/mys.module.css';
 import { useNavigate } from 'react-router-dom'; 
 import Modal2 from '../Modal2';
 import Back from '../Button/Back';
+import Cookies from 'js-cookie'
 
-//개인 정보 서비스 정보
+
 
 function App(){
     const [showModal, setShowModal] = useState(false);
@@ -14,6 +15,27 @@ function App(){
     }
     function handleDelete() {
         setShowModal(true);
+    }
+    const Delete = async (e) => {
+        try {
+            const response = await axios.delete('http://13.209.239.251:8080/user',
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Im9rIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTcyMjY4MzEyNiwiZXhwIjoxNzIyNjkwMzI2fQ.NMnaz0hXhmmbFN2z91odBkjKui8SzskulChtLKFSSpc`,
+                }
+              }
+            );
+      
+            if (response.status === 200) {
+              console.log("데이터 전송 성공");
+              resetFormStates();
+            } else {
+              console.error("데이터 전송 실패");
+            }
+          } catch (error) {
+            console.error("데이터 전송 중 오류 발생", error);
+          }
     }
 
     function handleNotice() {
@@ -32,6 +54,11 @@ function App(){
         navigate('/serviceIntro');  
     }
 
+    function logOut() {
+        navigate('/login');  
+    }
+
+
     return(
         <div className={styles.container}>
             <Back />
@@ -47,7 +74,7 @@ function App(){
                 <button onClick={handleServiceIntro} className={styles.Serviceintroduction}>서비스 소개</button>
             </div>
             <div className={styles.SignoutButton}>
-              <button className={styles.Signout}>로그 아웃</button>
+              <button onClick={logOut}className={styles.Signout}>로그 아웃</button>
             </div>
             {showModal && (
                     <Modal2
