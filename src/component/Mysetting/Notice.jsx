@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from '../../cssModule/Notice.module.css'; 
 import axios from 'axios';
-import Noticesvg from "../../images/공지사항.svg";
-import Servicesvg from "../../images/서비스 문의.svg";
+import Noticesvg from '../../images/notice.svg'
+import Servicesvg from "../../images/service.svg";
 import Back from '../Button/Back'; 
 const Notice = () => {
   const [notices] = useState([
