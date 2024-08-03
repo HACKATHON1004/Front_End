@@ -76,8 +76,7 @@ export default function PasswordChange() {
         newPassword: newPwRef.current.value
       }, {
         headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          Authorization: `${token}`,
         }
       });
 
@@ -92,7 +91,6 @@ export default function PasswordChange() {
       setError(error.message);
     }
   };
-  console.log(handleSubmit)
 
   return (
     <div className={styles.Container}>

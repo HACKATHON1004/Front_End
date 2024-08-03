@@ -113,7 +113,7 @@
 }
   
 .formGroup input, .formGroup select, .formGroup textarea {
-    
+    width: 350px;
     display: flex;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -124,7 +124,6 @@
 }
   
 .formGroup textarea {
-    width: 379px;
     height: 140px;
     font-size: 15px;
     font-weight: 400;
@@ -182,7 +181,6 @@
     margin-bottom: 7px;
 }
 .formGroup input{
-    width: 379px;
     height: 39px; 
     border-radius: 5px;
     font-size: 15px;
@@ -196,7 +194,6 @@
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
 }
 .formGroup select{
-    width: 379px;
     height: 39px; 
     font-size: 15px;
     font-weight: 400;

@@ -22,6 +22,8 @@ import Mysetting from './component/Mysetting/Mysetting.jsx';
 import Myobjectmodify from './component/Mysetting/Myobjectmodify.jsx';
 import ProtectedRoute from './ProtectedRoute'; // 새로 만든 ProtectedRoute 컴포넌트를 import
 import Notice from './component/Mysetting/Notice.jsx'
+import Passwordmodify from './component/Mysetting/Passwordmodify.jsx';
+import ServiceIntro from './component/Mysetting/ServiceIntro.jsx';
 
 function App() {
   
@@ -54,6 +56,8 @@ function App() {
           <Route path='/Mysettings' element={<ProtectedRoute element={<Mysetting/>}/>}/>
           <Route path='/modifyUserInfo' element={<ProtectedRoute element={<Myobjectmodify/>}/>}/>
           <Route path='/notice' element={<ProtectedRoute element={<Notice/>}/>}/>
+          <Route path='/passwordChange' element={<ProtectedRoute element={<Passwordmodify/>}/>}/>
+          <Route path='/serviceIntro' element={<ProtectedRoute element={<ServiceIntro/>}/>}/> 
         </Routes>
       </BrowserRouter>
     </>
