@@ -63,8 +63,18 @@
     color:red;
     font-weight: 600;
     font-family: 'PretendardVariable', sans-serif;
-   
 }
+.Nsuccess{
+    display: flex;
+    width: 200px;
+    font-size: 13px;
+    height: 18px;
+    color:green;
+    font-weight: 600;
+    font-family: 'PretendardVariable', sans-serif;
+}
+
+
 .NButton{
   
     width: 80px;
