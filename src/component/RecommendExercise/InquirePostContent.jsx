@@ -14,6 +14,7 @@ export default function InquirePostContent() {
     const inquireId = param.id;
     const [comment, setComment] = useState({});
     const [commentId, setCommentId] = useState(false);
+    const isCoach = cookie.get("isCoach");
     const [coachCmt, setCoachCmt] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
@@ -121,11 +122,11 @@ export default function InquirePostContent() {
                     </div>        
                 </div>
                 <div className={styles.btnWrapper}>
-                        <button onClick={()=>navigate('post')} className={styles.postBtn}>
-                            <img src={write} style={{marginRight:"2px"}} alt="Pencil Icon" width="24" height="24"/>
-                            <span>질문하기</span>
-                        </button>
-                    </div>
+                    {isCoach&&isCoach==="true"?(<button onClick={()=>navigate(`/inquire/post?answerId=${inquireId}}`)} className={styles.postBtn}>
+                        <img src={write} style={{marginRight:"2px"}} alt="Pencil Icon" width="24" height="24"/>
+                        <span>답변하기</span>
+                    </button>):(<></>)}
+                </div>
                 {showModal && (
                     <Modal3
                         onClose={handleCloseModal}
