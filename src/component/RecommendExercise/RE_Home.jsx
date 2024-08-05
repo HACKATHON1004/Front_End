@@ -3,8 +3,11 @@ import styles from '../../cssModule/RE_Home.module.css'
 import img1 from '../../images/yoga.svg'
 import img2 from '../../images/rehabilitate.svg'
 import img3 from '../../images/1.svg'
+import { useNavigate } from "react-router-dom";
 
 export default function RE_Home() {
+
+    const navigate = useNavigate();
 
         const messages = [
           {
@@ -47,7 +50,7 @@ export default function RE_Home() {
                         </div>
                     </div>
                 </div>
-                <div className={styles.coachWrapper}>
+                <div onClick={navi} className={styles.coachWrapper}>
                     <div className={styles.header}>
                         <div>코치에게 물어보기</div>
                         <div>더보기</div>

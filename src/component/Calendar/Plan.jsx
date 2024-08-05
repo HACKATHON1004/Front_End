@@ -4,15 +4,18 @@ import exImg from '../../images/exImg.svg'
 import Modal2 from "../Modal2";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import cookie from 'js-cookie'
+import Modal from "../Modal";
 
 export default function Plan() {
     const param = useParams();
     const eventId = param.id;
     const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
     const memoRef = useRef();
     const [eventData, setEventData] = useState({});
+    const navigate = useNavigate();
     console.log(eventData);
 
     function handleDelete() {
@@ -21,6 +24,18 @@ export default function Plan() {
 
     function handleCloseModal() {
         setShowModal(false);
+    }
+
+    function handlePlanDelete() {
+        axios.delete(`${import.meta.env.VITE_SERVER_URL}/calendar/${eventData.id}`, {
+            headers: {
+                Authorization: cookie.get("token")
+            }
+        })
+            .then(()=>{     
+                setShowModal(false);
+                setShowModal2(true);
+            })
     }
 
     useEffect(() => {
@@ -61,7 +76,7 @@ export default function Plan() {
                         </div>
                         <div>
                             <span>인원 수</span>
-                            <span>{eventData.currentRecruit}/{eventData.totalRecruit}</span>
+                            <span>{eventData.currentRecruit}/{eventData.totalRecruit?eventData.totalRecruit:"∞"}</span>
                         </div>
                     </div>
                 </div>
@@ -80,6 +95,13 @@ export default function Plan() {
                     <Modal2
                         message="삭제 하시겠습니까?"
                         onClose={handleCloseModal}
+                        onCheck={handlePlanDelete}
+                    />
+                )}
+                {showModal2 && (
+                    <Modal
+                        message="이벤트가 삭제되었습니다."
+                        onClose={()=>navigate(-1)}
                     />
                 )}
             </div>

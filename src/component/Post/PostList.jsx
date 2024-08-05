@@ -28,7 +28,7 @@ export default function PostList({ field, eventTime, type }) {
 
     if (!type) {
       if (isFirstRender.current) {
-        axios.get('http://13.209.239.251:8080/recruit')
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/recruit`)
           .then(res => {
             const filteredPosts = filterOldPosts(res.data);
             filteredPosts.reverse(); // 배열을 역순으로 변환
@@ -39,7 +39,7 @@ export default function PostList({ field, eventTime, type }) {
             console.error(err);
           });
       } else {
-        axios.get(`http://13.209.239.251:8080/recruit/eventTime/${eventTime}`)
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/recruit/eventTime/${eventTime}`)
           .then(res => {
             const filteredPosts = filterOldPosts(res.data);
             filteredPosts.reverse(); // 배열을 역순으로 변환

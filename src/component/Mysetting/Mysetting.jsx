@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import Modal4 from '../Modal4';
 import Back from '../Button/Back';
 import Cookies from 'js-cookie'; 
+import Modal from '../Modal';
 
 
 function App(){
     const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
     const navigate = useNavigate(); 
     function handleCloseModal() {
         setShowModal(false);
@@ -23,21 +25,16 @@ function App(){
               {
                 headers: {
                   'Content-Type': 'application/json',
-                  Authorization: `Bearer ${token}`,
+                  Authorization: `${token}`,
                 }
               }
             );
-      
-            if (response.status === 200) {
-              console.log("데이터 전송 성공");
-              navigate('/login'); 
-              handleCloseModal(); 
-            } else {
-              console.error("데이터 전송 실패");
-            }
           } catch (error) {
             console.error("데이터 전송 중 오류 발생", error);
           }
+          Cookies.remove("token");
+          setShowModal(false);
+          setShowModal2(true);
     }
 
     function handleNotice() {
@@ -85,7 +82,12 @@ function App(){
                         onConfirm={Delete}
                     />
                 )}
-
+            {showModal2 && (
+                    <Modal
+                        message="탈퇴되었습니다."
+                        onClose={()=>navigate('/')}
+                    />
+                )}
 
         </div>
     );

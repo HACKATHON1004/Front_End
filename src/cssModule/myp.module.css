@@ -5,6 +5,15 @@
   font-family: Arial, sans-serif;
 }
 
+.successId {
+  width: 70%;
+  font-size: 13px;
+  display: flex;
+  color: green;
+  margin-top: 0;
+  font-weight: 600;
+}
+
 input {
   width: 346px;
   display: flex;
@@ -68,8 +77,7 @@ p {
   margin-bottom: 0;
 }
 .form{
-  width: 400px;
-height: 1409px;
+  width: 350px;
 margin-top: 55px;
 }
 .button {

@@ -5,7 +5,7 @@ import cookie from 'js-cookie';
 const ProtectedRoute = ({ element: Component }) => {
     const token = cookie.get("token");
 
-    return token ? Component : <Navigate to="/" />;
+    return token&&token!=="null" ? Component : <Navigate to="/" />;
 }
 
 export default ProtectedRoute;

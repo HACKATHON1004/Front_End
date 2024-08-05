@@ -39,7 +39,7 @@ function App() {
 
   const handleIdCheck = async () => {
     try {
-      const response = await fetch(`http://13.209.239.251:8080/user/${identify}`);
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/user/${identify}`);
       const data = await response.json();
       console.log(data);
       if (!data) {
@@ -127,7 +127,7 @@ function App() {
       setErrorMessages(errors);
     } else {
       try {
-        const response = await fetch('http://13.209.239.251:8080/user', {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/user`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

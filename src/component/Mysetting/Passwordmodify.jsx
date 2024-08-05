@@ -3,6 +3,8 @@ import styles from '../../cssModule/Passwordmodify.module.css';
 import axios from 'axios';
 import Back from '../Button/Back';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import Modal from '../Modal';
 
 export default function PasswordChange() {
   const [isCheckedCurrent, setIsCheckedCurrent] = useState(false);
@@ -14,6 +16,12 @@ export default function PasswordChange() {
   const [isNewPasswordValid, setIsNewPasswordValid] = useState(false);
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState(""); 
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const navigate = useNavigate(); 
+
+ 
 
   const currentPwRef = useRef();
   const newPwRef = useRef();
@@ -68,6 +76,8 @@ export default function PasswordChange() {
   };
 
   const handleSubmit = async (event) => {
+    console.log(currentPwRef.current.value)
+    console.log(newPwRef.current.value)
     event.preventDefault();
     try {
       const token = Cookies.get('token');
@@ -76,21 +86,38 @@ export default function PasswordChange() {
         newPassword: newPwRef.current.value
       }, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: `${token}`, 
+          'Content-Type': 'application/json'
         }
       });
 
-      if (!response.ok) {
-        throw new Error(`Network response was not ok`);
+      if (response.status === 200) {
+        setModalMessage("비밀번호 변경이 완료되었습니다!");
+        setShowModal(true);
+      } else {
+        throw new Error(response.data.message || 'Network response was not ok');
       }
-
-      
-      console.log('Password changed successfully');
     } catch (error) {
-      
-      setError(error.message);
+      if (error.response && error.response.status === 400) {
+        setModalMessage("현재 비밀번호가 일치하지 않습니다.");
+        setShowErrorModal(true);
+      } else {
+        setModalMessage("오류가 발생했습니다. 다시 시도해 주세요.");
+        setShowErrorModal(true);
+      }
     }
   };
+
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate('/home');
+  };
+
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+  };
+  console.log(handleSubmit)
 
   return (
     <div className={styles.Container}>
@@ -178,6 +205,18 @@ export default function PasswordChange() {
         </div>
       </form>
       {error && <p className={styles.Error}>{error}</p>}
+      {showModal && (
+        <Modal
+          message={modalMessage}
+          onClose={handleCloseModal}
+        />
+      )}
+      {showErrorModal && (
+        <Modal
+          message={modalMessage}
+          onClose={handleCloseErrorModal}
+        />
+      )}
     </div>
   );
 }

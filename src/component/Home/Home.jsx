@@ -6,7 +6,7 @@ import img1 from '../../images/exercise.svg'
 import img2 from '../../images/cal.svg'
 import img3 from '../../images/people.svg'
 import img4 from '../../images/setting.svg'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import cookies from 'js-cookie'
 
@@ -15,7 +15,7 @@ export default function Home() {
     const isGuardian = false;
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
-    
+
     useEffect(()=>{
         axios.post(`${import.meta.env.VITE_SERVER_URL}/user/isFirstLogin`,null,{
             headers: {
@@ -48,8 +48,8 @@ export default function Home() {
     <>
         <div className={styles.pageWrapper}>
             <div className={styles.header}>
-                <span>{userInfo.username} </span>
-                {isGuardian?<span>보호자</span>:<></>}
+                <span>{userInfo.nickname} </span>
+                {userInfo.isGuardian?<span>보호자</span>:<></>}
                 <span>님 환영합니다!</span>
             </div>
             <div className={styles.infoWrapper}>
@@ -58,8 +58,8 @@ export default function Home() {
                 </div>
                 <div className={styles.tableWrapper}>
                     <div>
-                        <span>닉네임</span>
-                        <span>{userInfo.nickname}</span>
+                        <span>ID</span>
+                        <span>{userInfo.username}</span>
                     </div>
                     <div>
                         <span>나이</span>

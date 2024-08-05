@@ -1,11 +1,11 @@
 .Modifycontainer{
+    margin-top: 130px;
+    width: 350px;
     max-width: 430px;
     max-height: 1045px;
 }
 .Form{
-    width: 430px;
     height: 932px;
-    padding-top: 60px; 
 }
 
 .NWapper{
@@ -51,9 +51,20 @@
 }
 .NBwapper{
     display: flex;
-    width: 285px;
+    width: 350px;
     height: 35px;
-    
+    align-items: center;
+}
+
+.Nsuccess {
+    text-align: left;
+    color: red;
+    width: 70%;
+}
+.Nsuccess2 {
+    text-align: left;
+    color: green;
+    width: 70%;
 }
 .Nerror{
     display: flex;
@@ -223,7 +234,7 @@
     font-family: 'PretendardVariable', sans-serif;
 }
 .modifyWapper{
-    margin-top: 80px;
+    margin: 50px auto;
     height: 50px;
     width: 280px;
     

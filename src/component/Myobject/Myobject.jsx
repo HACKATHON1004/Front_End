@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '../../cssModule/myp.module.css';
 import axios from 'axios';
 import Back from '../Button/Back';
 import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom';
+import Modal from '../Modal';
 
 function App() {
   const [nickname, setNickname] = useState('');
   const [idMessage, setIdMessage] = useState('');
+  const nickRef = useRef();
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -20,6 +23,9 @@ function App() {
   const [cardio, setCardio] = useState(false);
   const [intensity, setIntensity] = useState('');
   const [isGuardian, setIsGuardian] = useState(null);
+
+  const [showModal, setShowModal] = useState(false); 
+  const navigate = useNavigate();
 
   const handleSportsChange = (e) => {
     const { name, checked } = e.target;
@@ -50,10 +56,10 @@ function App() {
 
   const handleIdCheck = async () => {
     try {
-      const response = await fetch(`https://real-east.shop/userinfo`);
-      const data = await response.json();
+      const response = await axios.get(`https://real-east.shop/userinfo/nickname/${nickRef.current.value}`);
+      const data = await response.data;
          console.log(data);
-      if (data.exists) { 
+      if (data===false) { 
         setIdMessage("이미 사용중인 닉네임입니다.");
         setIsIdChecked(false);
       } else {
@@ -100,14 +106,24 @@ function App() {
 
       if (response.status === 200) {
         console.log("데이터 전송 성공");
+        setShowModal(true);
         resetFormStates();
       } else {
         console.error("데이터 전송 실패");
+        setShowModal(true);
       }
     } catch (error) {
       console.error("데이터 전송 중 오류 발생", error);
+      setShowModal(true);
     }
   };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate('/home'); 
+  };
+
+
 console.log(isGuardian)
 console.log(nickname)
 console.log( age)
@@ -170,6 +186,7 @@ console.log(intensity)
           <div className={styles.Nickname}>
             <div className={styles.Nlabel}>닉네임을 입력해주세요</div>
             <input
+              ref={nickRef}
               type="text"
               value={nickname}
               onChange={(e) => {
@@ -179,7 +196,7 @@ console.log(intensity)
               }}
             />
             <div className={styles.NWrapper}>
-              <div className={styles.idMessage}>
+              <div className={isIdChecked?styles.successId:styles.idMessage}>
                 {idMessage && <p>{idMessage}</p>}
               </div>
               <div className={styles.ViewNWapper}>
@@ -318,8 +335,10 @@ console.log(intensity)
           <button onClick={handleSubmit} className={styles.button}>등록 완료</button>
         </div>
       </div>
+      {showModal && (
+        <Modal message="등록이 완료되었습니다!" onClose={handleCloseModal} />
+      )}
     </>
   );
 }
-
 export default App;

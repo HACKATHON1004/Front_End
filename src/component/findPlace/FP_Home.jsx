@@ -23,7 +23,7 @@ export default function FP_Home() {
                     </div>
                 </div>
                 <div className={styles.menuWrapper}>
-                    <div onClick={()=>handleLink("RecommendExercise")} className={styles.item}>
+                    <div onClick={()=>handleLink("inquire")} className={styles.item}>
                         <div>
                             <img src={img2}/>
                             <div>운동 질문</div>

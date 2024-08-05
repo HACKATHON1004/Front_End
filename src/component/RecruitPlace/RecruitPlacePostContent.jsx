@@ -24,6 +24,8 @@ export default function RecruitPlacePostContent() {
     const [showModal7, setShowModal7] = useState(false); //수정 확인
     const [showModal8, setShowModal8] = useState(false); //삭제 확인
     const [showModal9, setShowModal9] = useState(false);
+    const [showModal10, setShowModal10] = useState(false);
+    const [isApply, setIsApply] = useState(true);
     const [commentId, setCommentId] = useState(false);
     const [comments, setComments] = useState([]);
     const [cmtModify, setCmtModify] = useState(false);
@@ -31,6 +33,17 @@ export default function RecruitPlacePostContent() {
     const menuRef2 = useRef();
 
     useEffect(()=>{
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/calendar/recruitPost/${postId}`, {
+            headers: {
+                Authorization: cookie.get("token")
+            }
+        })
+            .then(res=>{
+                if(res.data===true){
+                    setIsApply(false);
+                }
+            })
+
         axios.get(`${import.meta.env.VITE_SERVER_URL}/rpcomment/recruitPost/${postId}`)
             .then(res=>{
                 setComments(res.data);
@@ -136,6 +149,7 @@ export default function RecruitPlacePostContent() {
 
     function modifyComment() {
         setCmtModify(true);
+        setShowModal3(false);
     }
 
     function deleteComment() {
@@ -148,6 +162,16 @@ export default function RecruitPlacePostContent() {
                 console.log(res.data);
             })
         setShowModal9(true);
+    }
+
+    function handleCancle() {
+        axios.delete(`${import.meta.env.VITE_SERVER_URL}/calendar/${postId}`, {
+            headers: {
+                Authorization: cookie.get("token")
+            }
+        })
+        setShowModal5(false);
+        setShowModal10(true);
     }
 
     return (
@@ -183,10 +207,10 @@ export default function RecruitPlacePostContent() {
                     </div>
                 </div>
                 <div className={styles.btnWrapper}>
-                    {true?
+                    {isApply?
                         <button onClick={()=>handleDelete("apply")} className={styles.applyBtn}>지원하기</button>
                         :
-                        <button onClick={()=>handleDelete("cancle")} className={styles.cancleBtn}>취소하기</button>
+                        <button onClick={()=>handleDelete("cancle")} className={styles.cancleBtn}>지원 취소</button>
                     }
                 </div>
                 <CmtModal msg="댓글을 남겨보세요." username={username} type="free" postId={postId} />
@@ -197,12 +221,14 @@ export default function RecruitPlacePostContent() {
                     {comments.map(comment => (
                     <Comment
                         id={comment.id}
+                        modify={cmtModify}
                         handleDelete={handleDelete}
                         key={comment.id}
                         username={comment.username}
                         text={comment.content}
                         timestamp={comment.createDate}
                         profilePic={'https://via.placeholder.com/50'}
+                        onCancle={()=>setCmtModify(false)}
                     />
                     ))}
                 </div>
@@ -240,6 +266,7 @@ export default function RecruitPlacePostContent() {
                     <Modal2
                         message="취소 하시겠습니까?"
                         onClose={()=>handleCloseModal("del")}
+                        onCheck={handleCancle}
                     />
                 )}
                 {showModal6 && (
@@ -264,6 +291,12 @@ export default function RecruitPlacePostContent() {
                     <Modal
                         message="댓글이 삭제되었습니다."
                         onClose={()=>{navigate(0)}}
+                    />
+                )}
+                {showModal10 && (
+                    <Modal
+                        message="지원이 취소되었습니다."
+                        onClose={()=>navigate(0)}
                     />
                 )}
             </div>

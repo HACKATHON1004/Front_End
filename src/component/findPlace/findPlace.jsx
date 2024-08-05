@@ -50,13 +50,18 @@ export default function FindPlace() {
   }, [currentLocation, search]);
 
   const fetchPlaces = async (location) => {
+    const script = document.createElement('script');
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_API_KEY}`;
+    script.async = true;
+    document.head.appendChild(script);
+    
     try {
       // 카카오 Local API를 사용하여 공원과 헬스 시설 정보 가져오기
       const response = await fetch(
         `https://dapi.kakao.com/v2/local/search/keyword.json?x=${location.lng}&y=${location.lat}&radius=5000&query=${search}`,
         {
           headers: {
-            Authorization: 'KakaoAK de534ad8a6c23d715eaf602c76382205',
+            Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}`,
           },
         }
       );
@@ -66,7 +71,7 @@ export default function FindPlace() {
         `https://dapi.kakao.com/v2/local/search/keyword.json?x=${location.lng}&y=${location.lat}&radius=5000&query=${search2}`,
         {
           headers: {
-            Authorization: 'KakaoAK de534ad8a6c23d715eaf602c76382205',
+            Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}`,
           },
         }
       );
@@ -76,7 +81,7 @@ export default function FindPlace() {
         `https://dapi.kakao.com/v2/local/search/keyword.json?x=${location.lng}&y=${location.lat}&radius=5000&query=운동`,
         {
           headers: {
-            Authorization: 'KakaoAK de534ad8a6c23d715eaf602c76382205',
+            Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}`,
           },
         }
       );

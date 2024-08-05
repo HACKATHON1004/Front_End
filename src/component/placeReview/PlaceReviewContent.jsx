@@ -50,11 +50,6 @@ export default function PlaceReviewContent() {
           })
     }, [])
     
-      function handleSearch() {
-        setSearch(inputRef.current.value);
-        setSearch2('라어낸');
-        setDoesSearch(false);
-      }
     // const reviews = [
     //     { id: 'eex', review: '장애인 이용자를 위한 전문 인력이 배치되어 있어 안전하게 수영했습니다!!' },
     //     { id: 'tuu', review: '물빛수영장은 휠체어 사용자들이 쉽게 접근할 수 있도록 엘리베이터, 장애인 전용 화장실, 넓은 출입구 등 다양한 편의시설이 있어서 좋았어요!' },
@@ -75,16 +70,6 @@ export default function PlaceReviewContent() {
           <div>
             <span>장소 리뷰</span>
           </div>
-        </div>
-        <div className={styles.searchBar}>
-          <input
-            type="text"
-            placeholder="장소를 입력해 주세요."
-            ref={inputRef}
-            className={styles.inputField}
-          />
-          <img src={img5} onClick={handleClear} className={styles.iconButton} />
-          <img src={img3} onClick={handleSearch} className={styles.iconButton} />
         </div>
         <div className={styles.bodyWrapper}>
                 <div className={styles.title}>

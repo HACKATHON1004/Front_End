@@ -24,6 +24,9 @@ import ProtectedRoute from './ProtectedRoute'; // 새로 만든 ProtectedRoute �
 import Notice from './component/Mysetting/Notice.jsx'
 import Passwordmodify from './component/Mysetting/Passwordmodify.jsx';
 import ServiceIntro from './component/Mysetting/ServiceIntro.jsx';
+import Inquire from './component/RecommendExercise/Inquire.jsx';
+import InquirePost from './component/RecommendExercise/InquirePost.jsx';
+import InquirePostContent from './component/RecommendExercise/InquirePostContent.jsx';
 
 function App() {
   
@@ -58,6 +61,9 @@ function App() {
           <Route path='/notice' element={<ProtectedRoute element={<Notice/>}/>}/>
           <Route path='/passwordChange' element={<ProtectedRoute element={<Passwordmodify/>}/>}/>
           <Route path='/serviceIntro' element={<ProtectedRoute element={<ServiceIntro/>}/>}/> 
+          <Route path='/inquire' element={<ProtectedRoute element={<Inquire/>}/>}/>
+          <Route path='/inquire/post' element={<ProtectedRoute element={<InquirePost/>}/>}/>
+          <Route path='/inquire/post/:id' element={<ProtectedRoute element={<InquirePostContent/>}/>}/>
         </Routes>
       </BrowserRouter>
     </>

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '../../cssModule/mypmodify.module.css';
 import axios from 'axios';  
 import Back from '../Button/Back';
 import Cookies from 'js-cookie'; 
+import { useNavigate } from 'react-router-dom'; 
+import Modal from '../Modal';
 
 function App() {
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
   const [nicknameMessage, setNicknameMessage] = useState('');
+  const nickRef = useRef();
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState('');
   const [disability, setDisability] = useState('');
   const [disabilityType, setDisabilityType] = useState('');
@@ -23,12 +26,50 @@ function App() {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [isGuardian, setIsGuardian] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate(); 
+
+  // Fetch user info when the component mounts
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = Cookies.get('token');
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/userinfo/username`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+
+        const userInfo = response.data;
+        setNickname(userInfo.nickname); // Set the nickname state
+        setAge(userInfo.age); // Set the age state
+        setGender(userInfo.sex); // Set the gender state
+        setDisability(userInfo.disabilityCF); // Set the disability state
+        setDisabilityType(userInfo.disabilityK); // Set the disability type state
+        setLimbDisability(userInfo.disabilityKK); // Set the limb disability state
+        setFavoriteSport({
+          muscle: userInfo.muscle,
+          cardio: userInfo.cardio,
+          stretching: userInfo.stretching,
+          water: userInfo.water,
+          ball: userInfo.ball,
+        }); // Set the favorite sport state
+        setIntensity(userInfo.exerciseIntensity); // Set the intensity state
+        setIsGuardian(userInfo.isGuardian); // Set the guardian state
+      } catch (error) {
+        console.error('사용자 정보 가져오기 실패:', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const handleNicknameCheck = async () => {
     try {
-      const response = await fetch(`https://real-east.shop/userinfo`);
-      const data = await response.json();
-      if (data.exists) {
+      const response = await axios.get(`https://real-east.shop/userinfo/nickname/${nickRef.current.value}`);
+      const data = await response.data;
+      console.log(data);
+      if (data===false) {
         setNicknameMessage('이미 사용중인 닉네임입니다.');
         setIsNicknameChecked(false);
       } else {
@@ -51,6 +92,7 @@ function App() {
 
   const handleSubmit = async () => {
     setNicknameErrorMessage('');
+    setNicknameMessage('');
 
     if (!isNicknameChecked) {
       setNicknameErrorMessage('닉네임 중복확인을 해주세요.');
@@ -76,12 +118,13 @@ function App() {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
         }
       });
 
       if (response.status === 200) {
         console.log('수정 성공');
+        setShowModal(true);
       } else {
         console.log('수정 실패');
       }
@@ -90,22 +133,29 @@ function App() {
     }
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate('/home');
+  };
+
   return (
+    <>
+    <Back /> 
     <div className={styles.Modifycontainer}>
-       <Back /> 
       {/* 닉네임 섹션 */}
       <div className={styles.Form}>
         <div className={styles.NWapper}>
           <div className={styles.Nmodify}>닉네임</div>
           <div className={styles.Ninput}>
             <input
+              ref={nickRef}
               type="text"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={(e) => {setNickname(e.target.value); setIsNicknameChecked(false)}}
               className={styles.NinputField}
             />
             <div className={styles.NBwapper}>
-              <div className={styles.Nerror}>{nicknameErrorMessage} {nicknameMessage && !nicknameErrorMessage}</div>
+              <div className={isNicknameChecked?styles.Nsuccess2:styles.Nsuccess}>{nicknameMessage!==''?nicknameMessage:nicknameErrorMessage}</div>
               <button className={styles.NButton} onClick={handleNicknameCheck}>중복확인</button>
             </div>
           </div>
@@ -264,12 +314,12 @@ function App() {
           <div className={styles.Parent}>보호자 여부를 선택해주세요</div>
           <select
             value={isGuardian}
-            onChange={(e) => setIsGuardian(e.target.value === 'O')}
+            onChange={(e) => setIsGuardian(e.target.value)}
             className={styles.guardianselect}
           >
             <option value="">선택</option>
-            <option value="O">O</option>
-            <option value="X">X</option>
+            <option value="true">O</option>
+            <option value="false">X</option>
           </select>
         </div>
 
@@ -277,9 +327,14 @@ function App() {
         <div className={styles.modifyWapper}>
           <button className={styles.modifyButton} onClick={handleSubmit}>수정하기</button>
         </div>
+        {showModal && (
+          <Modal message="수정이 완료되었습니다!" onClose={handleCloseModal} />
+        )}
       </div>
     </div>
+    </>
   );
 }
+
 
 export default App;

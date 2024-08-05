@@ -97,7 +97,7 @@ export default function RecruitPlacePostWrite() {
             })
         }
         else {
-            axios.post("http://13.209.239.251:8080/recruit", {
+            axios.post(`${import.meta.env.VITE_SERVER_URL}/recruit`, {
                 title: titleRef.current.value,
                 totalRecruit: peopleRef.current.value,
                 location: address,

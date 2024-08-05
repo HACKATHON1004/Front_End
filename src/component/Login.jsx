@@ -6,8 +6,8 @@ import naverLogin from "../images/5.svg"
 import googleLogin from "../images/4.svg"
 import Modal from "./Modal"
 import styles from "../cssModule/login.module.css"
-import { useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useRef, useState } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import cookie from "js-cookie";
 
 export default function Login(){
@@ -17,6 +17,17 @@ export default function Login(){
   const [isActive, setIsActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const formData = new FormData();
+  const [param] = useSearchParams();
+    
+    useEffect(()=>{
+        const token = param.get("code");
+        console.log(token);
+        cookie.set("token", token);
+
+        if(token){
+          navigate('home');
+        }
+    }, [])
 
   const naverUrl = import.meta.env.VITE_NAVER_LOGIN_URL || process.env.REACT_APP_NAVER_LOGIN_URL;
   const googleUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL || process.env.REACT_APP_GOOGLE_LOGIN_URL;
@@ -38,7 +49,9 @@ export default function Login(){
 
   function handleGoogleLogin(){
     //구글로그인 처리
+    
     window.location.href = googleUrl;
+    
   }
 
   function handleLogin(){
