@@ -113,8 +113,8 @@ export default function Login(){
       </div>
       <div className={styles.optionsContainer}>
         <div className={styles.links}>
-          <a href="#">아이디 찾기</a>
-          <a href="#">비밀번호 찾기</a>
+          <span onClick={()=>navigate('/findId')}>아이디 찾기</span>
+          <span onClick={()=>navigate('/findPw')}>비밀번호 찾기</span>
         </div>
         <div className={styles.toggleContainer}>
           <div className={styles.toggleText}>자동 로그인</div>

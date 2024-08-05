@@ -27,6 +27,8 @@ import ServiceIntro from './component/Mysetting/ServiceIntro.jsx';
 import Inquire from './component/RecommendExercise/Inquire.jsx';
 import InquirePost from './component/RecommendExercise/InquirePost.jsx';
 import InquirePostContent from './component/RecommendExercise/InquirePostContent.jsx';
+import FindId from './component/Membership/FindId.jsx';
+import FindPw from './component/Membership/FindPw.jsx';
 
 function App() {
   
@@ -36,6 +38,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/signUp' element={<Mempage/>}/>
+          <Route path='/findId' element={<FindId/>}/>
+          <Route path='/findPw' element={<FindPw/>}/>
           <Route path='/home' element={<ProtectedRoute element={<Home/>}/>}/>
           <Route path='/plan' element={<ProtectedRoute element={<Plan/>}/>}/>
           <Route path='/findMap' element={<ProtectedRoute element={<FindPlace/>}/>}/>
