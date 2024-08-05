@@ -23,7 +23,7 @@ export default function Home() {
             }
         })
             .then((res)=>{
-                if(res.data===true){
+                if(res.data==="true"){
                     cookies.set("isCoach", res.data);
                     axios.get(`${import.meta.env.VITE_SERVER_URL}/coachinfo/username`,{
                         headers: {
@@ -68,7 +68,7 @@ export default function Home() {
         <div className={styles.pageWrapper}>
             <div className={styles.header}>
                 <span>{userInfo.name} </span>
-                {userInfo&&userInfo.career?<span>코치</span>:(userInfo.isGuardian?<span>보호자</span>:<></>)}
+                {userInfo&&userInfo.career?<span>코치</span>:(userInfo.isGuardian?<span>보호자</span>:<>{userInfo.nickname}</>)}
                 <span>님 환영합니다!</span>
             </div>
             <div className={styles.infoWrapper}>
