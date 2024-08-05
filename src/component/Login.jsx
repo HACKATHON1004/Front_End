@@ -63,13 +63,17 @@ export default function Login(){
         'Content-Type': 'multipart/form-data'
       }
     })
-      .then(res=>{
+      .then(async res=>{
         console.log(res.status);
         if(res.status===200) {
           console.log(res.headers.get('Authorization'));
           console.log(res.data.email);
           console.log(res.data);
           navigate('/home');
+          if(isActive){
+            localStorage.setItem("token", res.headers.get('Authorization'));
+            cookie.set("token", localStorage.getItem("token"));
+          }
           cookie.set("token", res.headers.get('Authorization'));
         } else {
           setShowModal(true);

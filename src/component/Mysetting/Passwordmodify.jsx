@@ -81,7 +81,7 @@ export default function PasswordChange() {
     event.preventDefault();
     try {
       const token = Cookies.get('token');
-      const response = await axios.patch('https://real-east.shop/user', {
+      const response = await axios.patch(`${import.meta.env.VITE_SERVER_URL}/user`, {
         currentPassword: currentPwRef.current.value,
         newPassword: newPwRef.current.value
       }, {

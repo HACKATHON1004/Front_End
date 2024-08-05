@@ -12,7 +12,7 @@ function Parent() {
        
 
         try {
-            const response = await fetch('http://13.209.239.251:8080/userinfo', {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/userinfo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

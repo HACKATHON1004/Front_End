@@ -21,7 +21,7 @@ function App(){
     const Delete = async () => {
         try {
           const token = Cookies.get('token');
-            const response = await axios.delete('https://real-east.shop/user',
+            const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/user`,
               {
                 headers: {
                   'Content-Type': 'application/json',
@@ -55,7 +55,8 @@ function App(){
 
     function logOut() {
         navigate('/');
-        Cookies.remove("token");  
+        Cookies.remove("token"); 
+        localStorage.removeItem("token"); 
     }
 
     return(

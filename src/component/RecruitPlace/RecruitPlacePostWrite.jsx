@@ -26,10 +26,12 @@ export default function RecruitPlacePostWrite() {
     const [address, setAddress] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
+    const [showModal3, setShowModal3] = useState(false);
     const [modifyForm, setModifyForm] = useState({});
     const [modifyDate, setModifyDate] = useState('');
     const [modifyTime, setModifyTime] = useState('');
     const navigate = useNavigate();
+    
     console.log(modifyForm.eventTime);
     
     
@@ -42,7 +44,7 @@ export default function RecruitPlacePostWrite() {
                     setModifyForm(previousForm);
                     titleRef.current.value = previousForm.title;
                     peopleRef.current.value = previousForm.totalRecruit;
-                    addressRef.current.value = previousForm.location;
+                    setAddress(previousForm.location);
                     phoneRef.current.value = previousForm.phone;
                     contentRef.current.value = previousForm.content;
                     setModifyDate(previousForm.eventTime.slice(0, 10));
@@ -58,86 +60,69 @@ export default function RecruitPlacePostWrite() {
         fetchModifyForm();
     }, []);
 
+    function isNumeric(value) {
+        return /^\d+$/.test(value);
+    }
+
     function handleSubmit() {
-        if(!titleRef.current.value||!addressRef.current.value||!phoneRef.current.value||!dateRef.current.value
-            ||!contentRef.current.value
-        ) {
-           setShowModal(true);
-           return; 
+        if (!titleRef.current.value || !address || !phoneRef.current.value || !dateRef.current.value || !contentRef.current.value) {
+            setShowModal(true);
+            return;
         }
-        if(checkRef.current.checked===true){
-            
-            if(!peopleRef.current.value){
+    
+        if (!isNumeric(phoneRef.current.value) || !isNumeric(peopleRef.current.value) || parseInt(peopleRef.current.value) <= 0) {
+            setShowModal3(true);
+            return;
+        }
+    
+        if (checkRef.current.checked === true) {
+            if (!peopleRef.current.value) {
                 setShowModal(true);
                 return;
             }
         }
-        if(modifyPostId) {
-            axios.patch(`${import.meta.env.VITE_SERVER_URL}/recruit/${modifyPostId}`,{
-                title: titleRef.current.value,
-                totalRecruit: parseInt(peopleRef.current.value),
-                location: addressRef.current.value,
-                phone: phoneRef.current.value,
-                eventTime: dateRef.current.value+"-"+timeRef.current.value,
-                content: contentRef.current.value,
-            }, {
-                headers: {
-                    Authorization: cookie.get("token")
-                }
-            })
-            .then(res=>{
-                // axios.post(`${import.meta.env.VITE_SERVER_URL}/calendar`, {
-                //     recruitPostId: res.data
-                // })
-                setShowModal2(true);
-                console.log(dateRef.current.value+"-"+timeRef.current.value);
-            })
-            .catch(err=>{
-                console.error(err);
-            })
-        }
-        else {
-            axios.post(`${import.meta.env.VITE_SERVER_URL}/recruit`, {
-                title: titleRef.current.value,
-                totalRecruit: peopleRef.current.value,
-                location: address,
-                phone: phoneRef.current.value,
-                eventTime: dateRef.current.value+"-"+timeRef.current.value,
-                content: contentRef.current.value,
-            },{
-                headers: {
-                    Authorization: cookie.get("token")
-                }
-            })
-            .then(res=>{
-                // axios.post(`${import.meta.env.VITE_SERVER_URL}/calendar`, {
-                //     recruitPostId: res.data
-                // })
-                console.log(res.data);
-                axios.post(`${import.meta.env.VITE_SERVER_URL}/calendar`,{
-                    recruitPostId: res.data
-                },{
-                    headers: {
-                        Authorization: cookie.get("token")
-                    }
+    
+        const postData = {
+            title: titleRef.current.value,
+            totalRecruit: parseInt(peopleRef.current.value),
+            location: address,
+            phone: phoneRef.current.value,
+            eventTime: `${dateRef.current.value}-${timeRef.current.value}`,
+            content: contentRef.current.value,
+        };
+    
+        const headers = {
+            Authorization: cookie.get("token"),
+        };
+    
+        if (modifyPostId) {
+            axios.patch(`${import.meta.env.VITE_SERVER_URL}/recruit/${modifyPostId}`, postData, { headers })
+                .then(res => {
+                    setShowModal2(true);
                 })
-
-                setShowModal2(true);
-                console.log(dateRef.current.value+"-"+timeRef.current.value);
-            })
-            .catch(err=>{
-                console.error(err);
-            })
+                .catch(err => {
+                    console.error(err);
+                });
+        } else {
+            axios.post(`${import.meta.env.VITE_SERVER_URL}/recruit`, postData, { headers })
+                .then(res => {
+                    axios.post(`${import.meta.env.VITE_SERVER_URL}/calendar`, {
+                        recruitPostId: res.data
+                    }, { headers })
+                    setShowModal2(true);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
         }
     }
+    
 
     const handleAddressSearch = () => {
         new window.daum.Postcode({
             oncomplete: function(data) {
                 // 검색된 도로명 주소를 state에 저장
                 setAddress(data.roadAddress);
-
-                addressRef.current.value = data.roadAddress;
             },
         }).open();
     };
@@ -189,13 +174,16 @@ export default function RecruitPlacePostWrite() {
                         </div>
                     </div>
                     <div className={styles.imgWrapper}>
-                        <input
+                        {/* <input
                             ref={addressRef}
                             onClick={handleAddressSearch}
                             type="text"
                             placeholder="모집장소 주소를 입력해 주세요. 🔍"
                             className={styles.inputField}
-                        />
+                        /> */}
+                        <div onClick={handleAddressSearch} className={styles.inputField}>
+                            {address?address:"모집장소 주소를 입력해주세요. 🔍"}
+                        </div>
                         <div onClick={() => document.getElementById('photoUpload').click()} ref={menuRef2} className={styles.icon}>
                             <img
                                 src={img} /* replace with the actual path to your search icon */
@@ -242,6 +230,11 @@ export default function RecruitPlacePostWrite() {
                 <Modal 
                 message="장소모집 게시글이 등록되었습니다."
                 onClose={()=>{setShowModal(false); navigate(-1)}}/>
+            }
+            {showModal3&&
+                <Modal 
+                message="입력 형식을 지켜주세요."
+                onClose={()=>{setShowModal3(false);}}/>
             }
         </>
     )

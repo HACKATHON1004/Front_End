@@ -56,7 +56,7 @@ function App() {
 
   const handleIdCheck = async () => {
     try {
-      const response = await axios.get(`https://real-east.shop/userinfo/nickname/${nickRef.current.value}`);
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/userinfo/nickname/${nickRef.current.value}`);
       const data = await response.data;
          console.log(data);
       if (data===false) { 
@@ -80,7 +80,7 @@ function App() {
     }
     try {
       const token = Cookies.get('token');
-      const response = await axios.post('https://real-east.shop/userinfo',
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/userinfo`,
         {
           isGuardian,
           nickname,
