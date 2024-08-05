@@ -49,12 +49,12 @@ export default function IsCoach() {
   };
 
   const handleCheckboxChange = (value) => {
-    // setIsGuardian(value);
-    // if (value === true) {
-    //   navigate('/coachObject');
-    // } else if (value === false) {
-    //   navigate('/Myobject');
-    // }
+    setIsGuardian(value);
+    if (value === true) {
+      navigate('/coachObject');
+    } else if (value === false) {
+      navigate('/Myobject');
+    }
   };
 
   const handleIdCheck = async () => {
