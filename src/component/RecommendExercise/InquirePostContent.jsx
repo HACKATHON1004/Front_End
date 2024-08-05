@@ -7,12 +7,14 @@ import cookie from 'js-cookie'
 import axios from "axios";
 import Modal3 from "../Modal3";
 import Modal from "../Modal";
+import write from '../../images/write.svg'
 
 export default function InquirePostContent() {
     const param = useParams();
     const inquireId = param.id;
     const [comment, setComment] = useState({});
     const [commentId, setCommentId] = useState(false);
+    const [coachCmt, setCoachCmt] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const menuRef2 = useRef();
@@ -39,6 +41,17 @@ export default function InquirePostContent() {
     function modifyComment() {
         navigate(`/inquire/post?id=${inquireId}`)
     }
+
+    useEffect(()=>{ ///엔드포인트 넣어야댐
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/`, {
+            headers: {
+                Authorization: cookie.get("token")
+            }
+        })
+            .then(res=>{
+                setCoachCmt(res.data);
+            })
+    })
 
     function deleteComment() {
         axios.delete(`${import.meta.env.VITE_SERVER_URL}/coach/${inquireId}`, {
@@ -105,8 +118,14 @@ export default function InquirePostContent() {
                     </div>
                     <div className={styles.contentWrapper}>
                         <div className={styles.content}>{comment.content}</div>
-                    </div>
+                    </div>        
                 </div>
+                <div className={styles.btnWrapper}>
+                        <button onClick={()=>navigate('post')} className={styles.postBtn}>
+                            <img src={write} style={{marginRight:"2px"}} alt="Pencil Icon" width="24" height="24"/>
+                            <span>질문하기</span>
+                        </button>
+                    </div>
                 {showModal && (
                     <Modal3
                         onClose={handleCloseModal}
@@ -122,6 +141,32 @@ export default function InquirePostContent() {
                         onClose={()=>navigate('/inquire')}
                     />
                 )}
+                {coachCmt?(<div className={styles.inquireWrapper}>
+                    <div className={styles.headerWrapper}>
+                        <img 
+                        style={{width:"29px", height:"29px"}}
+                        src={profileImage} 
+                        alt="User Profile" 
+                        className={styles.profileImage} 
+                        />
+                        <div className={styles.userInfo}>
+                            <span className={styles.username}>{comment.username}</span>
+                            <span className={styles.timestamp}>6분전</span>
+                        </div>
+                        <div>
+                            <div className={styles.menuWrapper}>
+                                <div onClick={()=>handleDelete(inquireId)} className={styles.menuBar}>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>    
+                            </div> 
+                        </div>
+                    </div>
+                    <div className={styles.contentWrapper}>
+                        <div className={styles.content}>{comment.content}</div>
+                    </div>
+                </div>):<></>}
             </div>
         </>
     )

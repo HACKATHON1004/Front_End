@@ -17,24 +17,43 @@ export default function Home() {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(()=>{
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/user/isFirstLogin`,null,{
+        axios.post(`${import.meta.env.VITE_SERVER_URL}/user/isCoach`,null,{
             headers: {
                 Authorization: cookies.get("token")
             }
         })
-            .then(res=>{
+            .then((res)=>{
                 if(res.data===true){
-                    navigate('/Myobject');
-                    return;
-                }
-                else {
-                    axios.get(`${import.meta.env.VITE_SERVER_URL}/userinfo/username`,{
+                    cookies.set("isCoach", res.data);
+                    axios.get(`${import.meta.env.VITE_SERVER_URL}/coachinfo/username`,{
                         headers: {
                             Authorization: cookies.get("token")
                         }
                     })
                         .then(res=>{
                             setUserInfo(res.data);
+                        })
+                }
+                else {
+                    axios.post(`${import.meta.env.VITE_SERVER_URL}/user/isFirstLogin`,null,{
+                        headers: {
+                            Authorization: cookies.get("token")
+                        }
+                    })
+                        .then(res=>{
+                            if(res.data==="true"){
+                                navigate('/isCoach');
+                            }
+                            else {
+                                axios.get(`${import.meta.env.VITE_SERVER_URL}/userinfo/username`,{
+                                    headers: {
+                                        Authorization: cookies.get("token")
+                                    }
+                                })
+                                    .then(res=>{
+                                        setUserInfo(res.data);
+                                    })
+                            }
                         })
                 }
             })
@@ -48,15 +67,40 @@ export default function Home() {
     <>
         <div className={styles.pageWrapper}>
             <div className={styles.header}>
-                <span>{userInfo.nickname} </span>
-                {userInfo.isGuardian?<span>보호자</span>:<></>}
+                <span>{userInfo.name} </span>
+                {userInfo&&userInfo.career?<span>코치</span>:(userInfo.isGuardian?<span>보호자</span>:<></>)}
                 <span>님 환영합니다!</span>
             </div>
             <div className={styles.infoWrapper}>
                 <div className={styles.imgWrapper}>
                     <img src={userCard}/>
                 </div>
-                <div className={styles.tableWrapper}>
+                {userInfo&&userInfo.career?
+                (
+                    <div className={styles.tableWrapper2}>
+                    <div>
+                        <span>나이</span>
+                        <span>{userInfo.age}</span>
+                    </div>
+                    <div>
+                        <span>성별</span>
+                        <span>{userInfo.sex==="남성"?"남성":"여성"}</span>
+                    </div>
+                    <div>
+                        <span>PT 자격증</span>
+                        <span>{userInfo.normalLicense}</span>
+                    </div>
+                    <div>
+                        <span>지도사 자격증</span>
+                        <span>{userInfo.sportsLicense}</span>
+                    </div>
+                    <div>
+                        <span>CPR 자격증</span>
+                        <span>{userInfo.cprLicense}</span>
+                    </div>
+                </div>
+                ):
+                (<div className={styles.tableWrapper}>
                     <div>
                         <span>ID</span>
                         <span>{userInfo.username}</span>
@@ -77,7 +121,7 @@ export default function Home() {
                         <span>선호하는 운동 강도</span>
                         <span>{userInfo.exerciseIntensity}</span>
                     </div>
-                </div>
+                </div>)}
             </div>
             <div className={styles.menuWrapper}>
                 <div onClick={()=>handleLink("findMapHome")}>

@@ -53,6 +53,28 @@
     width: 37%;
 }
 
+.tableWrapper2 {
+    height: 260px;
+}
+
+.tableWrapper2 div {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding: 10px 18px;
+    font-family: Pretendard-variable, sans-serif;
+    border-top: 1px solid #A6A2A2;
+}
+.tableWrapper2 div span {
+    line-height: 100%;
+    width: 65%;
+    text-align: start;
+}
+
+.tableWrapper2 div span:last-child {
+    width: 37%;
+}
+
 .menuWrapper {
     height: 272px;
     display: grid;

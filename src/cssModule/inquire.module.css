@@ -102,3 +102,15 @@
             font-size: 16px;
             font-family: Arial, sans-serif;
   }
+
+  .replySuc {
+    width: 40px;
+    height: 17px;
+    font-size: 10px;
+    background-color: #1DB52B;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+  }

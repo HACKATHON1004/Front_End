@@ -57,6 +57,7 @@ function App(){
         navigate('/');
         Cookies.remove("token"); 
         localStorage.removeItem("token"); 
+        Cookies.remove("isCoach");
     }
 
     return(
