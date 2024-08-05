@@ -41,7 +41,7 @@ export default function Home() {
                         }
                     })
                         .then(res=>{
-                            if(res.data==="true"){
+                            if(res.data===true){
                                 navigate('/isCoach');
                             }
                             else {
