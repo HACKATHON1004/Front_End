@@ -65,12 +65,15 @@ export default function RecruitPlacePostWrite() {
     }
 
     function handleSubmit() {
+        const phonePattern = /^\d{10,11}$/;  // Example pattern: 10 or 11 digits
+    
         if (!titleRef.current.value || !address || !phoneRef.current.value || !dateRef.current.value || !contentRef.current.value) {
             setShowModal(true);
             return;
         }
     
-        if (!isNumeric(phoneRef.current.value) || !isNumeric(peopleRef.current.value) || parseInt(peopleRef.current.value) <= 0) {
+        console.log(phonePattern.test(phoneRef.current.value));
+        if (!phonePattern.test(phoneRef.current.value) || !isNumeric(peopleRef.current.value) || parseInt(peopleRef.current.value) <= 0) {
             setShowModal3(true);
             return;
         }
@@ -116,6 +119,7 @@ export default function RecruitPlacePostWrite() {
                 });
         }
     }
+    
     
 
     const handleAddressSearch = () => {

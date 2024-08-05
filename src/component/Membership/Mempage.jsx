@@ -108,6 +108,11 @@ function App() {
     if (!email) {
       errors.email = "이메일을 입력해주세요.";
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        errors.email = "유효한 이메일 형식을 입력해주세요.";
+      }
+
     if (!identify) {
       errors.identify = "아이디를 입력해주세요.";
     } else if (!isIdChecked) {
