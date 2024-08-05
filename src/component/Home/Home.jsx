@@ -23,7 +23,7 @@ export default function Home() {
             }
         })
             .then((res)=>{
-                if(res.data==="true"){
+                if(res.data===true){
                     cookies.set("isCoach", res.data);
                     axios.get(`${import.meta.env.VITE_SERVER_URL}/coachinfo/username`,{
                         headers: {
