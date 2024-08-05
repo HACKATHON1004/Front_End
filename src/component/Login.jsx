@@ -29,6 +29,15 @@ export default function Login(){
         }
     }, [])
 
+    useEffect(()=>{
+      const token = localStorage.getItem("token");
+      console.log(localStorage.getItem("token"));
+      if(token!=="null"&&token){
+        cookie.set("token", token);
+        navigate('home');
+      }
+    }, [])
+
   const naverUrl = import.meta.env.VITE_NAVER_LOGIN_URL || process.env.REACT_APP_NAVER_LOGIN_URL;
   const googleUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL || process.env.REACT_APP_GOOGLE_LOGIN_URL;
 
