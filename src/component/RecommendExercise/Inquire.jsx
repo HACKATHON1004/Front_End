@@ -44,6 +44,9 @@ export default function Inquire() {
     <>
       <Back />
       <div className={styles.pageWrapper}>
+        <div>
+          코치에게 질문하기
+        </div>
         <div className={styles.btnWrapper}>
             {isCoach&&isCoach==="true"?(<></>):(<button onClick={()=>navigate('post')} className={styles.postBtn}>
                 <img src={write} style={{marginRight:"2px"}} alt="Pencil Icon" width="24" height="24"/>
@@ -61,7 +64,7 @@ export default function Inquire() {
                 />
                 <div className={styles.userInfo}>
                   <span className={styles.username}>{comment.username}</span>
-                  <span className={styles.timestamp}>6분전</span>
+                  <span className={styles.timestamp}>{comment.createDate}</span>
                 </div>
               </div>  
               <div className={comment.isAnswer?styles.replySuc:styles.replyButton}>{comment.isAnswer?"답변완료":"답변대기"}</div>

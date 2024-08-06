@@ -11,6 +11,8 @@ import Modal from '../Modal';
 function App(){
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
+    const isCoach = Cookies.get("isCoach");
+    console.log(isCoach);
     const navigate = useNavigate(); 
     function handleCloseModal() {
         setShowModal(false);
@@ -42,7 +44,11 @@ function App(){
     }
 
     function handleModifyUserInfo() {
-        navigate('/modifyUserInfo');  
+        if(isCoach==="true")
+            navigate('/modifyCoachInfo');
+        else{
+            navigate('/modifyUserInfo'); 
+        }
     }
 
     function handlePasswordChange() {

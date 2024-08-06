@@ -28,8 +28,10 @@ function App() {
   const [isGuardian, setIsGuardian] = useState(false); 
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate(); 
+  const isCoach = Cookies.get("isCoach");
 
   useEffect(() => {
+    
     const fetchUserInfo = async () => {
       try {
         const token = Cookies.get('token');

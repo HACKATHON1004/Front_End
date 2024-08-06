@@ -45,7 +45,7 @@ export default function RecruitPlacePostWrite() {
                     titleRef.current.value = previousForm.title;
                     peopleRef.current.value = previousForm.totalRecruit;
                     setAddress(previousForm.location);
-                    phoneRef.current.value = previousForm.phone;
+                    phoneRef.current.value = previusoForm.phone;
                     contentRef.current.value = previousForm.content;
                     setModifyDate(previousForm.eventTime.slice(0, 10));
                     setModifyTime(previousForm.eventTime.slice(11));

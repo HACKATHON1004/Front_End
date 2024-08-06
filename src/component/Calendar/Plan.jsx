@@ -13,9 +13,13 @@ export default function Plan() {
     const eventId = param.id;
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
+    const [current, setCurrent] = useState('');
+    const [total, setTotal] = useState('');
     const memoRef = useRef();
     const [eventData, setEventData] = useState({});
     const navigate = useNavigate();
+    const [phone, setPhone] = useState('');
+    console.log(phone);
     console.log(eventData);
 
     function handleDelete() {
@@ -46,6 +50,17 @@ export default function Plan() {
             }
         })
             .then(res=>{
+                memoRef.current.value=res.data.content;
+                axios.get(`${import.meta.env.VITE_SERVER_URL}/recruit/${res.data.recruitPostId}`, {
+                    headers: {
+                        Authorization: cookie.get("token")
+                    }
+                })
+                    .then(res=>{
+                        setPhone(res.data.phone);
+                        setCurrent(res.data.currentRecruit);
+                        setTotal(res.data.totalRecruit);
+                    })
                 setEventData(res.data);
             })
     
@@ -58,8 +73,8 @@ export default function Plan() {
     useEffect(() => {
         const handleMemoChange = () => {
             const memoValue = memoRef.current.value;
-            axios.post(`${import.meta.env.VITE_SERVER_URL}/calendar/${eventId}/memo`, {
-                memo: memoValue
+            axios.patch(`${import.meta.env.VITE_SERVER_URL}/calendar/${eventId}`, {
+                content: memoRef.current.value
             }, {
                 headers: {
                     Authorization: cookie.get("token")
@@ -94,15 +109,15 @@ export default function Plan() {
                     <div className={styles.tableWrapper}>
                         <div>
                             <span>시간</span>
-                            <span>{eventData.eventTime&&eventData.eventTime.slice(11)} ~ </span>
+                            <span>{eventData.eventTime&&eventData.eventTime.slice(11)} </span>
                         </div>
                         <div>
                             <span>주최자 연락처</span>
-                            <span>{eventData.phone}</span>
+                            <span>{phone}</span>
                         </div>
                         <div>
                             <span>인원 수</span>
-                            <span>{eventData.currentRecruit}/{eventData.totalRecruit?eventData.totalRecruit:"∞"}</span>
+                            <span>{current}/{total?total:"∞"}</span>
                         </div>
                     </div>
                 </div>
