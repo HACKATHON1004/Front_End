@@ -29,7 +29,6 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate(); 
 
-  // Fetch user info when the component mounts
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -41,21 +40,21 @@ function App() {
         });
 
         const userInfo = response.data;
-        setNickname(userInfo.nickname); // Set the nickname state
-        setAge(userInfo.age); // Set the age state
-        setGender(userInfo.sex); // Set the gender state
-        setDisability(userInfo.disabilityCF); // Set the disability state
-        setDisabilityType(userInfo.disabilityK); // Set the disability type state
-        setLimbDisability(userInfo.disabilityKK); // Set the limb disability state
+        setNickname(userInfo.nickname);
+        setAge(userInfo.age);
+        setGender(userInfo.sex);
+        setDisability(userInfo.disabilityCF);
+        setDisabilityType(userInfo.disabilityK);
+        setLimbDisability(userInfo.disabilityKK);
         setFavoriteSport({
           muscle: userInfo.muscle,
           cardio: userInfo.cardio,
           stretching: userInfo.stretching,
           water: userInfo.water,
           ball: userInfo.ball,
-        }); // Set the favorite sport state
-        setIntensity(userInfo.exerciseIntensity); // Set the intensity state
-        setIsGuardian(userInfo.isGuardian); // Set the guardian state
+        });
+        setIntensity(userInfo.exerciseIntensity);
+        setIsGuardian(userInfo.isGuardian);
       } catch (error) {
         console.error('사용자 정보 가져오기 실패:', error);
       }
@@ -88,6 +87,13 @@ function App() {
       ...prevSports,
       [name]: checked,
     }));
+  };
+
+  const handleAgeChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      setAge(value);
+    }
   };
 
   const handleSubmit = async () => {
@@ -142,7 +148,6 @@ function App() {
     <>
     <Back /> 
     <div className={styles.Modifycontainer}>
-      {/* 닉네임 섹션 */}
       <div className={styles.Form}>
         <div className={styles.NWapper}>
           <div className={styles.Nmodify}>닉네임</div>
@@ -161,20 +166,18 @@ function App() {
           </div>
         </div>
 
-        {/* 나이 섹션 */}
         <div className={styles.AWapper}>
           <div className={styles.Amodify}>나이</div>
           <div className={styles.Ainput}>
             <input
               type="text"
               value={age}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={handleAgeChange}
               className={styles.AinputField}
             />
           </div>
         </div>
 
-        {/* 성별 선택 섹션 */}
         <div className={styles.GWapper}>
           <div className={styles.Gender}>성별</div>
           <select
@@ -188,7 +191,6 @@ function App() {
           </select>
         </div>
 
-        {/* 장애 분류 섹션 */}
         <div className={styles.DWapper}>
           <div className={styles.Dis}>장애 분류</div>
           <div className={styles.DisWapper}>
@@ -243,7 +245,6 @@ function App() {
           </div>
         </div>
 
-        {/* 좋아하는 운동 종류 선택 섹션 */}
         <div className={styles.FSWapper}>
           <div className={styles.FSport}>좋아하는 운동 종류를 선택해주세요</div>
           <div className={styles.FSportselect}>
@@ -295,7 +296,6 @@ function App() {
           </div>
         </div>
 
-        {/* 원하는 운동 강도 선택 섹션 */}
         <div className={styles.WSWapper}>
           <div className={styles.WSport}>원하는 운동 강도를 선택해주세요</div>
           <select
@@ -309,7 +309,6 @@ function App() {
           </select>
         </div>
 
-        {/* 보호자 여부 선택 섹션 */}
         <div className={styles.PWapper}>
           <div className={styles.Parent}>보호자 여부를 선택해주세요</div>
           <select
@@ -323,7 +322,6 @@ function App() {
           </select>
         </div>
 
-        {/* 수정하기 버튼 */}
         <div className={styles.modifyWapper}>
           <button className={styles.modifyButton} onClick={handleSubmit}>수정하기</button>
         </div>
@@ -335,6 +333,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;
