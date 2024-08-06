@@ -92,7 +92,11 @@ export default function PlaceReviewContent() {
                         <div key={index} className={styles.reviewItem}>
                             <div className={styles.userInfo}>
                                 <div className={styles.userIcon}>👤</div>
-                                <span className={styles.userId}>{item.username.slice(0,3)}***</span>
+                                <div className={styles.userWrapper}>
+                                  <span className={styles.userId}>{item.username.slice(0,3)}***</span>
+                                  <span></span>
+                                  <span>{item.createDate.split("T").join(" ")}</span>
+                                </div>
                             </div>
                             <div className={styles.userReviewWrapper}>
                                 <p className={styles.userReview}>{item.content}</p>

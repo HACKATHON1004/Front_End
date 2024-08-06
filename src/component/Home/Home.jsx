@@ -67,8 +67,8 @@ export default function Home() {
     <>
         <div className={styles.pageWrapper}>
             <div className={styles.header}>
-                <span>{userInfo.name} </span>
-                {userInfo&&userInfo.career?<span>코치</span>:(userInfo.isGuardian?<span>{userInfo&&userInfo.nickname} 보호자</span>:<>{userInfo.nickname}</>)}
+                <span>{userInfo&&userInfo.isGuardian?userInfo.nickname:userInfo.name} </span>
+                {userInfo&&userInfo.career?<span>코치</span>:(userInfo.isGuardian?<span>보호자</span>:<>{userInfo.nickname}</>)}
                 <span>님 환영합니다!</span>
             </div>
             <div className={styles.infoWrapper}>

@@ -15,7 +15,7 @@ export default function InquirePostContent() {
     const [comment, setComment] = useState({});
     const [commentId, setCommentId] = useState(false);
     const isCoach = cookie.get("isCoach");
-    const [coachCmt, setCoachCmt] = useState(false);
+    const [coachCmt, setCoachCmt] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const menuRef2 = useRef();
@@ -44,7 +44,7 @@ export default function InquirePostContent() {
     }
 
     useEffect(()=>{ ///엔드포인트 넣어야댐
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/`, {
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/cpcomment/coachPost/${inquireId}`, {
             headers: {
                 Authorization: cookie.get("token")
             }
@@ -52,7 +52,7 @@ export default function InquirePostContent() {
             .then(res=>{
                 setCoachCmt(res.data);
             })
-    })
+    }, [])
 
     function deleteComment() {
         axios.delete(`${import.meta.env.VITE_SERVER_URL}/coach/${inquireId}`, {
@@ -122,7 +122,7 @@ export default function InquirePostContent() {
                     </div>        
                 </div>
                 <div className={styles.btnWrapper}>
-                    {isCoach&&isCoach==="true"?(<button onClick={()=>navigate(`/inquire/post?answerId=${inquireId}}`)} className={styles.postBtn}>
+                    {isCoach&&isCoach==="true"&&comment.isAnswer===false?(<button onClick={()=>navigate(`/inquire/answer?id=${inquireId}`)} className={styles.postBtn}>
                         <img src={write} style={{marginRight:"2px"}} alt="Pencil Icon" width="24" height="24"/>
                         <span>답변하기</span>
                     </button>):(<></>)}
@@ -142,7 +142,7 @@ export default function InquirePostContent() {
                         onClose={()=>navigate('/inquire')}
                     />
                 )}
-                {coachCmt?(<div className={styles.inquireWrapper}>
+                {coachCmt.length > 0?(<div className={styles.inquireWrapper}>
                     <div className={styles.headerWrapper}>
                         <img 
                         style={{width:"29px", height:"29px"}}
@@ -151,7 +151,7 @@ export default function InquirePostContent() {
                         className={styles.profileImage} 
                         />
                         <div className={styles.userInfo}>
-                            <span className={styles.username}>{comment.username}</span>
+                            <span className={styles.username}>{coachCmt[0].name}</span>
                             <span className={styles.timestamp}>6분전</span>
                         </div>
                         <div>
@@ -165,7 +165,7 @@ export default function InquirePostContent() {
                         </div>
                     </div>
                     <div className={styles.contentWrapper}>
-                        <div className={styles.content}>{comment.content}</div>
+                        <div className={styles.content}>{coachCmt[0].content}</div>
                     </div>
                 </div>):<></>}
             </div>

@@ -31,6 +31,7 @@ import FindId from './component/Membership/FindId.jsx';
 import FindPw from './component/Membership/FindPw.jsx';
 import IsCoach from './component/Myobject/IsCoach.jsx';
 import CoachObject from './component/Myobject/CoachObject.jsx';
+import AnswerPost from './component/RecommendExercise/AnswerPost.jsx';
 
 function App() {
   
@@ -72,6 +73,7 @@ function App() {
           <Route path='/inquire/post/:id' element={<ProtectedRoute element={<InquirePostContent/>}/>}/>
           <Route path='/isCoach' element={<ProtectedRoute element={<IsCoach/>}/>}/>
           <Route path='/coachObject' element={<ProtectedRoute element={<CoachObject/>}/>}/>
+          <Route path='/inquire/answer' element={<ProtectedRoute element={<AnswerPost/>}/>}/>
         </Routes>
       </BrowserRouter>
     </>
