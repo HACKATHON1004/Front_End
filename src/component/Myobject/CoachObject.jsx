@@ -24,7 +24,10 @@ function App() {
 
     if (!age) {
       errors.age = "나이를 입력해주세요";
+    } else if (!/^\d+$/.test(age)) {
+      errors.age = "나이는 숫자로 입력해주세요";
     }
+
     if (!gender) {
       errors.gender = "성별을 선택해주세요";
     }
@@ -108,6 +111,8 @@ function App() {
             type="text"
             value={age}
             onChange={(e) => setAge(e.target.value)}
+            pattern="\d*"
+            title="나이는 숫자로 입력해주세요"
           />
           {errors.age && <div className={styles.error}>{errors.age}</div>}
 
@@ -181,7 +186,7 @@ function App() {
           </div>
           {errors.other && <div className={styles.error}>{errors.other}</div>}
 
-          <button onClick={complete}className={styles.Cbutton}>등록 완료</button>
+          <button onClick={complete} className={styles.Cbutton}>등록 완료</button>
         </form>
       </div>
       {showModal && (

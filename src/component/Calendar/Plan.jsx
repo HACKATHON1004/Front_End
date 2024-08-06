@@ -53,8 +53,34 @@ export default function Plan() {
           // 종료 직전에 실행되는 코드
           console.log('컴포넌트가 종료됩니다.');
         };
-      }, []);
-    
+    }, []);
+
+    useEffect(() => {
+        const handleMemoChange = () => {
+            const memoValue = memoRef.current.value;
+            axios.post(`${import.meta.env.VITE_SERVER_URL}/calendar/${eventId}/memo`, {
+                memo: memoValue
+            }, {
+                headers: {
+                    Authorization: cookie.get("token")
+                }
+            })
+            .then(response => {
+                console.log("Memo saved:", response.data);
+            })
+            .catch(error => {
+                console.error("Error saving memo:", error);
+            });
+        };
+
+        const textarea = memoRef.current;
+        textarea.addEventListener('input', handleMemoChange);
+
+        return () => {
+            textarea.removeEventListener('input', handleMemoChange);
+        };
+    }, [eventId]);
+
     return (
         <>
             <Back/>
