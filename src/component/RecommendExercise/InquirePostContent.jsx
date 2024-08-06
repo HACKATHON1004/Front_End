@@ -151,7 +151,7 @@ export default function InquirePostContent() {
                         className={styles.profileImage} 
                         />
                         <div className={styles.userInfo}>
-                            <span className={styles.username}>{coachCmt[0].name}</span>
+                            <span className={styles.username}>{coachCmt[0].name} 코치</span>
                             <span className={styles.timestamp}>6분전</span>
                         </div>
                         <div>

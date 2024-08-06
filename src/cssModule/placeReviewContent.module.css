@@ -16,6 +16,19 @@ span {
     width: 340px;
 }
 
+.userWrapper > div{
+    display: flex;
+    gap: 10px;
+}
+
+.userWrapper > div:last-child {
+    font-size: 8px;
+}
+
+.userWrapper > div div{
+    color: red;
+}
+
 .container {
     width: 316px;
     padding: 10px;
