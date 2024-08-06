@@ -105,7 +105,7 @@ export default function InquirePostContent() {
                         />
                         <div className={styles.userInfo}>
                             <span className={styles.username}>{comment.username}</span>
-                            <span className={styles.timestamp}>6분전</span>
+                            <span className={styles.createDate}></span>
                         </div>
                         <div>
                             <div className={styles.menuWrapper}>
@@ -152,7 +152,7 @@ export default function InquirePostContent() {
                         />
                         <div className={styles.userInfo}>
                             <span className={styles.username}>{coachCmt[0].name} 코치</span>
-                            <span className={styles.timestamp}>6분전</span>
+                            <span className={styles.createDate}></span>
                         </div>
                         <div>
                             <div className={styles.menuWrapper}>

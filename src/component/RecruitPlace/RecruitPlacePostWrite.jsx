@@ -45,7 +45,7 @@ export default function RecruitPlacePostWrite() {
                     titleRef.current.value = previousForm.title;
                     peopleRef.current.value = previousForm.totalRecruit;
                     setAddress(previousForm.location);
-                    phoneRef.current.value = previusoForm.phone;
+                    phoneRef.current.value = previousForm.phone;
                     contentRef.current.value = previousForm.content;
                     setModifyDate(previousForm.eventTime.slice(0, 10));
                     setModifyTime(previousForm.eventTime.slice(11));
@@ -66,38 +66,38 @@ export default function RecruitPlacePostWrite() {
 
     function handleSubmit() {
         const phonePattern = /^\d{10,11}$/;  // Example pattern: 10 or 11 digits
-    
+        
         if (!titleRef.current.value || !address || !phoneRef.current.value || !dateRef.current.value || !contentRef.current.value) {
             setShowModal(true);
             return;
         }
-    
-        console.log(phonePattern.test(phoneRef.current.value));
-        if (!phonePattern.test(phoneRef.current.value) || !isNumeric(peopleRef.current.value) || parseInt(peopleRef.current.value) <= 0) {
+        
+        // 인원제한 체크 여부 확인
+        if (checkRef.current.checked) {
+            if (!isNumeric(peopleRef.current.value) || parseInt(peopleRef.current.value) <= 0) {
+                setShowModal3(true);
+                return;
+            }
+        }
+        
+        if (!phonePattern.test(phoneRef.current.value)) {
             setShowModal3(true);
             return;
         }
     
-        if (checkRef.current.checked === true) {
-            if (!peopleRef.current.value) {
-                setShowModal(true);
-                return;
-            }
-        }
-    
         const postData = {
             title: titleRef.current.value,
-            totalRecruit: parseInt(peopleRef.current.value),
+            totalRecruit: checkRef.current.checked ? null : parseInt(peopleRef.current.value), // 인원제한이 체크된 경우 null
             location: address,
             phone: phoneRef.current.value,
             eventTime: `${dateRef.current.value}-${timeRef.current.value}`,
             content: contentRef.current.value,
         };
-    
+        
         const headers = {
             Authorization: cookie.get("token"),
         };
-    
+        
         if (modifyPostId) {
             axios.patch(`${import.meta.env.VITE_SERVER_URL}/recruit/${modifyPostId}`, postData, { headers })
                 .then(res => {
@@ -119,6 +119,7 @@ export default function RecruitPlacePostWrite() {
                 });
         }
     }
+    
     
     
 
@@ -188,13 +189,7 @@ export default function RecruitPlacePostWrite() {
                         <div onClick={handleAddressSearch} className={styles.inputField}>
                             {address?address:"모집장소 주소를 입력해주세요. 🔍"}
                         </div>
-                        <div onClick={() => document.getElementById('photoUpload').click()} ref={menuRef2} className={styles.icon}>
-                            <img
-                                src={img} /* replace with the actual path to your search icon */
-                                alt="Search"
-                                className={styles.searchIcon}
-                            />
-                        </div>
+                        
                     </div>
                     <ImgMenu />
                     <input

@@ -82,7 +82,7 @@ export default function PostList({ field, eventTime, type }) {
               </div>
               <div>{item.createDate.slice(2, 10)}</div>
               <div>{item.view}</div>
-              <div>{field === "추천" ? item.totalRecommend : item.currentRecruit + "/" + item.totalRecruit}</div>
+              <div>{field === "추천" ? item.totalRecommend : item.totalRecruit? item.currentRecruit + "/" + item.totalRecruit :item.currentRecruit +"/" + "∞"}</div>
             </div>
           </div>
         );

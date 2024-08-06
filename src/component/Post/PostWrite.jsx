@@ -92,9 +92,6 @@ export default function PostWrite() {
                     <div className={styles.titleWrapper}>
                         <input ref={titleRef} type="text" placeholder="제목을 입력해 주세요." className={styles.title} />
                     </div>
-                    <div onClick={() => document.getElementById('photoUpload').click()} ref={menuRef2} className={styles.imgWrapper}>
-                        <img src={img}/>
-                    </div>
                 </div>
                 <ImgMenu />
                     <input
