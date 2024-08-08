@@ -178,21 +178,21 @@ export default function PlaceReview() {
             />
           ) : (
             <div className={styles.cardWrapper}>
-          {sortedData.map((facility) => (
-            <div onClick={() => handleFacilityClick(facility.place_name, facility.address_name)} className={styles.card} key={facility.id} >
-              <div className={styles.imageSection}>
-                <img src={cat} alt="Cat" className={styles.catImage} />
-              </div>
-              <div className={styles.textSection}>
-                <div className={styles.placeTitle}>{facility.place_name}</div>
-                <div className={styles.detail}>
-                  <div className={styles.subText}>{facility.address_name}</div>
-                  <div className={styles.distance}>{(facility.distance * 0.001).toFixed(1)}Km</div>
+              {sortedData.map((facility) => (
+                <div onClick={() => handleFacilityClick(facility.place_name, facility.address_name)} className={styles.card} key={facility.id} >
+                  <div className={styles.imageSection}>
+                    <img src={cat} alt="Cat" className={styles.catImage} />
+                  </div>
+                  <div className={styles.textSection}>
+                    <div className={styles.placeTitle}>{facility.place_name}</div>
+                    <div className={styles.detail}>
+                      <div className={styles.subText}>{facility.address_name}</div>
+                      <div className={styles.distance}>{(facility.distance * 0.001).toFixed(1)}Km</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
           )}
         </div>
       </div>
