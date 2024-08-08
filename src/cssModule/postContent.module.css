@@ -1,4 +1,5 @@
 .pageWrapper {
+    margin-top: 50px;
     width: 316px;
     font-family: Pretentard-variable, sans-serif;
 }
@@ -29,14 +30,19 @@
 }
 
 .titleWrapper {
-    height: 62px;
     margin-top: 12px;
+}
+
+.titles {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 5px;
 }
 
 .title {
     height: 40px;
     text-align: justify;
-    width: 309px;
+    width: 312px;
     margin: 0 auto;
     background-color: #d9d9d9;
             border-radius: 10px;
@@ -49,7 +55,16 @@
 
 .title span {
     font-size: 16.5px;
-    margin-left: 23px;
+}
+
+.titles .title:first-child {
+  width: 80%;
+  text-align: center;
+}
+
+.titles .title:last-child {
+  width: 15%;
+  text-align: center;
 }
 
 .commentWrapper {
@@ -118,6 +133,10 @@
     border: 1px solid black;
 }
 
+.content {
+  padding: 10px;
+}
+
 .btnWrapper {
     font-size: 13px;
     margin-top: 12px;
@@ -139,7 +158,21 @@
     background-color: #ff6060
 }
 
+.applyBtn {
+  border-radius: 15px;
+  background-color: #A8FFB1;
+  color: #1DB52B;
+}
+
+.cancleBtn {
+  border-radius: 15px;
+  background-color: #FFBABA;
+  color: #FF6464;
+}
+
 .commentSection {
+    overflow-y: auto;
+    height: 200px;
     margin: 20px auto;
     background: white;
     border-top: 1px solid #a6a2a2;
@@ -202,7 +235,7 @@
   }
   
   .comment-textarea {
-    width: 100%;
+    width: 88%;
     height: 100px;
     margin-bottom: 10px;
     font-family: Pretentard-variable, sans-serif;
@@ -211,6 +244,7 @@
     border: none;
     border-radius: 5px;
     resize: none;
+    outline: none;
   }
   
   .comment-actions {
@@ -251,4 +285,23 @@
   
   .fade-exit-active {
     height: 0;
+  }
+
+  .starWrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 80px; /* 여백 추가 */
+  }
+  
+  .starButton {
+    font-size: 24px;
+    color: gray; /* 빈 별의 기본 색상 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .starButton.active {
+    color: red; /* 활성화된 별의 색상 */
   }

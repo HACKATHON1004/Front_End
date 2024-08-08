@@ -1,5 +1,6 @@
 .postWrapper {
   font-family: Pretendard, sans-serif;
+  height: 87vh;
 }
 
 .postTitle {
@@ -29,7 +30,7 @@
 }
 
 .tableHead div:nth-child(2) {
-  width: 20%;
+  width: 25%;
 }
 
 .tableHead div:last-child {
@@ -38,6 +39,10 @@
 
 .tableBody {
   font-size: 10px;
+}
+
+.tableBody:hover {
+  background-color: #cfcfcf;
 }
 
 .tables div {

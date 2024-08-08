@@ -1,3 +1,8 @@
+.commentWrapper {
+    margin: 0 auto;
+    width: 316px;
+}
+
 .commentBox {
     display: flex;
     align-items: flex-start;
@@ -24,7 +29,7 @@
 }
 
 .commentBoxContent textarea {
-    width: 100%;
+    width: 85%;
     height: 100px;
     border: none;
     resize: none;

@@ -1,5 +1,5 @@
 .loginPageWrapper {
-    height: 625px;
+    height: 85vh;
   }
   
   .imgWrapper {
@@ -56,6 +56,9 @@
   }
   
   .inputContainer input {
+    width: 70%;
+    height: 80%;
+    margin: 0;
     border: none;
     outline: none;
     font-size: 16px;

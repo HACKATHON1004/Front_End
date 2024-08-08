@@ -1,4 +1,7 @@
 import './App.css';
+import Calendar from './component/Calendar/Calendar.jsx';
+import Myobject from './component/Myobject/Myobject.jsx'
+import Plan from './component/Calendar/Plan.jsx';
 import Login from './component/Login.jsx';
 import Mempage from './component/Membership/Mempage.jsx';
 import Post from './component/Post/Post.jsx'
@@ -33,7 +36,6 @@ import CoachObjectModify from './component/Mysetting/CoachObjectModify.jsx';
 
 function App() {
   
-
   return (
     <>
       <BrowserRouter>
@@ -80,4 +82,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

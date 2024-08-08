@@ -3,60 +3,121 @@ import styles from "../../cssModule/postWrite.module.css"
 import img from "../../images/img.svg"
 import { useState, useEffect } from "react";
 import { useRef } from "react";
-import ImgMenu from "./imgMenu";
+import ImgMenu from "../../component/Post/imgMenu";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
+import cookie from "js-cookie"
+import Modal from "../Modal";
 
 export default function PostWrite() {
+    const [searchParam] = useSearchParams();
+    const modifyPostId = searchParam.get("id");
     const [showMenu, setShowMenu] = useState(false);
-    const menuRef = useRef(); //열린 메뉴 Ref
     const menuRef2 = useRef(); //앨범 버튼 Ref
+    const titleRef = useRef();
+    const textRef = useRef();
+    const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
+    const [modifyForm, setModifyForm] = useState({});
 
-    function openMenu() {
-        setShowMenu(!showMenu);
-    }
-
-    function handleClickOutside(e) {
-        if (menuRef.current && !menuRef.current.contains(e.target)
-        &&menuRef2.current && !menuRef2.current.contains(e.target)) {
-            setShowMenu(false);
-            console.log("도작");
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setSelectedImage(e.target.result);
+            };
+            reader.readAsDataURL(file);
         }
-      }
-    
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+    }; //사진 미리보기
+
+    useEffect(()=>{
+        const fetchPreviousForm = async () => {
+            if(modifyPostId) {
+                try {
+                    const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/free/${modifyPostId}`);
+                    const previousForm = await res.data;
+                    setModifyForm(previousForm);
+                    titleRef.current.value = previousForm.title;
+                    textRef.current.value = previousForm.content;
+                }
+                catch(error) {
+                    console.error('Error fetching modify form:', error);
+                }
+            }
+        }
+
+        fetchPreviousForm();
     }, []);
 
+    function handleSubmit() {
+        if(!titleRef.current.value||!textRef.current.value) {
+            setShowModal(true);
+            return;
+        }
+        if(modifyPostId) {
+            axios.patch(`${import.meta.env.VITE_SERVER_URL}/free/${modifyPostId}`, {
+                title: titleRef.current.value,
+                content: textRef.current.value
+            },{
+                headers: {
+                    Authorization: cookie.get("token")
+                }
+            })
+            .then(()=>{
+                setShowModal2(true);
+            })
+        }
+        else{
+            axios.post(`${import.meta.env.VITE_SERVER_URL}/free`, {
+                title: titleRef.current.value,
+                content: textRef.current.value
+            },{
+                headers: {
+                    Authorization: cookie.get("token")
+                }
+            })
+                .then(()=>{
+                    setShowModal2(true);
+                })
+        }
+    }
+    ///zz
     return (
         <>
             <Back/>
             <div className={styles.pageWrapper}>
                 <div className={styles.header}>
                     <div className={styles.titleWrapper}>
-                        <input type="text" placeholder="제목을 입력해 주세요." className={styles.title} />
-                    </div>
-                    <div onClick={openMenu} ref={menuRef2} className={styles.imgWrapper}>
-                        <img src={img}/>
+                        <input ref={titleRef} type="text" placeholder="제목을 입력해 주세요." className={styles.title} />
                     </div>
                 </div>
-                {/* <div className={styles.menuWrapper}>
-                    {showMenu&&
-                    <div ref={menuRef} className={styles.menu}>
-                        <div className={styles.menuItem}>사진 보관함</div>
-                        <div className={styles.menuItem}>사진 찍기</div>
-                        <div className={styles.menuItem}>파일 선택</div>
-                    </div>}
-                </div> */}
-                <ImgMenu showMenu={showMenu}/>
+                <ImgMenu />
+                    <input
+                        type="file"
+                        id="photoUpload"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={handleImageUpload}
+                    />
                 <div className={styles.contentWrapper}>
-                    <textarea placeholder="내용을 입력하세요."/>
+                    <textarea ref={textRef} placeholder="내용을 입력하세요."/>
                 </div>
                 <div className={styles.btnWrapper}>
-                    <button className={styles.delBtn}>취소</button>
-                    <button className={styles.postBtn}>등록</button>
+                    <button onClick={()=>{navigate(-1)}} className={styles.delBtn}>취소</button>
+                    <button onClick={handleSubmit} className={styles.postBtn}>등록</button>
                 </div>
+                {showModal&&
+                <Modal 
+                message="빈 입력창이 있습니다."
+                onClose={()=>{setShowModal(false);}}/>
+                }
+                {showModal2&&
+                <Modal 
+                message="게시글이 등록되었습니다."
+                onClose={()=>{setShowModal(false); navigate(-1)}}/>
+                }
             </div>
         </>
     )

@@ -6,13 +6,37 @@ import naverLogin from "../images/5.svg"
 import googleLogin from "../images/4.svg"
 import Modal from "./Modal"
 import styles from "../cssModule/login.module.css"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import cookie from "js-cookie";
 
 export default function Login(){
   const idRef = useRef();
   const pwRef = useRef();
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const formData = new FormData();
+  const [param] = useSearchParams();
+    
+    useEffect(()=>{
+        const token = param.get("code");
+        console.log(token);
+        cookie.set("token", token);
+
+        if(token){
+          navigate('home');
+        }
+    }, [])
+
+    useEffect(()=>{
+      const token = localStorage.getItem("token");
+      console.log(localStorage.getItem("token"));
+      if(token!=="null"&&token){
+        cookie.set("token", token);
+        navigate('home');
+      }
+    }, [])
 
   const naverUrl = import.meta.env.VITE_NAVER_LOGIN_URL || process.env.REACT_APP_NAVER_LOGIN_URL;
   const googleUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL || process.env.REACT_APP_GOOGLE_LOGIN_URL;
@@ -34,19 +58,35 @@ export default function Login(){
 
   function handleGoogleLogin(){
     //구글로그인 처리
-
+    
     window.location.href = googleUrl;
+    
   }
 
   function handleLogin(){
-    axios.post((`http://3.35.14.254:8080/api/login`),null,{
-      params:{
-        userId: idRef.current.value,
-        passwd: pwRef.current.value
+    formData.append('username', idRef.current.value);
+    formData.append('password', pwRef.current.value);
+    
+    axios.post((`${import.meta.env.VITE_SERVER_URL}/user/login`),formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
     })
-      .then(res=>{
-        console.log(res.data.email);
+      .then(async res=>{
+        console.log(res.status);
+        if(res.status===200) {
+          console.log(res.headers.get('Authorization'));
+          console.log(res.data.email);
+          console.log(res.data);
+          navigate('/home');
+          if(isActive){
+            localStorage.setItem("token", res.headers.get('Authorization'));
+            cookie.set("token", localStorage.getItem("token"));
+          }
+          cookie.set("token", res.headers.get('Authorization'));
+        } else {
+          setShowModal(true);
+        }
       })
       .catch(err=>{
         setShowModal(true);
@@ -73,8 +113,7 @@ export default function Login(){
       </div>
       <div className={styles.optionsContainer}>
         <div className={styles.links}>
-          <a href="#">아이디 찾기</a>
-          <a href="#">비밀번호 찾기</a>
+          <span onClick={()=>navigate('/findId')}>아이디 찾기</span>
         </div>
         <div className={styles.toggleContainer}>
           <div className={styles.toggleText}>자동 로그인</div>
@@ -85,7 +124,7 @@ export default function Login(){
         <button className={styles.loginBtn} onClick={handleLogin}>로그인</button>
       </div>
       <div>
-        <button className={styles.loginBtn}>회원가입</button>
+        <button onClick={()=>{navigate("/signUp")}} className={styles.loginBtn}>회원가입</button>
       </div>
       <div className={styles.easyLogin}>
         <div className={styles.line}></div>

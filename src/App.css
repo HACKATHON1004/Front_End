@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -43,10 +43,12 @@
 
 
 .Container {
+  width: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
+  margin-top: 130px;
 }
 
 .Form {
@@ -54,6 +56,8 @@
   flex-direction: column;
   align-items: center;
   color: black;
+  width: 350px;
+  height: 949px;
 }
 
 /* .Label {
@@ -98,6 +102,7 @@
   height: 30px;
 }
 .RLabel{
+  width: 100%;
   margin: 10px 0 ;
   font-size: 26px;
   font-weight: 400;
@@ -146,11 +151,11 @@
 .Input {
   border: none;
   border-bottom: 2px solid #000;
-  width: 346px;
+  width: 340px;
   display: flex;
   height: 60px;
   font-size: 26px;
-  
+  margin-bottom: 0;
 }
 
 .Input:focus {
@@ -168,6 +173,10 @@
   border-radius: 5px;
   font-weight: 600;
   height: 39px;
+  background-color: #ffffff; 
+  border: 1px solid #ffffff;     
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+  margin-bottom: 45px;
 }
 
 .Button:hover {
@@ -181,6 +190,9 @@
   background-color: white;
   border: 0.7px solid #ccc;
   border-radius: 10px;
+  background-color: #ffffff; 
+  border: 1px solid #ffffff;     
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
  
 }
 
@@ -202,8 +214,8 @@
   height: 18px;
 }
 .Wrapper{
-  
-  width: 361px;
+  margin: 0 auto;
+  width: 330px;
   height: 70px;
   align-items: center;
   display: flex;
@@ -218,6 +230,7 @@
 }
 
 .viewWrapper {
+  gap: 8px;
   height: 18px;
   justify-content: end;
   width: 30%;
@@ -225,28 +238,23 @@
   align-items: center;
 }
 .Name{
-  width: 361px;
   height: 146px;
   
 }
 .Email{
-  width: 361px;
   height: 146px;
   
   margin-top: 50px;
 }
 .ID{
-  width: 361px;
   height: 146px;
   margin-top: 50px;
 }
 .PW{
-  width: 361px;
   height: 146px;
   margin-top: 50px;
 }
 .RPW{
-  width: 361px;
   height: 146px;
   margin-top: 50px;
 }
