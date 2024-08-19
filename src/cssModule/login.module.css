@@ -162,6 +162,8 @@
   }
   
   .imgSocial {
+    width: 267px;
+    height: 56px;
     opacity: 0.9;
     transition: all 0.5s;
   }
