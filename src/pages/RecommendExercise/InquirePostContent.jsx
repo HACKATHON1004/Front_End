@@ -1,4 +1,4 @@
-import Back from "../Button/Back";
+import Back from '../../\bcomponents/Button/Back';
 import styles from '../../cssModule/inquirePostContent.module.css'
 import profileImage from '../../images/1.svg'
 import { useEffect, useState, useRef } from "react";

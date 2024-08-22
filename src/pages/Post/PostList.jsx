@@ -8,8 +8,6 @@ export default function PostList({ field, eventTime, type }) {
   const [posts, setPosts] = useState([]);
   const isFirstRender = useRef(true);
   const navigate = useNavigate();
-  console.log(eventTime);
-  console.log(posts);
 
   useEffect(() => {
     const today = new Date(); // 오늘 날짜 객체 생성
@@ -18,10 +16,7 @@ export default function PostList({ field, eventTime, type }) {
       return data.filter((post) => {
         const date = post.eventTime.split("-").join(" ");
         const postDate = new Date(date);
-        console.log("fetched id: ", post.id);
-        console.log(postDate);
-        console.log(today);
-        console.log("만든시간:", post.createDate);
+      
         return postDate >= today; // 오늘보다 이후의 날짜인지 확인
       });
     };
@@ -71,7 +66,6 @@ export default function PostList({ field, eventTime, type }) {
         <div>{field}</div>
       </div>
       {posts.map((item, index) => {
-        console.log(item.id);
         return (
           <div onClick={() => navigate(`post/${item.id}`)} key={item.id} className={styles.tableBody}>
             <div className={styles.tableHead} key={index}>

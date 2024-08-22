@@ -1,6 +1,6 @@
 import axios from 'axios';
 import styles from '../../cssModule/postContent.module.css'
-import Back from '../Button/Back'
+import Back from '../../components/Button/Back';
 import Modal from '../Modal';
 import Modal2 from '../Modal2';
 import Modal3 from '../Modal3';

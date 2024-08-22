@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Back from '../Button/Back';
+import Back from '../../components/Button/Back';
 import styles from '../../cssModule/calendar.module.css';
 import left from '../../images/left.svg';
 import right from '../../images/right.svg';

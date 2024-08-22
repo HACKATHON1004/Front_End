@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from '../../cssModule/Serviceintro.module.css'
-import Back from '../Button/Back';
+import Back from '../../\bcomponents/Button/Back';
 
 function ServiceIntro(){
 

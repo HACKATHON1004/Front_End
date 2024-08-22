@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import cookies from 'js-cookie';
 import styles from '../../cssModule/home.module.css';
 
 export default function userInfo({userInfo}) {

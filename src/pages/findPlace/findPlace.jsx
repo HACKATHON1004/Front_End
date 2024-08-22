@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { BallTriangle } from 'react-loader-spinner';
 import styles from '../../cssModule/findPlace.module.css';
-import Back from '../Button/Back';
+import Back from '../../components/Button/Back';
 import img1 from '../../images/gps.svg';
 import img2 from '../../images/close.svg';
 import img3 from '../../images/search.svg';

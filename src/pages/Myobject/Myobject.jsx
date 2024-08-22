@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../../cssModule/myp.module.css';
 import axios from 'axios';
-import Back from '../Button/Back';
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom';
 import Modal from '../Modal';

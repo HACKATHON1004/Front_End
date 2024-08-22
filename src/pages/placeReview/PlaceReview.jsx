@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 import styles from '../../cssModule/placeReview.module.css';
-import Back from '../Button/Back';
+import Back from '../../\bcomponents/Button/Back';
 import img1 from '../../images/pencil.svg';
 import img2 from '../../images/close.svg';
 import img3 from '../../images/search.svg';

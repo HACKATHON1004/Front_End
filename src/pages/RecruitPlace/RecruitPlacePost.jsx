@@ -1,4 +1,4 @@
-import Back from "../Button/Back";
+import Back from "../../components/Button/Back";
 import styles from '../../cssModule/recruitPlacePost.module.css'
 import PostList from "../Post/PostList";
 import { useNavigate } from "react-router-dom";

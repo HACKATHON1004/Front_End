@@ -1,4 +1,4 @@
-import Back from "../Button/Back";
+import Back from "../../components/Button/Back";
 import styles from '../../cssModule/FP_Home.module.css'
 import img1 from '../../images/gps.svg'
 import img2 from '../../images/pencil.svg'

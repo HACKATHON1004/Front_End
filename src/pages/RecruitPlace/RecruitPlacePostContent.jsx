@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from '../../cssModule/postContent.module.css'
-import Back from '../Button/Back'
+import Back from '../../\bcomponents/Button/Back'
 import Modal2 from '../Modal2';
 import Modal3 from '../Modal3';
 import CmtModal from '../Post/CmtModal';
@@ -9,6 +9,8 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie'
 import Modal from '../Modal';
+import RP_PostContentHeader from '../../\bcomponents/post/recruitPlace/RP_PostContentHeader';
+import RP_PC_component from '../../\bcomponents/post/recruitPlace/RP_PC_component';
 
 export default function RecruitPlacePostContent() {
     const param = useParams();
@@ -51,14 +53,6 @@ export default function RecruitPlacePostContent() {
             .catch(()=>{
                 console.log("댓글 패치 에러");
             })
-        
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/recruit/${postId}`)
-            .then(res=>{
-                setPostData(res.data);
-            })
-            .catch(err=>{
-                console.error(err);
-            });
 
         axios.get(`${import.meta.env.VITE_SERVER_URL}/user/username`,{
             headers:{
@@ -178,34 +172,7 @@ export default function RecruitPlacePostContent() {
         <>
             <Back/>
             <div className={styles.pageWrapper}>
-                <div style={postData.username === username ? {} : { visibility: "hidden" }} className={styles.buttons}>
-                    <button className={styles.buttonModDel} onClick={() => handleDelete("mod")}>수정</button>
-                    <button className={styles.buttonModDel} onClick={() => handleDelete("del")}>삭제</button>
-                </div>
-                <div className={styles.titleWrapper}>
-                    <div className={styles.titles}>
-                        <div className={styles.title}>
-                            <span>{postData.title}</span>
-                        </div>
-                        <div className={styles.title}>
-                            {postData.currentRecruit}/{postData.totalRecruit?postData.totalRecruit:"∞"}
-                        </div>
-                    </div>
-                    <div className={styles.title}>
-                        모집자 전화번호 : {postData.phone}
-                    </div>
-                    <div className={styles.postInfo}>
-                        <span>{postData.createDate&&postData.createDate.split("T").join(" ")}</span>
-                        <span>조회 수 {postData.view}</span>
-                        <span>댓글 {comments.length}</span>
-                    </div>
-                </div>
-                <div className={styles.contentWrapper}>
-                    <div className={styles.content}>
-                    {postData.eventTime&&postData.eventTime.split("-").join(" ")} <br/> 
-                    {postData.content}
-                    </div>
-                </div>
+                <RP_PC_component username={username} comments={comments.length} postId={postId}/>
                 <div className={styles.btnWrapper}>
                     {isApply?
                         <button onClick={()=>handleDelete("apply")} className={styles.applyBtn}>지원하기</button>

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../Modal';
-import Back from '../Button/Back';
+import Back from '../../components/Button/Back';
 
 function App() {
   const [age, setAge] = useState('');

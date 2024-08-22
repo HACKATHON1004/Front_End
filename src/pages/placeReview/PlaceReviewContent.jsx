@@ -5,7 +5,7 @@ import img3 from '../../images/search.svg';
 import img4 from '../../images/pencil.svg'
 import img5 from '../../images/close.svg'
 import CmtModalStar from '../CmtModalStar'
-import Back from '../Button/Back';
+import Back from '../../\bcomponents/Button/Back';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';

@@ -40,7 +40,7 @@ export default function Comment({ modify, username, id, text, timestamp, profile
             <div className={styles.commentContent}>
                 <div className={styles.username}>{username}</div>
                 {modify===false?<div className={styles.text}>{text}</div>:<div><input ref={textRef} className={styles.text}></input><button onClick={onCancle}>X</button><button onClick={handleModify}>O</button></div>}
-                <div className={styles.timestamp}>{timestamp.split("T").join(" ")}</div>
+                <div className={styles.timestamp}>{timestamp.split("T").join(" ").slice(0, 19)}</div>
             </div>
             {
                 modify===true?<></>:<div className={styles.menuWrapper}>

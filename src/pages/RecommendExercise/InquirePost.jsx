@@ -1,6 +1,6 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import styles from '../../cssModule/inquirePost.module.css'
-import Back from '../Button/Back';
+import Back from '../../\bcomponents/Button/Back';
 import { useRef, useState, useEffect } from 'react';
 import img from '../../images/img.svg'
 import ImgMenu from '../Post/imgMenu';

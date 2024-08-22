@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import Back from "../Button/Back";
+import Back from '../../\bcomponents/Button/Back';
 import styles from '../../cssModule/inquirePost.module.css'
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Modal from "../Modal";

@@ -1,4 +1,4 @@
-import Back from "../Button/Back";
+import Back from "../../components/Button/Back";
 import styles from "../../cssModule/postWrite.module.css"
 import { useState, useEffect } from "react";
 import { useRef } from "react";

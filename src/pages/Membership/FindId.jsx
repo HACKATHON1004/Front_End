@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../App.css';
-import Back from '../Button/Back';
+import Back from '../../components/Button/Back';
 import Modal from '../Modal';
 import { useNavigate } from 'react-router-dom';
 

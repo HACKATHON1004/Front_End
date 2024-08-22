@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styles from '../../cssModule/mys.module.css';
 import { useNavigate } from 'react-router-dom'; 
 import Modal4 from '../Modal4';
-import Back from '../Button/Back';
+import Back from '../../\bcomponents/Button/Back';
 import Cookies from 'js-cookie'; 
 import Modal from '../Modal';
 

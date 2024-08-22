@@ -14,14 +14,14 @@ export default function Home() {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
 
-    useEffect(()=>{
+    useEffect(()=>{ //접속 유저가 코치인지 일반 유저인지 확인
         axios.post(`${import.meta.env.VITE_SERVER_URL}/user/isCoach`,null,{
             headers: {
                 Authorization: cookies.get("token")
             }
         })
             .then((res)=>{
-                if(res.data===true){
+                if(res.data===true){ //코치라면 userInfo에 코치 정보 set
                     cookies.set("isCoach", res.data);
                     axios.get(`${import.meta.env.VITE_SERVER_URL}/coachinfo/username`,{
                         headers: {
@@ -32,7 +32,7 @@ export default function Home() {
                             setUserInfo(res.data);
                         })
                 }
-                else {
+                else { //그렇지 않다면 userInfo에 일반 유저 정보 set
                     axios.post(`${import.meta.env.VITE_SERVER_URL}/user/isFirstLogin`,null,{
                         headers: {
                             Authorization: cookies.get("token")

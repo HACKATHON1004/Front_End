@@ -1,4 +1,4 @@
-import Back from "../Button/Back";
+import Back from '../../components/Button/Back';
 import styles from "../../cssModule/plan.module.css"
 import exImg from '../../images/exImg.svg'
 import Modal2 from "../Modal2";

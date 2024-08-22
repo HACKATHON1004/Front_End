@@ -1,4 +1,4 @@
-import Back from "../Button/Back";
+import Back from '../../\bcomponents/Button/Back';
 import styles from '../../cssModule/RE_Home.module.css'
 import img1 from '../../images/yoga.svg'
 import img2 from '../../images/rehabilitate.svg'

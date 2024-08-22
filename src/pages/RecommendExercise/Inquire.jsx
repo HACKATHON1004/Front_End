@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../cssModule/inquire.module.css'
-import Back from '../Button/Back';
+import Back from '../../\bcomponents/Button/Back';
 import write from '../../images/write.svg'
 import cookie from 'js-cookie'
 import axios from 'axios';
