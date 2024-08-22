@@ -15,7 +15,6 @@ export default function CmtModal({msg, username, postId}) {
   const commentRef = useRef();
   const textRef = useRef();
   const navigate = useNavigate();
-  console.log(postId);
 
   function handleClickOutside(e) {
     if (commentRef.current && !commentRef.current.contains(e.target)) {

@@ -1,9 +1,6 @@
 import styles from '../../cssModule/placeReviewContent.module.css'
 import img1 from '../../images/findCat.svg'
-import img2 from '../../images/location.svg'
-import img3 from '../../images/search.svg';
 import img4 from '../../images/pencil.svg'
-import img5 from '../../images/close.svg'
 import CmtModalStar from '../CmtModalStar'
 import Back from '../../\bcomponents/Button/Back';
 import { useEffect, useRef, useState } from 'react';
@@ -11,21 +8,18 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import cookie from 'js-cookie'
 import Modal from '../Modal'; // Ensure you import Modal component
+import ReviewList from '../../\bcomponents/placeReview/ReviewList';
+import ReviewContentHeader from './ReviewContentHeader'
 
 export default function PlaceReviewContent() {
     const param = useParams();
     const placeId = param.id;
-    const inputRef = useRef();
     
     const [reviewData, setReviewData] = useState({});
     const [reviews, setReviews] = useState([]);
     const [username, setUsername] = useState('');
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate(); // Add navigate
-
-    const handleClear = () => {
-        inputRef.current.value = '';
-    };
 
     useEffect(()=>{
         axios.get(`${import.meta.env.VITE_SERVER_URL}/place/${placeId}`)
@@ -34,9 +28,9 @@ export default function PlaceReviewContent() {
             });
 
         axios.get(`${import.meta.env.VITE_SERVER_URL}/review/place/${placeId}`)
-            .then(res=>{
-                setReviews(res.data);
-            });
+        .then(res=>{
+            setReviews(res.data);
+        });
 
         axios.get(`${import.meta.env.VITE_SERVER_URL}/user/username`,{
             headers:{
@@ -68,40 +62,10 @@ export default function PlaceReviewContent() {
                         <img src={img1}/>
                     </div>
                     <div className={styles.container}>
-                        <div className={styles.header}>
-                            <span className={styles.title}>{reviewData.placeName}</span>
-                            <img src={img2} />
-                            <span className={styles.location}>{reviewData.address}</span>
-                        </div>
-                        <div className={styles.reviewInfo}>
-                            <span className={styles.rating}>&#9733; {reviewData.starAvg && reviewData.starAvg.toFixed(2)}</span> {/* 별표 유니코드 사용 */}
-                            <span className={styles.reviewCount}>방문자리뷰 {reviews.length}</span>
-                        </div>
+                        <ReviewContentHeader reviewData={reviewData} reviews={reviews.length}/>
                         <CmtModalStar msg="리뷰를 남겨보세요." username={username} postId={placeId} />
                     </div>
-                    <div className={styles.reviewList}>
-                        {reviews.map((item, index) => (
-                            <div key={index} className={styles.reviewItem}>
-                                <div className={styles.userInfo}>
-                                    <div className={styles.userIcon}>👤</div>
-                                    <div className={styles.userWrapper}>
-                                        <div>
-                                          <span className={styles.userId}>{item.username.slice(0, 3)}***</span>
-                                          <div>
-                                              {[...Array(item.starRating)].map((_, i) => (
-                                                  <span key={i}>&#9733;</span> // 별표 유니코드
-                                              ))}
-                                          </div>
-                                        </div>
-                                        <div>{item.createDate.split("T").join(" ")}</div>
-                                    </div>
-                                </div>
-                                <div className={styles.userReviewWrapper}>
-                                    <p className={styles.userReview}>{item.content}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    <ReviewList reviews={reviews}/>
                 </div>
                 {showModal && (
                     <Modal
