@@ -19,19 +19,18 @@ export default function Login(){
   const formData = new FormData();
   const [param] = useSearchParams();
     
-    useEffect(()=>{
-        const token = param.get("code");
-        console.log(token);
-        cookie.set("token", token);
+    useEffect(()=>{ //소셜로그인을 위한 query 참조
+      const token = param.get("code");
+      cookie.set("token", token);
 
-        if(token){
-          navigate('home');
-        }
+      if(token){
+        navigate('home');
+      }
     }, [])
 
-    useEffect(()=>{
+    useEffect(()=>{ //자동로그인을 위한 localStorage 참조
       const token = localStorage.getItem("token");
-      console.log(localStorage.getItem("token"));
+
       if(token!=="null"&&token){
         cookie.set("token", token);
         navigate('home');
@@ -41,26 +40,22 @@ export default function Login(){
   const naverUrl = import.meta.env.VITE_NAVER_LOGIN_URL || process.env.REACT_APP_NAVER_LOGIN_URL;
   const googleUrl = import.meta.env.VITE_GOOGLE_LOGIN_URL || process.env.REACT_APP_GOOGLE_LOGIN_URL;
 
-  const handleToggle = () => {
+  function handleToggle() {
     setIsActive(!isActive); // 상태를 토글합니다.
   };
 
-  const handleCloseModal = () => {
+  function handleCloseModal() {
     setShowModal(false);
   };
 
   function handleNaverLogin(){
-    console.log("naver login");
-
     window.location.href = naverUrl;
     //네이버로그인 처리
   }
 
   function handleGoogleLogin(){
     //구글로그인 처리
-    
     window.location.href = googleUrl;
-    
   }
 
   function handleLogin(){

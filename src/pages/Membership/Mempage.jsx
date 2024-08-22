@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import '../../cssModule/Mempage.module.css';
+import styles from '../../cssModule/Mempage.module.css';
 import Back from '../Button/Back';
 import Modal from '../Modal';
 import { useNavigate } from 'react-router-dom';
 
-function App() {
+function Mempage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [identify, setIdentify] = useState("");
@@ -160,109 +160,110 @@ function App() {
   };
 
   return (
-    <div className="Container">
+    <div className={styles.Container}>
       <Back/>
-      <div className="Form">
-        <div className='Name'>
-          <p className="NLabel">이름을 입력해주세요</p>
+      <div className={styles.Form}>
+        <div className={styles.Name}>
+          <p className={styles.NLabel}>이름을 입력해주세요</p>
           <input
-            className="Input"
+            className={styles.Input}
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {errorMessages.name && <p className="ErrorMessage">{errorMessages.name}</p>}
+          {errorMessages.name && <p className={styles.ErrorMessage}>{errorMessages.name}</p>}
         </div>
-
-       <div className='Email'>
-        <p className="ELabel">이메일을 입력해주세요</p>
+  
+        <div className={styles.Email}>
+          <p className={styles.ELabel}>이메일을 입력해주세요</p>
           <input
-            className="Input"
+            className={styles.Input}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {errorMessages.email && <p className="ErrorMessage">{errorMessages.email}</p>}
-       </div>
-
-       <div className='ID'>
-        <p className="ILabel">아이디를 입력해주세요</p>
+          {errorMessages.email && <p className={styles.ErrorMessage}>{errorMessages.email}</p>}
+        </div>
+  
+        <div className={styles.ID}>
+          <p className={styles.ILabel}>아이디를 입력해주세요</p>
           <input
-            className="Input"
+            className={styles.Input}
             type="text"
             value={identify}
             onChange={(e) => setIdentify(e.target.value)}
           />
-          <div className='Wrapper'>
-            <p style={idMessage==="사용 가능한 아이디입니다."&&errorMessages.identify===''?{color:"green"}:{}} className='ErrorMessage'>{idMessage&&errorMessages.identify===''?idMessage:errorMessages.identify}</p>
-            <div className='viewWrapper'>
-              <div className="ButtonContainer">
-              <button className="ButtonInline" onClick={handleIdCheck}>중복확인</button>
-            </div>
+          <div className={styles.Wrapper}>
+            <p style={idMessage==="사용 가능한 아이디입니다."&&errorMessages.identify===''?{color:"green"}:{}} className={styles.ErrorMessage}>{idMessage&&errorMessages.identify===''?idMessage:errorMessages.identify}</p>
+            <div className={styles.viewWrapper}>
+              <div className={styles.ButtonContainer}>
+                <button className={styles.ButtonInline} onClick={handleIdCheck}>중복확인</button>
+              </div>
             </div>
           </div>
-       </div>
+        </div>
         
-       <div className='PW'>
-        <p className="SLabel">비밀번호를 입력해주세요</p>
+        <div className={styles.PW}>
+          <p className={styles.SLabel}>비밀번호를 입력해주세요</p>
           <input
-            className="Input"
+            className={styles.Input}
             type={isChecked ? "text" : "password"}
             value={password}
             onChange={handlePasswordChange}
           />
-          <div className="CheckboxContainer">
-            <div className='Wrapper'>
-              <p className="ErrorMessage">{errorMessages.password}{passwordErrorMessage && !errorMessages.password}</p>
-              <div className='viewWrapper'>
+          <div className={styles.CheckboxContainer}>
+            <div className={styles.Wrapper}>
+              <p className={styles.ErrorMessage}>{errorMessages.password}{passwordErrorMessage && !errorMessages.password}</p>
+              <div className={styles.viewWrapper}>
                 <input
-                className="Checkbox"
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
+                  className={styles.Checkbox}
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
                 />
-                <p className="Saw">비밀번호 보기</p>
+                <p className={styles.Saw}>비밀번호 보기</p>
               </div>
             </div>
           </div>
-       </div>
-
-        <div className='RPW'>
-          <p className="RLabel">비밀번호를 다시 입력해주세요</p>
+        </div>
+  
+        <div className={styles.RPW}>
+          <p className={styles.RLabel}>비밀번호를 다시 입력해주세요</p>
           <input
-            className="Input"
+            className={styles.Input}
             type={returnChecked ? "text" : "password"}
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
           />
-          <div className="CheckboxContainer">
-            <div className='Wrapper'>
-                <p className="ErrorMessage">{errorMessages.confirmPassword}</p>
-                <div className='viewWrapper'>
-                  <input
-                      className="Checkbox"
-                      type="checkbox"
-                      checked={returnChecked}
-                      onChange={returnCheckboxChange}
-                  />
-                  <p className="Saw">비밀번호 보기</p>  
-                </div>
+          <div className={styles.CheckboxContainer}>
+            <div className={styles.Wrapper}>
+              <p className={styles.ErrorMessage}>{errorMessages.confirmPassword}</p>
+              <div className={styles.viewWrapper}>
+                <input
+                  className={styles.Checkbox}
+                  type="checkbox"
+                  checked={returnChecked}
+                  onChange={returnCheckboxChange}
+                />
+                <p className={styles.Saw}>비밀번호 보기</p>  
+              </div>
             </div>
           </div>
         </div>
-
-        <div className='Membershipbutton'>
-          <button className="Button" onClick={complete}>회원가입 완료</button>
+  
+        <div className={styles.Membershipbutton}>
+          <button className={styles.Button} onClick={complete}>회원가입 완료</button>
         </div>
       </div>
       {showModal&&
         <Modal
-        message="회원가입이 완료되었습니다!"
-        onClose={()=>{setShowModal(false); navigate('/');}}
+          message="회원가입이 완료되었습니다!"
+          onClose={()=>{setShowModal(false); navigate('/');}}
         />
       }
     </div>
   );
+  
 }
 
-export default App;
+export default Mempage;

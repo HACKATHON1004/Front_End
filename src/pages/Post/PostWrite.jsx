@@ -1,9 +1,7 @@
 import Back from "../Button/Back";
 import styles from "../../cssModule/postWrite.module.css"
-import img from "../../images/img.svg"
 import { useState, useEffect } from "react";
 import { useRef } from "react";
-import ImgMenu from "../../component/Post/imgMenu";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import cookie from "js-cookie"
@@ -93,7 +91,7 @@ export default function PostWrite() {
                         <input ref={titleRef} type="text" placeholder="제목을 입력해 주세요." className={styles.title} />
                     </div>
                 </div>
-                <ImgMenu />
+                {/* <ImgMenu /> */}
                     <input
                         type="file"
                         id="photoUpload"
