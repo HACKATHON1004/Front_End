@@ -148,5 +148,28 @@
     font-weight: 700;
   }
 
+  .customOverlay {
+    position: relative;
+    bottom: 60px;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: #ccc;
+  }
+
+  .customOverlay::after {
+    content: '';
+    position: absolute;
+    top: 40px; /* 꼬리가 말풍선 아래쪽에 위치하도록 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #ccc transparent transparent transparent;
+  }
+
+  .customOverlay a {
+    color: black;
+  }
+
 
   

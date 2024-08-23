@@ -113,6 +113,7 @@ export default function FindPlaceBody({selectedFacility, searchWord}) {
         <>
             <FindPlaceMap 
                 loading={loading} 
+                sortedData={sortedData}
                 parkFacilities={parkFacilities} healthFacilities={healthFacilities} selectedFacility={selectedFacility}
                 currentLocation={currentLocation}    
             />    
