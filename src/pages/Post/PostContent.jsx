@@ -4,16 +4,15 @@ import Back from '../../components/Button/Back';
 import Modal from '../Modal';
 import Modal2 from '../Modal2';
 import Modal3 from '../Modal3';
-import CmtModal from './CmtModal';
-import Comment from './Comment';
+import CmtModal from '../../components/modals/CmtModalStar';
+import Comment from '../../components/post/Comment';
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import cookie from 'js-cookie';
+import FP_PC_component from '../../\bcomponents/post/freePost/\bFP_PC_component';
+import FP_RecBtns from '../../\bcomponents/post/freePost/FP_RecBtns';
 
 export default function PostContent() {
-    
-    let writer=1; //게시판의 글쓴이
-    let writer2=2; //현재 사용중인 계정
     const param = useParams();
     const postId = param.id;
     const [username, setUsername] = useState('');
@@ -35,14 +34,6 @@ export default function PostContent() {
             .then(res=>{
                 setComments(res.data);
             })
-
-        axios.get(`${import.meta.env.VITE_SERVER_URL}/free/${postId}`)
-            .then(res=>{
-                setPostData(res.data);
-            })
-            .catch(err=>{
-                console.error(err);
-            });
 
         axios.get(`${import.meta.env.VITE_SERVER_URL}/user/username`,{
             headers:{
@@ -88,29 +79,6 @@ export default function PostContent() {
         })
         setShowModal(false);
         setShowModal5(true);
-    }
-
-    function handleRecoomend() {
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/recommend/${postId}`,{
-            recommendType: "1"
-        },{
-            headers: {
-                Authorization: cookie.get("token")
-            }
-        })
-    }
-
-    function handleNotRecommend() {
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/recommend/${postId}`,{
-            recommendType: "-1"
-        },{
-            headers: {
-                Authorization: cookie.get("token")
-            }
-        })
-            .then(res=>{
-                console.log(res.data);
-            })
     }
 
     function modifyComment() {
@@ -184,30 +152,8 @@ export default function PostContent() {
         <>
             <Back/>
             <div className={styles.pageWrapper}>
-                <div style={postData.username === username ? {} : { visibility: "hidden" }} className={styles.buttons}>
-                    <button className={styles.buttonModDel} onClick={() => handleDelete("mod")}>수정</button>
-                    <button className={styles.buttonModDel} onClick={() => handleDelete("del")}>삭제</button>
-                </div>
-                <div className={styles.titleWrapper}>
-                    <div className={styles.title}>
-                        <span>{postData.title}</span>
-                    </div>
-                    <div className={styles.postInfo}>
-                        <span>{postData.createDate&&postData.createDate.split("T").join(" ")}</span>
-                        <span>조회 수 {postData.view}</span>
-                        <span>추천 수 {postData.totalRecommend}</span>
-                        <span>댓글 {comments.length}</span>
-                    </div>
-                </div>
-                <div className={styles.contentWrapper}>
-                    <div className={styles.content}>
-                    {postData.content}
-                    </div>
-                </div>
-                <div className={styles.btnWrapper}>
-                    <button onClick={handleRecoomend} className={styles.recBtn}>추천</button>
-                    <button onClick={handleNotRecommend} className={styles.notRecBtn}>비추천</button>
-                </div>
+                <FP_PC_component comments={comments.length} postId={postId}/>
+                <FP_RecBtns postId={postId}/>
                 {postData.id&&<CmtModal msg="댓글을 남겨보세요." username={username} postId={postId}/>}
                 <div className={styles.commentSection}>
                     <div className={styles.commentCnt}>

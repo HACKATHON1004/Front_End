@@ -1,6 +1,6 @@
 import Back from "../../components/Button/Back";
 import styles from '../../cssModule/recruitPlacePost.module.css'
-import PostList from "../Post/PostList";
+import PostList from "../../components/post/PostList";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 

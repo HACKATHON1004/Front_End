@@ -1,7 +1,7 @@
 import styles from '../../cssModule/placeReviewContent.module.css'
 import img1 from '../../images/findCat.svg'
 import img4 from '../../images/pencil.svg'
-import CmtModalStar from '../CmtModalStar'
+import CmtModalStar from '../../components/modals/CmtModalStar';
 import Back from '../../\bcomponents/Button/Back';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';

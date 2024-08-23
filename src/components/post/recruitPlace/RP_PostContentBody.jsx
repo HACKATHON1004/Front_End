@@ -5,7 +5,7 @@ export default function RP_PostContentBody({content, eventTime}) {
         <>
             <div className={styles.contentWrapper}>
                 <div className={styles.content}>
-                {eventTime&&eventTime.split("-").join(" ")} <br/> 
+                {eventTime&&eventTime.split("-").join(" ")} {eventTime?<br/>:<></>}
                 {content}
                 </div>
             </div>

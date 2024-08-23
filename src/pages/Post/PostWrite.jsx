@@ -92,13 +92,13 @@ export default function PostWrite() {
                     </div>
                 </div>
                 {/* <ImgMenu /> */}
-                    <input
+                    {/* <input
                         type="file"
                         id="photoUpload"
                         accept="image/*"
                         style={{ display: 'none' }}
                         onChange={handleImageUpload}
-                    />
+                    /> */}
                 <div className={styles.contentWrapper}>
                     <textarea ref={textRef} placeholder="내용을 입력하세요."/>
                 </div>

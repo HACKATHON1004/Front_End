@@ -3,8 +3,8 @@ import styles from '../../cssModule/postContent.module.css'
 import Back from '../../\bcomponents/Button/Back'
 import Modal2 from '../Modal2';
 import Modal3 from '../Modal3';
-import CmtModal from '../Post/CmtModal';
-import Comment from '../Post/Comment';
+import CmtModal from '../../components/modals/CmtModal';
+import Comment from '../../components/post/Comment';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie'
