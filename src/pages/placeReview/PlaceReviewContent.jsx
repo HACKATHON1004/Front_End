@@ -9,7 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import cookie from 'js-cookie'
 import Modal from '../Modal'; // Ensure you import Modal component
 import ReviewList from '../../\bcomponents/placeReview/ReviewList';
-import ReviewContentHeader from './ReviewContentHeader'
+import ReviewContentHeader from '../../components/placeReview/ReviewContentHeader'
 
 export default function PlaceReviewContent() {
     const param = useParams();
