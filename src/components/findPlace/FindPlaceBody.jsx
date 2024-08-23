@@ -1,30 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from '../../cssModule/placeReview.module.css';
-import Back from '../../\bcomponents/Button/Back';
-import img1 from '../../images/pencil.svg';
-import PlaceSearch from '../../\bcomponents/placeReview/PlaceSearch';
-import PlaceList from '../../\bcomponents/placeReview/PlaceList';
-import { useNavigate } from 'react-router-dom';
+import styles from '../../cssModule/findPlace.module.css';
+import { useState, useEffect } from "react";
+import FindPlaceMap from "./FindPlaceMap";
+import PlaceList from "../placeReview/PlaceList";
 
-export default function PlaceReview() {
-  const [search, setSearch] = useState('장애인');
-  const [search2, setSearch2] = useState('헬스장');
-  const [search3, setSearch3] = useState('운동');
-  const [search4, setSearch4] = useState('공원');
-  const inputRef = useRef();
-
-  function handleSearch() {
-    setSearch(inputRef.current.value);
-    setSearch2('라어낸');
-    setSearch3('ksjfosk');
-    setSearch4('akasjfo');
-  }
-
-  const [loading, setLoading] = useState(true); // Add loading state
+export default function FindPlaceBody({selectedFacility, searchWord}) {
+    const [loading, setLoading] = useState(true); // Add loading state
     const [currentLocation, setCurrentLocation] = useState(null);
     const [parkFacilities, setParkFacilities] = useState([]);
     const [healthFacilities, setHealthFacilities] = useState([]);
     const [sortedData, setSortedData] = useState([]);
+    const [search, setSearch] = useState('장애인');
+    const [search2, setSearch2] = useState('헬스장');
+    const [search3, setSearch3] = useState('운동');
+    const [search4, setSearch4] = useState('공원');
 
     useEffect(() => {
         // 사용자의 현재 위치 정보 가져오기
@@ -36,6 +24,15 @@ export default function PlaceReview() {
           setLoading(false); // Set loading to false when location is set
         });
       }, []);
+
+      useEffect(()=>{
+        if(searchWord){
+            setSearch(searchWord);
+            setSearch2('라어낸');
+            setSearch3('adfadf');
+            setSearch4('a;sdjfa');
+        }
+      }, [searchWord])
     
       useEffect(() => {
         if (currentLocation) {
@@ -110,22 +107,16 @@ export default function PlaceReview() {
           console.error('Error fetching places:', error);
         }
       };
-
-  return (
-    <>
-      <Back />
-      <div className={styles.pageWrapper}>
-        <div className={styles.title}>
-          <div>
-            <img src={img1} />
-          </div>
-          <div>
-            <span>장소 리뷰</span>
-          </div>
-        </div>
-        <PlaceSearch handleSearch={handleSearch} inputRef={inputRef}/>
-        <PlaceList sortedData={sortedData} loading={loading}/>
-      </div>
-    </>
-  );
+ 
+    
+    return (
+        <>
+            <FindPlaceMap 
+                loading={loading} 
+                parkFacilities={parkFacilities} healthFacilities={healthFacilities} selectedFacility={selectedFacility}
+                currentLocation={currentLocation}    
+            />    
+            <PlaceList sortedData={sortedData} loading={loading}/>
+        </>
+    )
 }
