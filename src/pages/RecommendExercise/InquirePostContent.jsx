@@ -102,7 +102,7 @@ export default function InquirePostContent() {
             {showModal2 && (
                 <Modal
                     message="질문이 삭제되었습니다."
-                    onClose={()=>navigate('/inquire')}
+                    onClose={()=>navigate(-1)}
                 />
             )}
         </>

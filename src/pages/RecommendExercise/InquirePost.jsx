@@ -82,13 +82,13 @@ export default function InquirePost() {
         <>
             <Back/>
             <div className={styles.pageWrapper}>
-                    <input
+                    {/* <input
                         type="file"
                         id="photoUpload"
                         accept="image/*"
                         style={{ display: 'none' }}
                         onChange={handleImageUpload}
-                    />
+                    /> */}
                 <div className={styles.contentWrapper}>
                     <textarea ref={textRef} placeholder="질문할 내용을 입력하세요."/>
                 </div>
