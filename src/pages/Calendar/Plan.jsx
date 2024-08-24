@@ -1,26 +1,23 @@
 import Back from '../../components/Button/Back';
 import styles from "../../cssModule/plan.module.css"
-import exImg from '../../images/exImg.svg'
 import Modal2 from "../../components/modals/Modal2";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import cookie from 'js-cookie'
 import Modal from "../../components/modals/Modal";
+import PlanMemo from '../../components/calendar/PlanMemo';
+import PlanContent from '../../components/calendar/PlanContent';
 
 export default function Plan() {
     const param = useParams();
     const eventId = param.id;
+    const [eventData, setEventData] = useState({});
+    const [hostData, setHosData] = useState({});
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
-    const [current, setCurrent] = useState('');
-    const [total, setTotal] = useState('');
     const memoRef = useRef();
-    const [eventData, setEventData] = useState({});
     const navigate = useNavigate();
-    const [phone, setPhone] = useState('');
-    console.log(phone);
-    console.log(eventData);
 
     function handleDelete() {
         setShowModal(true);
@@ -57,31 +54,20 @@ export default function Plan() {
                     }
                 })
                     .then(res=>{
-                        setPhone(res.data.phone);
-                        setCurrent(res.data.currentRecruit);
-                        setTotal(res.data.totalRecruit);
+                        setHosData(res.data);
                     })
                 setEventData(res.data);
             })
-    
-        return () => {
-          // 종료 직전에 실행되는 코드
-          console.log('컴포넌트가 종료됩니다.');
-        };
     }, []);
 
     useEffect(() => {
         const handleMemoChange = () => {
-            const memoValue = memoRef.current.value;
             axios.patch(`${import.meta.env.VITE_SERVER_URL}/calendar/${eventId}`, {
                 content: memoRef.current.value
             }, {
                 headers: {
                     Authorization: cookie.get("token")
                 }
-            })
-            .then(response => {
-                console.log("Memo saved:", response.data);
             })
             .catch(error => {
                 console.error("Error saving memo:", error);
@@ -94,41 +80,14 @@ export default function Plan() {
         return () => {
             textarea.removeEventListener('input', handleMemoChange);
         };
-    }, [eventId]);
+    }, []);
 
     return (
         <>
             <Back/>
             <div className={styles.pageWrapper}>
-                <div className={styles.date}>{eventData.eventTime&&eventData.eventTime.slice(0,10)}</div>
-                <div className={styles.planName}>{eventData.title}</div>
-                <div className={styles.detailHeader}>이벤트 세부사항</div>
-                <div className={styles.detailWrapper}>
-                    <img src={exImg}/>
-                    <div className={styles.address}>{eventData.location}</div>
-                    <div className={styles.tableWrapper}>
-                        <div>
-                            <span>시간</span>
-                            <span>{eventData.eventTime&&eventData.eventTime.slice(11)} </span>
-                        </div>
-                        <div>
-                            <span>주최자 연락처</span>
-                            <span>{phone}</span>
-                        </div>
-                        <div>
-                            <span>인원 수</span>
-                            <span>{current}/{total?total:"∞"}</span>
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.memoWrapper}>
-                    <div className={styles.labelWrapper}>
-                        <span>메모</span>
-                    </div>
-                    <div className={styles.memo}>
-                        <textarea ref={memoRef}/>
-                    </div>
-                </div>
+                <PlanContent eventData={eventData} hostData={hostData}/>
+                <PlanMemo memoRef={memoRef}/>
                 <div className={styles.btnWrapper}>
                     <button onClick={handleDelete}>이벤트 삭제</button>
                 </div>
