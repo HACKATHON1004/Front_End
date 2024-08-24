@@ -1,14 +1,14 @@
-import Back from '../../\bcomponents/Button/Back';
+import Back from '../../components/Button/Back';
 import styles from '../../cssModule/inquirePostContent.module.css'
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import cookie from 'js-cookie'
 import axios from "axios";
-import Modal3 from "../Modal3";
-import Modal from "../Modal";
+import Modal3 from "../../components/modals/Modal3";
+import Modal from "../../components/modals/Modal";
 import write from '../../images/write.svg'
-import InquirePost from '../../\bcomponents/inquire/InquirePost';
-import AnswerPost from '../../\bcomponents/inquire/AnswerPost';
+import InquirePost from '../../components/inquire/InquirePost';
+import AnswerPost from '../../components/inquire/AnswerPost';
 
 export default function InquirePostContent() {
     const param = useParams();

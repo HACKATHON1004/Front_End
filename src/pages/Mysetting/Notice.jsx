@@ -3,7 +3,7 @@ import styles from '../../cssModule/Notice.module.css';
 import axios from 'axios';
 import Noticesvg from '../../images/notice.svg'
 import Servicesvg from "../../images/service.svg";
-import Back from '../../\bcomponents/Button/Back'; 
+import Back from '../../components/Button/Back'; 
 const Notice = () => {
   const [notices] = useState([
     { date: '2024년 7월 1일', content: '쉐어 운동 공간 모집글이 업로드되었습니다.' },

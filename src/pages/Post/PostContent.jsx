@@ -1,16 +1,16 @@
 import axios from 'axios';
 import styles from '../../cssModule/postContent.module.css'
-import Back from '../../components/Button/Back';
-import Modal from '../Modal';
-import Modal2 from '../Modal2';
-import Modal3 from '../Modal3';
-import CmtModal from '../../components/modals/CmtModalStar';
-import Comment from '../../components/post/Comment';
+import Back from '../../components/Button/Back';
+import Modal from '../../components/modals/Modal';
+import Modal2 from '../../components/modals/Modal2';
+import Modal3 from '../../components/modals/Modal3';
+import CmtModal from '../../components/modals/CmtModalStar';
+import Comment from '../../components/post/Comment';
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import cookie from 'js-cookie';
-import FP_PC_component from '../../\bcomponents/post/freePost/\bFP_PC_component';
-import FP_RecBtns from '../../\bcomponents/post/freePost/FP_RecBtns';
+import FP_PC_component from '../../components/post/freePost/FP_PC_component';
+import FP_RecBtns from '../../components/post/freePost/FP_RecBtns';
 
 export default function PostContent() {
     const param = useParams();

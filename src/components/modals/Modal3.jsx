@@ -1,4 +1,4 @@
-import styles from '../cssModule/modal3.module.css';
+import styles from '../../cssModule/modal3.module.css';
 import { useEffect, useRef } from 'react';
 
 export default function Modal3({ onModify, onDelete, onClose, showMenu, menuRef2 }) {

@@ -1,12 +1,12 @@
-import Back from '../../components/Button/Back';
+import Back from '../../components/Button/Back';
 import styles from "../../cssModule/plan.module.css"
 import exImg from '../../images/exImg.svg'
-import Modal2 from "../Modal2";
+import Modal2 from "../../components/modals/Modal2";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import cookie from 'js-cookie'
-import Modal from "../Modal";
+import Modal from "../../components/modals/Modal";
 
 export default function Plan() {
     const param = useParams();

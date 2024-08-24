@@ -1,14 +1,13 @@
 import axios from "axios"
-import imgLogin from "../images/1.svg"
-import imgId from "../images/2.svg"
-import imgPw from "../images/3.svg"
-import naverLogin from "../images/5.svg"
-import googleLogin from "../images/4.svg"
-import Modal from "./Modal"
-import styles from "../cssModule/login.module.css"
+import imgLogin from "../../images/1.svg"
+import naverLogin from "../../images/5.svg"
+import googleLogin from "../../images/4.svg"
+import Modal from "../../components/modals/Modal"
+import styles from "../../cssModule/login.module.css"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import cookie from "js-cookie";
+import IdPwInput from "../../components/login/IdPwInput"
 
 export default function Login(){
   const idRef = useRef();
@@ -96,16 +95,7 @@ export default function Login(){
       <div className={styles.loginText}>
         <div>Login</div>
       </div>
-      <div className={styles.inputContainer}>
-        <img src={imgId} alt="ID Icon" />
-        <div>ID</div>
-        <input type="text" id="id" ref={idRef} placeholder="ID를 입력하세요" />
-      </div>
-      <div className={styles.inputContainer}>
-        <img src={imgPw} alt="Password Icon" />
-        <div>PW</div>
-        <input type="password" id="password" ref={pwRef} placeholder="비밀번호를 입력하세요" />
-      </div>
+      <IdPwInput idRef={idRef} pwRef={pwRef}/>
       <div className={styles.optionsContainer}>
         <div className={styles.links}>
           <span onClick={()=>navigate('/findId')}>아이디 찾기</span>

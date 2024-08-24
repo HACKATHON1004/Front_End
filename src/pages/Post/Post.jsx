@@ -1,6 +1,6 @@
 import styles from '../../cssModule/post.module.css'
-import Back from '../../components/Button/Back.jsx';
-import PostList from '../../components/post/PostList.jsx'
+import Back from '../../components/Button/Back.jsx';
+import PostList from '../../components/post/PostList.jsx'
 import write from '../../images/write.svg'
 import { useNavigate } from 'react-router-dom';
 

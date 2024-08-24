@@ -1,11 +1,11 @@
-import Back from "../../components/Button/Back";
+import Back from "../../components/Button/Back";
 import styles from "../../cssModule/postWrite.module.css"
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import cookie from "js-cookie"
-import Modal from "../Modal";
+import Modal from "../../components/modals/Modal";
 
 export default function PostWrite() {
     const [searchParam] = useSearchParams();

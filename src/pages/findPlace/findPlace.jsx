@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from '../../cssModule/findPlace.module.css';
-import Back from '../../components/Button/Back';
+import Back from '../../components/Button/Back';
 import img1 from '../../images/gps.svg';
-import FindPlaceBody from '../../\bcomponents/findPlace/FindPlaceBody';
-import PlaceSearch from '../../\bcomponents/placeReview/PlaceSearch';
+import FindPlaceBody from '../../components/findPlace/FindPlaceBody';
+import PlaceSearch from '../../components/placeReview/PlaceSearch';
 
 export default function FindPlace() {
   const [searchWord, setSearchWord] = useState('');

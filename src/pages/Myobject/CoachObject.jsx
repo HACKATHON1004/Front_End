@@ -3,7 +3,7 @@ import styles from '../../cssModule/myp.module.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../Modal';
+import Modal from '../../components/modals/Modal';
 
 function App() {
   const [age, setAge] = useState('');

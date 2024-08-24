@@ -1,13 +1,13 @@
 import styles from '../../cssModule/recruitPlacePostWrite.module.css'
-import Back from '../../\bcomponents/Button/Back'
+import Back from '../../components/Button/Back'
 import img from '../../images/img.svg'
 import { useEffect, useRef, useState } from 'react';
 import ImgMenu from '../Post/imgMenu';
 import axios from 'axios';
 import cookie from 'js-cookie'
-import Modal from '../Modal';
+import Modal from '../../components/modals/Modal';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import RP_writeInput from '../../\bcomponents/post/recruitPlace/RP_writeInput';
+import RP_writeInput from '../../components/post/recruitPlace/RP_writeInput';
 
 export default function RecruitPlacePostWrite() {
     // const menuRef2 = useRef(); //앨범 버튼 Ref

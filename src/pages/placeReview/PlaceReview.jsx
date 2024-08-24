@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../../cssModule/placeReview.module.css';
-import Back from '../../\bcomponents/Button/Back';
+import Back from '../../components/Button/Back';
 import img1 from '../../images/pencil.svg';
-import PlaceSearch from '../../\bcomponents/placeReview/PlaceSearch';
-import PlaceList from '../../\bcomponents/placeReview/PlaceList';
+import PlaceSearch from '../../components/placeReview/PlaceSearch';
+import PlaceList from '../../components/placeReview/PlaceList';
 import { useNavigate } from 'react-router-dom';
 
 export default function PlaceReview() {

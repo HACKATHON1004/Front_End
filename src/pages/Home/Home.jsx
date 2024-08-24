@@ -3,10 +3,10 @@ import userCard from '../../images/user.svg'
 import axios from "axios"
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import UserInfo from '../../\bcomponents/home/UserInfo'
+import UserInfo from '../../components/home/UserInfo'
 import cookies from 'js-cookie'
-import HomeHeader from '../../\bcomponents/home/HomeHeader'
-import HomeMenu from '../../\bcomponents/home/HomeMenu'
+import HomeHeader from '../../components/home/HomeHeader'
+import HomeMenu from '../../components/home/HomeMenu'
 
 export default function Home() {
     // const isGuardian = axios.get("");

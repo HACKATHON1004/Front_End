@@ -1,5 +1,5 @@
 import styles from '../../cssModule/recruitPlaceHome.module.css'
-import Back from '../../\bcomponents/Button/Back'
+import Back from '../../components/Button/Back'
 import img1 from '../../images/gps.svg'
 import img2 from '../../images/pencil.svg'
 import img3 from '../../images/people2.svg'

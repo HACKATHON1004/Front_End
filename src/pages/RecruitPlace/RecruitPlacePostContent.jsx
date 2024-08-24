@@ -1,16 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from '../../cssModule/postContent.module.css'
-import Back from '../../\bcomponents/Button/Back'
-import Modal2 from '../Modal2';
-import Modal3 from '../Modal3';
-import CmtModal from '../../components/modals/CmtModal';
-import Comment from '../../components/post/Comment';
+import Back from '../../components/Button/Back'
+import Modal2 from '../../components/modals/Modal2';
+import Modal3 from '../../components/modals/Modal3';
+import CmtModal from '../../components/modals/CmtModal';
+import Comment from '../../components/post/Comment';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import cookie from 'js-cookie'
-import Modal from '../Modal';
-import RP_PostContentHeader from '../../\bcomponents/post/recruitPlace/RP_PostContentHeader';
-import RP_PC_component from '../../\bcomponents/post/recruitPlace/RP_PC_component';
+import Modal from '../../components/modals/Modal';
+import RP_PostContentHeader from '../../components/post/recruitPlace/RP_PostContentHeader';
+import RP_PC_component from '../../components/post/recruitPlace/RP_PC_component';
 
 export default function RecruitPlacePostContent() {
     const param = useParams();

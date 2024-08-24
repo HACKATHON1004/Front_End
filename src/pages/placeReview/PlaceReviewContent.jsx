@@ -1,15 +1,15 @@
 import styles from '../../cssModule/placeReviewContent.module.css'
 import img1 from '../../images/findCat.svg'
 import img4 from '../../images/pencil.svg'
-import CmtModalStar from '../../components/modals/CmtModalStar';
-import Back from '../../\bcomponents/Button/Back';
+import CmtModalStar from '../../components/modals/CmtModalStar';
+import Back from '../../components/Button/Back';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import cookie from 'js-cookie'
-import Modal from '../Modal'; // Ensure you import Modal component
-import ReviewList from '../../\bcomponents/placeReview/ReviewList';
-import ReviewContentHeader from '../../components/placeReview/ReviewContentHeader'
+import Modal from '../../components/modals/Modal'; // Ensure you import Modal component
+import ReviewList from '../../components/placeReview/ReviewList';
+import ReviewContentHeader from '../../components/placeReview/ReviewContentHeader'
 
 export default function PlaceReviewContent() {
     const param = useParams();

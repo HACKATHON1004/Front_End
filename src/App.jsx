@@ -2,7 +2,7 @@ import './App.css';
 import Calendar from './pages/Calendar/Calendar.jsx';
 import Myobject from './pages/Myobject/Myobject.jsx'
 import Plan from './pages/Calendar/Plan.jsx';
-import Login from './pages/Login.jsx';
+import Login from './pages/login/Login.jsx';
 import Mempage from './pages/Membership/Mempage.jsx';
 import Post from './pages/Post/Post.jsx'
 import PostWrite from './pages/Post/PostWrite.jsx'

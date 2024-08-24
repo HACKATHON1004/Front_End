@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../cssModule/Mempage.module.css';
-import Back from '../../components/Button/Back';
-import Modal from '../Modal';
+import Back from '../../components/Button/Back';
+import Modal from '../../components/modals/Modal';
 import { useNavigate } from 'react-router-dom';
 
 function Mempage() {

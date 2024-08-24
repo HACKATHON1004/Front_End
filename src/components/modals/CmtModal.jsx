@@ -1,20 +1,24 @@
 import { useState, useRef, useEffect } from 'react';
-import styles from '../../cssModule/StarpostContent.module.css';
+import styles from '../../cssModule/postContent.module.css';
 import profile from '../../images/1.svg';
-import Modal from '../../pages/Modal';
+import Modal from './Modal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import cookie from 'js-cookie'
 
-export default function CmtModal({msg, username, postId}) {
+export default function CmtModal({msg, username, postId, type, show}) {
   const [isCommentBoxVisible, setCommentBoxVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [rating, setRating] = useState(0);
   const [isBox, setIsBox] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const commentRef = useRef();
   const textRef = useRef();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    setShowModal(show); 
+    setIsBox(show); 
+  }, [show])
 
   function handleClickOutside(e) {
     if (commentRef.current && !commentRef.current.contains(e.target)) {
@@ -27,27 +31,36 @@ export default function CmtModal({msg, username, postId}) {
     }
   }
 
-  const handleStarClick = (index) => {
-    setRating(index + 1); // 1부터 시작하는 별 개수로 설정
-  };
-
   function handlePost() {
-    if(!textRef.current.value||rating===0) {
+    if(!textRef.current.value) {
       setShowModal(true);
       return;
     }
-    
-    axios.post(`${import.meta.env.VITE_SERVER_URL}/review/${postId}`,{
-      content: textRef.current.value,
-      starRating: parseInt(rating)
-    }, {
+    if(!type) {
+      axios.post(`${import.meta.env.VITE_SERVER_URL}/fpcomment/${postId}`, {
+        content: textRef.current.value
+      }, {
+        headers: {
+          Authorization: cookie.get("token")
+        }
+      })
+        .then(()=>{
+          navigate(0);
+        })
+    }
+    else {
+      axios.post(`${import.meta.env.VITE_SERVER_URL}/rpcomment/${postId}`,{
+        content: textRef.current.value
+    },{
       headers: {
         Authorization: cookie.get("token")
       }
     })
-       .then(()=>{
+      .then(()=>{
         navigate(0);
-       }) 
+      })
+        
+    }
 }
 
   useEffect(() => {
@@ -93,21 +106,8 @@ export default function CmtModal({msg, username, postId}) {
             onChange={handleTextChange}
           />
           <div className={styles['comment-actions']}>
-            <div className={styles.starWrapper}>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <button
-                  key={index}
-                  className={`${styles.starButton} ${index < rating ? styles.active : ''}`}
-                  onClick={() => handleStarClick(index)}
-                >
-                  ★
-                </button>
-              ))}
-            </div>
-            <div className={styles['two_button']}>
-                <button className={styles['cancel-button']} onClick={handleCommentBoxToggle}>취소</button>
-                <button onClick={handlePost} className={styles['submit-button']}>등록</button>
-            </div>
+            <button className={styles['cancel-button']} onClick={handleCommentBoxToggle}>취소</button>
+            <button onClick={handlePost} className={styles['submit-button']}>등록</button>
           </div>
         </div>
       ) : (

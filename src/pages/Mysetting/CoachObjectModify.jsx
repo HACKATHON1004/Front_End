@@ -3,8 +3,8 @@ import styles from '../../cssModule/myp.module.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../Modal';
-import Back from '../../components/Button/Back';
+import Modal from '../../components/modals/Modal';
+import Back from '../../components/Button/Back';
 
 function App() {
   const [age, setAge] = useState('');

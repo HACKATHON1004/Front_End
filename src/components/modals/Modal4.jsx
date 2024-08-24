@@ -1,4 +1,4 @@
-import styles from "../cssModule/modal.module.css"
+import styles from "../../cssModule/modal.module.css"
 
 export default function Modal4({ message, onClose, onConfirm }) {
     return (

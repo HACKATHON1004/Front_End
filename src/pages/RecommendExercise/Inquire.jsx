@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../cssModule/inquire.module.css'
-import Back from '../../\bcomponents/Button/Back';
+import Back from '../../components/Button/Back';
 import write from '../../images/write.svg'
 import cookie from 'js-cookie'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import InquireList from '../../\bcomponents/inquire/InquireList';
+import InquireList from '../../components/inquire/InquireList';
 
 export default function Inquire() {
     const [comments, setData] = useState([]);
