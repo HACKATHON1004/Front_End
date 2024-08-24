@@ -16,7 +16,6 @@ import FP_Home from './pages/findPlace/FP_Home.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
 import PlaceReview from './pages/placeReview/PlaceReview.jsx';
-import RE_Home from './pages/RecommendExercise/RE_Home.jsx';
 import PlaceReviewContent from './pages/placeReview/PlaceReviewContent.jsx';
 import Mysetting from './pages/Mysetting/Mysetting.jsx';
 import Myobjectmodify from './pages/Mysetting/Myobjectmodify.jsx';
@@ -58,7 +57,6 @@ function App() {
           <Route path='/recruitPlace/Post' element={<ProtectedRoute element={<RecruitPlacePostWrite/>}/>}/>
           <Route path='/recruitPlace/post/:id' element={<ProtectedRoute element={<RecruitPlacePostContent/>}/>}/>
           <Route path='/placeReview' element={<ProtectedRoute element={<PlaceReview/>}/>}/>
-          <Route path='/RecommendExercise' element={<ProtectedRoute element={<RE_Home/>}/>}/>
           <Route path='/placeReview/:id' element={<ProtectedRoute element={<PlaceReviewContent/>}/>}/>
           <Route path='/freePost/post' element={<ProtectedRoute element={<PostWrite/>}/>}/>
           <Route path='/freePost/post/:id' element={<ProtectedRoute element={<PostContent/>}/>}/>
